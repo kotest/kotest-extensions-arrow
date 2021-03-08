@@ -31,13 +31,13 @@ allprojects {
    version = Ci.version
 
    dependencies {
+      implementation(Libs.Kotest.assertionsShared)
+      implementation(Libs.Kotest.assertionsCore)
       implementation(Libs.Arrow.core)
       implementation(Libs.Arrow.fx)
       implementation(Libs.Arrow.syntax)
       implementation(Libs.Arrow.validation)
-      implementation(Libs.Kotest.assertionsShared)
       testImplementation(Libs.Kotest.junit5)
-      testImplementation(Libs.Kotest.assertionsCore)
    }
 
    tasks.named<Test>("test") {
