@@ -33,6 +33,8 @@ allprojects {
    dependencies {
       implementation(Libs.Arrow.core)
       implementation(Libs.Arrow.fx)
+      implementation(Libs.Arrow.syntax)
+      implementation(Libs.Arrow.validation)
       implementation(Libs.Kotest.assertionsShared)
       testImplementation(Libs.Kotest.junit5)
       testImplementation(Libs.Kotest.assertionsCore)
