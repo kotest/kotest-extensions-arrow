@@ -35,8 +35,6 @@ allprojects {
       implementation(Libs.Kotest.assertionsCore)
       implementation(Libs.Arrow.core)
       implementation(Libs.Arrow.fx)
-      implementation(Libs.Arrow.syntax)
-      implementation(Libs.Arrow.validation)
       testImplementation(Libs.Kotest.junit5)
    }
 

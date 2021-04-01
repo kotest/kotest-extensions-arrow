@@ -25,20 +25,20 @@ class EitherMatchersTest : WordSpec() {
 
     "Either should beRight()" should {
       "test that the either is of type right" {
-        Either.right("boo").shouldBeRight()
-        Either.left("boo").shouldNotBeRight()
+        Either.Right("boo").shouldBeRight()
+        Either.Left("boo").shouldNotBeRight()
       }
       "use contracts to expose Right<*>" {
-        val e = Either.right("boo")
+        val e = Either.Right("boo")
         e.shouldBeRight()
-        e.b shouldBe "boo"
+        e.value shouldBe "boo"
       }
     }
 
     "Either should beRight(fn)" should {
       "test that the either is of type right" {
         data class Person(val name: String, val location: String)
-        Either.right(Person("sam", "chicago")) shouldBeRight {
+        Either.Right(Person("sam", "chicago")) shouldBeRight {
           it.name shouldBe "sam"
           it.location shouldBe "chicago"
         }
@@ -49,37 +49,37 @@ class EitherMatchersTest : WordSpec() {
       "test that an either is a right with the given value" {
 
         shouldThrow<AssertionError> {
-          Either.left("foo") should beRight("boo")
+          Either.Left("foo") should beRight("boo")
         }.message shouldBe "Either should be Right(boo) but was Left(foo)"
 
         shouldThrow<AssertionError> {
-          Either.right("foo") should beRight("boo")
+          Either.Right("foo") should beRight("boo")
         }.message shouldBe "Either should be Right(boo) but was Right(foo)"
 
-        Either.right("foo") shouldNotBeRight "boo"
-        Either.left("foo") shouldNotBeRight "foo"
+        Either.Right("foo") shouldNotBeRight "boo"
+        Either.Left("foo") shouldNotBeRight "foo"
 
-        Either.right("boo") should beRight("boo")
-        Either.right("boo") shouldBeRight "boo"
+        Either.Right("boo") should beRight("boo")
+        Either.Right("boo") shouldBeRight "boo"
       }
     }
 
     "Either should beLeft()" should {
       "test that the either is of type left" {
-        Either.left("boo").shouldBeLeft()
-        Either.right("boo").shouldNotBeLeft()
+        Either.Left("boo").shouldBeLeft()
+        Either.Right("boo").shouldNotBeLeft()
       }
       "use contracts to expose Left<*>" {
-        val e = Either.left("boo")
+        val e = Either.Left("boo")
         e.shouldBeLeft()
-        e.a shouldBe "boo"
+        e.value shouldBe "boo"
       }
     }
 
     "Either should beLeft(fn)" should {
       "test that the either is of type right" {
         data class Person(val name: String, val location: String)
-        Either.left(Person("sam", "chicago")) shouldBeLeft {
+        Either.Left(Person("sam", "chicago")) shouldBeLeft {
           it.name shouldBe "sam"
           it.location shouldBe "chicago"
         }
@@ -90,34 +90,34 @@ class EitherMatchersTest : WordSpec() {
       "test that an either is a left with the given value" {
 
         shouldThrow<AssertionError> {
-          Either.right("foo") should beLeft("boo")
+          Either.Right("foo") should beLeft("boo")
         }.message shouldBe "Either should be Left(boo) but was Right(foo)"
 
         shouldThrow<AssertionError> {
-          Either.left("foo") should beLeft("boo")
+          Either.Left("foo") should beLeft("boo")
         }.message shouldBe "Either should be Left(boo) but was Left(foo)"
 
         shouldThrow<AssertionError> {
-          Either.left("foo") shouldNotBeLeft "foo"
+          Either.Left("foo") shouldNotBeLeft "foo"
         }.message shouldBe "Either should not be Left(foo)"
 
-        Either.left("boo") should beLeft("boo")
-        Either.left("boo") shouldBeLeft "boo"
-        Either.right("boo") shouldNotBeLeft "boo"
+        Either.Left("boo") should beLeft("boo")
+        Either.Left("boo") shouldBeLeft "boo"
+        Either.Right("boo") shouldNotBeLeft "boo"
       }
     }
 
     "Either should beLeftOfType" should {
       "test that an either is a left have exactly the same type" {
         shouldThrow<AssertionError> {
-          Either.left(MyError.Boo).shouldBeLeftOfType<MyError.Foo>()
+          Either.Left(MyError.Boo).shouldBeLeftOfType<MyError.Foo>()
         }.message shouldBe "Either should be Left<${MyError.Foo::class.qualifiedName}> but was Left<${MyError.Boo::class.qualifiedName}>"
 
-        Either.left(MyError.Foo).shouldBeLeftOfType<MyError.Foo>()
-        Either.left(MyError.Boo).shouldBeLeftOfType<MyError.Boo>()
+        Either.Left(MyError.Foo).shouldBeLeftOfType<MyError.Foo>()
+        Either.Left(MyError.Boo).shouldBeLeftOfType<MyError.Boo>()
 
-        Either.left(MyError.Boo).shouldNotBeLeftOfType<MyError.Foo>()
-        Either.right("foo").shouldNotBeLeftOfType<MyError.Foo>()
+        Either.Left(MyError.Boo).shouldNotBeLeftOfType<MyError.Foo>()
+        Either.Right("foo").shouldNotBeLeftOfType<MyError.Foo>()
       }
     }
   }

@@ -20,7 +20,7 @@ class OptionMatchersTest : WordSpec() {
       "use contracts" {
         val o = Option("foo")
         o.shouldBeSome()
-        o.t shouldBe "foo"
+        o.value shouldBe "foo"
       }
     }
 
@@ -28,18 +28,18 @@ class OptionMatchersTest : WordSpec() {
       "test that an option is a Some with the given value" {
 
         shouldThrow<AssertionError> {
-          Option.empty<String>() shouldBe beSome("foo")
+          Option.fromNullable<String>(null) shouldBe beSome("foo")
         }.message shouldBe "Option should be Some(foo) but was None"
 
         shouldThrow<AssertionError> {
-          Option.empty<String>() shouldBeSome "foo"
+           Option.fromNullable<String>(null) shouldBeSome "foo"
         }.message shouldBe "Option should be Some(foo) but was None"
 
         shouldThrow<AssertionError> {
-          Option.just("boo") shouldBe beSome("foo")
+          Option.fromNullable("boo") shouldBe beSome("foo")
         }.message shouldBe "Option should be Some(foo) but was Some(boo)"
 
-        val option = Option.just("foo")
+        val option = Option.fromNullable("foo")
         option shouldBe beSome("foo")
         option shouldBeSome "foo"
 
@@ -50,7 +50,7 @@ class OptionMatchersTest : WordSpec() {
     "Option shouldNotBe some(value)" should {
       "test that an option is not a Some with the given value" {
 
-        val option = Option.just("foo")
+        val option = Option.fromNullable("foo")
         option shouldNotBe beSome("bar")
         option shouldNotBeSome "bar"
       }
@@ -60,17 +60,17 @@ class OptionMatchersTest : WordSpec() {
       "test that an option is a None" {
 
         shouldThrow<AssertionError> {
-          Option.just("foo") shouldBe beNone()
+          Option.fromNullable("foo") shouldBe beNone()
         }.message shouldBe "Option should be None but was Some(foo)"
 
-        Option.empty<String>() shouldBe beNone()
-        Option.empty<String>().shouldBeNone()
+        Option.fromNullable<String>(null) shouldBe beNone()
+        Option.fromNullable<String>(null).shouldBeNone()
       }
     }
 
     "Option shouldNotBe none()" should {
       "test that an option is not a None" {
-        val option = Option.just("foo")
+        val option = Option.fromNullable("foo")
 
         option shouldNotBe beNone()
         option.shouldNotBeNone()
