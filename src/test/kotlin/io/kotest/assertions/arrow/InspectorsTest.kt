@@ -15,7 +15,7 @@ import io.kotest.matchers.shouldBe
 
 class InspectorsTest : WordSpec() {
 
-   private val nel = NonEmptyList(1, 2, 3, 4, 5)
+   private val nel = NonEmptyList(1, listOf(2, 3, 4, 5))
 
    init {
 
@@ -31,7 +31,6 @@ class InspectorsTest : WordSpec() {
                   it shouldBe 4
                }
             }
-            println(t.message)
             t.message shouldBe """1 elements passed but expected 0
 
 The following elements passed:

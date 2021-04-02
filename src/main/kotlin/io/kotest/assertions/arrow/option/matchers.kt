@@ -32,10 +32,10 @@ fun <T> beSome(t: T) = object : Matcher<Option<T>> {
         MatcherResult(false, "Option should be Some($t) but was None", "")
       }
       is Some -> {
-        if (value.t == t)
+        if (value.value == t)
           MatcherResult(true, "Option should be Some($t)", "Option should not be Some($t)")
         else
-          MatcherResult(false, "Option should be Some($t) but was Some(${value.t})", "")
+          MatcherResult(false, "Option should be Some($t) but was Some(${value.value})", "")
       }
     }
   }
@@ -44,7 +44,7 @@ fun <T> beSome(t: T) = object : Matcher<Option<T>> {
 @OptIn(ExperimentalContracts::class)
 infix fun <T> Option<T>.shouldBeSome(fn: (T) -> Unit) {
   this.shouldBeSome()
-  fn((this.t as T))
+  fn((this.value as T))
 }
 
 fun Option<Any>.shouldBeNone() = this should beNone()
@@ -56,7 +56,7 @@ fun beNone() = object : Matcher<Option<Any>> {
         MatcherResult(true, "Option should be None", "Option should not be None")
       }
       is Some -> {
-        MatcherResult(false, "Option should be None but was Some(${value.t})", "")
+        MatcherResult(false, "Option should be None but was Some(${value.value})", "")
       }
     }
   }
