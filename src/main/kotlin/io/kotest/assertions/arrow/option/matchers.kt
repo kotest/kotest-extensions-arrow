@@ -47,10 +47,10 @@ infix fun <T> Option<T>.shouldBeSome(fn: (T) -> Unit) {
   fn((this.value as T))
 }
 
-fun Option<Any>.shouldBeNone() = this should beNone()
-fun Option<Any>.shouldNotBeNone() = this shouldNot beNone()
-fun beNone() = object : Matcher<Option<Any>> {
-  override fun test(value: Option<Any>): MatcherResult {
+fun Option<Any?>.shouldBeNone() = this should beNone()
+fun Option<Any?>.shouldNotBeNone() = this shouldNot beNone()
+fun beNone() = object : Matcher<Option<Any?>> {
+  override fun test(value: Option<Any?>): MatcherResult {
     return when (value) {
       is None -> {
         MatcherResult(true, "Option should be None", "Option should not be None")
