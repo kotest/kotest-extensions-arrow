@@ -13,6 +13,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 class ValidatedMatchersTest : StringSpec({
 
@@ -25,7 +26,10 @@ class ValidatedMatchersTest : StringSpec({
       Valid("ok") should beValid()
       Valid("ok").shouldBeValid()
       Valid("ok") shouldBeValid "ok"
-      Valid("ok") shouldBeValid { it.value == "ok" }
+      Valid("ok") shouldBeValid { it.value shouldBe "ok" }
+      shouldThrow<AssertionError> {
+         Valid("ok") shouldBeValid { it.value shouldNotBe "ok" }
+      }
 
       shouldThrow<AssertionError> {
          Valid("ok") shouldNotBeValid "ok"
@@ -51,7 +55,10 @@ class ValidatedMatchersTest : StringSpec({
       Invalid("error") should beInvalid()
       Invalid("error").shouldBeInvalid()
       Invalid("error") shouldBeInvalid "error"
-      Invalid("error") shouldBeInvalid { it.value == "error" }
+      Invalid("error") shouldBeInvalid { it.value shouldBe "error" }
+      shouldThrow<AssertionError> {
+         Invalid("error") shouldBeInvalid { it.value shouldNotBe "error" }
+      }
       Invalid("error").shouldNotBeValid()
    }
 

@@ -43,7 +43,10 @@ class OptionMatchersTest : WordSpec() {
         option shouldBe beSome("foo")
         option shouldBeSome "foo"
 
-        option shouldBeSome { it == "foo" }
+        option shouldBeSome { it shouldBe "foo" }
+        shouldThrow<AssertionError> {
+           option shouldBeSome { it shouldNotBe "foo" }
+        }
       }
     }
 
