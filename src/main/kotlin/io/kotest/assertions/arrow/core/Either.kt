@@ -11,8 +11,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 /**
- * smart casts Either to success case Either.Right<B> and fails with [failureMessage] in the failure case.
- * ```kotlin
+ * smart casts to [Either.Right] and fails with [failureMessage] otherwise.
  * import arrow.core.Either.Right
  * import arrow.core.Either
  * import arrow.core.shouldBeRight
@@ -41,7 +40,7 @@ fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expecte
 }
 
 /**
- * smart casts Either to failure case Either.Left<A> and fails with [failureMessage] in the success case.
+ * smart casts to [Either.Left] and fails with [failureMessage] otherwise.
  * ```kotlin
  * import arrow.core.Either.Left
  * import arrow.core.Either

@@ -84,6 +84,7 @@ fun <A> NonEmptyList<A>.shouldContainElementAt(index: Int, element: A): Unit =
 fun <A> NonEmptyList<A>.shouldNotContainElementAt(index: Int, element: A): Unit =
   shouldNot(haveElementAt(index, element))
 
+@Deprecated("Use shouldContainElementAt or shouldNotContainElementAt directly")
 fun <A> haveElementAt(index: Int, element: A): Matcher<NonEmptyList<A>> =
   object : Matcher<NonEmptyList<A>> {
     override fun test(value: NonEmptyList<A>): MatcherResult =
@@ -138,6 +139,7 @@ fun NonEmptyList<Any>.shouldHaveDuplicates(): Unit =
 fun NonEmptyList<Any>.shouldNotHaveDuplicates(): Unit =
   shouldNot(haveDuplicates())
 
+@Deprecated("Use shouldBeUnique, ")
 fun <T> haveDuplicates(): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult =

@@ -7,7 +7,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 /**
- *
+ * smart casts to [Validated.Valid] and fails with [failureMessage] otherwise
  */
 @OptIn(ExperimentalContracts::class)
 fun <E, A> Validated<E, A>.shouldBeValid(
@@ -23,7 +23,7 @@ fun <E, A> Validated<E, A>.shouldBeValid(
 }
 
 /**
- *
+ * smart casts to [Validated.Invalid] and fails with [failureMessage] otherwise.
  */
 @OptIn(ExperimentalContracts::class)
 fun <E, A> Validated<E, A>.shouldBeInvalid(

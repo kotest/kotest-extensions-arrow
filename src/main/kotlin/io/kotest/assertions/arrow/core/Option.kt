@@ -7,7 +7,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 /**
- * smart casts Option to Some<A> and fails with [failureMessage] otherwise.
+ * smart casts to [Some] and fails with [failureMessage] otherwise.
  */
 @OptIn(ExperimentalContracts::class)
 fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, but found None" }): A {
@@ -21,7 +21,7 @@ fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, 
 }
 
 /**
- * smart casts Option to None and fails with [failureMessage] otherwise.
+ * smart casts to [None] and fails with [failureMessage] otherwise.
  */
 @OptIn(ExperimentalContracts::class)
 fun <A> Option<A>.shouldBeNone(failureMessage: (Some<A>) -> String = { "Expected None, but found Some with value ${it.value}" }): None {
