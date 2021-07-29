@@ -15,49 +15,60 @@ fun Option<*>.shouldBeSome() {
   contract {
     returns() implies (this@shouldBeSome is Some<*>)
   }
-  this should beSome()
+  should(beSome())
 }
 
-fun beSome() = object : Matcher<Option<*>> {
-  override fun test(value: Option<*>): MatcherResult =
+fun beSome() =
+  object : Matcher<Option<*>> {
+    override fun test(value: Option<*>): MatcherResult =
       MatcherResult(value is Some, "$value should be Some", "$value should not be Some")
-}
+  }
 
-infix fun <T> Option<T>.shouldBeSome(t: T) = this should beSome(t)
-infix fun <T> Option<T>.shouldNotBeSome(t: T) = this shouldNot beSome(t)
-fun <T> beSome(t: T) = object : Matcher<Option<T>> {
-  override fun test(value: Option<T>): MatcherResult {
-    return when (value) {
-      is None -> {
-        MatcherResult(false, "Option should be Some($t) but was None", "")
-      }
-      is Some -> {
-        if (value.value == t)
-          MatcherResult(true, "Option should be Some($t)", "Option should not be Some($t)")
-        else
-          MatcherResult(false, "Option should be Some($t) but was Some(${value.value})", "")
+infix fun <A> Option<A>.shouldBeSome(a: A): Unit =
+  should(beSome(a))
+
+infix fun <A> Option<A>.shouldNotBeSome(a: A): Unit =
+  shouldNot(beSome(a))
+
+fun <A> beSome(a: A): Matcher<Option<A>> =
+  object : Matcher<Option<A>> {
+    override fun test(value: Option<A>): MatcherResult {
+      return when (value) {
+        is None -> {
+          MatcherResult(false, "Option should be Some($a) but was None", "")
+        }
+        is Some -> {
+          if (value.value == a)
+            MatcherResult(true, "Option should be Some($a)", "Option should not be Some($a)")
+          else
+            MatcherResult(false, "Option should be Some($a) but was Some(${value.value})", "")
+        }
       }
     }
   }
-}
 
 @OptIn(ExperimentalContracts::class)
-infix fun <T> Option<T>.shouldBeSome(fn: (T) -> Unit) {
+infix fun <A> Option<A>.shouldBeSome(fn: (A) -> Unit) {
   this.shouldBeSome()
-  fn((this.value as T))
+  fn((this.value as A))
 }
 
-fun Option<Any?>.shouldBeNone() = this should beNone()
-fun Option<Any?>.shouldNotBeNone() = this shouldNot beNone()
-fun beNone() = object : Matcher<Option<Any?>> {
-  override fun test(value: Option<Any?>): MatcherResult {
-    return when (value) {
-      is None -> {
-        MatcherResult(true, "Option should be None", "Option should not be None")
-      }
-      is Some -> {
-        MatcherResult(false, "Option should be None but was Some(${value.value})", "")
+fun Option<Any?>.shouldBeNone(): Unit =
+  should(beNone())
+
+fun Option<Any?>.shouldNotBeNone(): Unit =
+  shouldNot(beNone())
+
+fun beNone(): Matcher<Option<Any?>> =
+  object : Matcher<Option<Any?>> {
+    override fun test(value: Option<Any?>): MatcherResult {
+      return when (value) {
+        is None -> {
+          MatcherResult(true, "Option should be None", "Option should not be None")
+        }
+        is Some -> {
+          MatcherResult(false, "Option should be None but was Some(${value.value})", "")
+        }
       }
     }
   }
-}

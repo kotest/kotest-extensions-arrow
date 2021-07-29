@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.core
 
 import arrow.core.Invalid
 import arrow.core.Valid
@@ -15,7 +15,7 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
-class ValidatedMatchersTest : StringSpec({
+class ValidatedMatchers : StringSpec({
 
    "Validated shouldBe Valid" {
 

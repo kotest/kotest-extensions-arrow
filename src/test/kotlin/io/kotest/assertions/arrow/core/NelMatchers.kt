@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
 import io.kotest.assertions.arrow.nel.beSorted
@@ -39,7 +39,7 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 
-class NelMatchersTest : WordSpec() {
+class NelMatchers : WordSpec() {
 
   init {
 

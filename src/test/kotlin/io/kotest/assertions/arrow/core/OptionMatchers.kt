@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.core
 
 import arrow.core.Option
 import io.kotest.assertions.arrow.option.beNone
@@ -12,7 +12,7 @@ import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
-class OptionMatchersTest : WordSpec() {
+class OptionMatchers : WordSpec() {
 
   init {
 
