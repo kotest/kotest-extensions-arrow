@@ -1,11 +1,6 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
-import io.kotest.assertions.arrow.nel.forAny
-import io.kotest.assertions.arrow.nel.forExactly
-import io.kotest.assertions.arrow.nel.forNone
-import io.kotest.assertions.arrow.nel.forOne
-import io.kotest.assertions.arrow.nel.forSome
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.comparables.beGreaterThan

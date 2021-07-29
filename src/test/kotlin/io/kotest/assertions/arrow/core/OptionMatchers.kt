@@ -3,8 +3,8 @@ package io.kotest.assertions.arrow.core
 import arrow.core.Option
 import io.kotest.assertions.arrow.option.beNone
 import io.kotest.assertions.arrow.option.beSome
-import io.kotest.assertions.arrow.option.shouldBeNone
 import io.kotest.assertions.arrow.option.shouldBeSome
+import io.kotest.assertions.arrow.option.shouldBeSomeFn
 import io.kotest.assertions.arrow.option.shouldNotBeNone
 import io.kotest.assertions.arrow.option.shouldNotBeSome
 import io.kotest.assertions.throwables.shouldThrow
@@ -15,7 +15,6 @@ import io.kotest.matchers.shouldNotBe
 class OptionMatchers : WordSpec() {
 
   init {
-
     "Option.shouldBeSome()" should {
       "use contracts" {
         val o = Option("foo")
@@ -43,9 +42,9 @@ class OptionMatchers : WordSpec() {
         option shouldBe beSome("foo")
         option shouldBeSome "foo"
 
-        option shouldBeSome { it shouldBe "foo" }
+        option shouldBeSomeFn { it shouldBe "foo" }
         shouldThrow<AssertionError> {
-           option shouldBeSome { it shouldNotBe "foo" }
+           option shouldBeSomeFn { it shouldNotBe "foo" }
         }
       }
     }

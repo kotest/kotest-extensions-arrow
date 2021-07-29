@@ -3,33 +3,36 @@ package io.kotest.assertions.arrow.option
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import io.kotest.assertions.arrow.core.shouldBeSome
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
-@OptIn(ExperimentalContracts::class)
-fun Option<*>.shouldBeSome() {
-  contract {
-    returns() implies (this@shouldBeSome is Some<*>)
-  }
-  should(beSome())
-}
-
-fun beSome() =
+@Deprecated("Use shouldBeSome directly")
+fun beSome(): Matcher<Option<*>> =
   object : Matcher<Option<*>> {
     override fun test(value: Option<*>): MatcherResult =
       MatcherResult(value is Some, "$value should be Some", "$value should not be Some")
   }
 
+@Deprecated(
+  "Can be simplified",
+  ReplaceWith(
+    "shouldBeSome().shouldBe(a)",
+    "io.kotest.assertions.arrow.core.shouldBeSome",
+    "io.kotest.matchers.shouldBe"
+  )
+)
 infix fun <A> Option<A>.shouldBeSome(a: A): Unit =
   should(beSome(a))
 
+@Deprecated("Use shouldBeNone instead")
 infix fun <A> Option<A>.shouldNotBeSome(a: A): Unit =
   shouldNot(beSome(a))
 
+@Deprecated("Use shouldBeSome directly")
 fun <A> beSome(a: A): Matcher<Option<A>> =
   object : Matcher<Option<A>> {
     override fun test(value: Option<A>): MatcherResult {
@@ -47,18 +50,15 @@ fun <A> beSome(a: A): Matcher<Option<A>> =
     }
   }
 
-@OptIn(ExperimentalContracts::class)
-infix fun <A> Option<A>.shouldBeSome(fn: (A) -> Unit) {
-  this.shouldBeSome()
-  fn((this.value as A))
-}
+@Deprecated("Use shouldBeSome", ReplaceWith("fn(shouldBeSome())"))
+infix fun <A> Option<A>.shouldBeSomeFn(fn: (A) -> Unit): Unit =
+  fn(shouldBeSome())
 
-fun Option<Any?>.shouldBeNone(): Unit =
-  should(beNone())
-
+@Deprecated("Use shouldBeSome instead")
 fun Option<Any?>.shouldNotBeNone(): Unit =
   shouldNot(beNone())
 
+@Deprecated("Use shouldBeNone directly")
 fun beNone(): Matcher<Option<Any?>> =
   object : Matcher<Option<Any?>> {
     override fun test(value: Option<Any?>): MatcherResult {

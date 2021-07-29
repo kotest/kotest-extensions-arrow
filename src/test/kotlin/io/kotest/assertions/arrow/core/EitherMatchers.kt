@@ -1,6 +1,13 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.Either
+import io.kotest.assertions.arrow.either.beLeft
+import io.kotest.assertions.arrow.either.beRight
+import io.kotest.assertions.arrow.either.shouldBeLeft
+import io.kotest.assertions.arrow.either.shouldBeLeftOfType
+import io.kotest.assertions.arrow.either.shouldBeRight
+import io.kotest.assertions.arrow.either.shouldNotBeLeft
+import io.kotest.assertions.arrow.either.shouldNotBeRight
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.should
@@ -20,7 +27,7 @@ class EitherMatchers : StringSpec({
 
   "Either.Right<Person> resolves to Right<Person>" {
     data class Person(val name: String, val location: String)
-    Either.Right(Person("sam", "chicago")) shouldBeRightFn {
+    Either.Right(Person("sam", "chicago")) shouldBeRight {
       it.name shouldBe "sam"
       it.location shouldBe "chicago"
     }
@@ -46,7 +53,7 @@ class EitherMatchers : StringSpec({
   "Either should beLeftFn" {
     data class Person(val name: String, val location: String)
 
-    Either.Left(Person("sam", "chicago")).shouldBeLeftFn { person: Person ->
+    Either.Left(Person("sam", "chicago")).shouldBeLeft { person: Person ->
       person.name shouldBe "sam"
       person.location shouldBe "chicago"
     }
@@ -79,7 +86,7 @@ class EitherMatchers : StringSpec({
     Either.Left(Error.ErrorB).shouldBeLeft().shouldBeTypeOf<Error.ErrorB>()
 
     Either.Left(Error.ErrorB).shouldBeLeft().shouldNotBeTypeOf<Error.ErrorA>()
-    Either.Right("foo").shouldBeLeft().shouldNotBeTypeOf<Error.ErrorA>()
+    Either.Right("foo").shouldNotBeLeft<Error.ErrorA>()
   }
 })
 
