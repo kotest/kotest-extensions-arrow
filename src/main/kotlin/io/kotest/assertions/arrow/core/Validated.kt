@@ -8,6 +8,73 @@ import kotlin.contracts.contract
 
 /**
  * smart casts to [Validated.Valid] and fails with [failureMessage] otherwise
+ * ```kotlin
+ * import arrow.core.Validated
+ * import arrow.core.computations.either
+ * import arrow.core.valid
+ * import arrow.core.invalid
+ * import arrow.core.NonEmptyList
+ * import arrow.typeclasses.Semigroup
+ * import java.net.MalformedURLException
+ * import java.net.URL
+ *
+ * data class ConnectionParams(val url: URL, val port: Int)
+ *
+ * abstract class Read<A> {
+ *  abstract fun read(s: String): A?
+ *
+ *  companion object {
+ *   val urlRead: Read<URL> =
+ *     object : Read<URL>() {
+ *       override fun read(s: String): URL? =
+ *         try {
+ *           URL(s)
+ *         } catch (_: MalformedURLException) {
+ *           null
+ *         }
+ *       }
+ *
+ *   val intRead: Read<Int> =
+ *    object : Read<Int>() {
+ *     override fun read(s: String): Int? =
+ *      if (s.matches(Regex("-?[0-9]+"))) s.toInt() else null
+ *    }
+ *  }
+ * }
+ *
+ * sealed class ConfigError {
+ *  data class MissingConfig(val field: String) : ConfigError()
+ *  data class ParseConfig(val field: String) : ConfigError()
+ * }
+ *
+ * data class Config(val map: Map<String, String>) {
+ *   suspend fun <A> parse(read: Read<A>, key: String): ValidatedNel<ConfigError, A> =
+ *     either<ConfigError, A> {
+ *       val value: String = Validated.fromNullable(map[key]) {
+ *         ConfigError.MissingConfig(key)
+ *       }.bind()
+ *       val readVal: A = Validated.fromNullable(read.read(value)) {
+ *         ConfigError.ParseConfig(key)
+ *       }.bind()
+ *       readVal
+ *     }.toValidatedNel()
+ * }
+ *
+ * suspend fun main() {
+ * //sampleStart
+ * val config = Config(mapOf("wrong field" to "127.0.0.1", "port" to "8080", "url" to "https://kotest.io"))
+ *
+ * val params: ConnectionParams =
+ *   config.parse(Read.urlRead, "url")
+ *     .zip(
+ *      Semigroup.nonEmptyList<ConfigError>(),
+ *      config.parse(Read.intRead, "port")
+ *     ) { url: URL, port -> ConnectionParams(url, port) }
+ *     .shouldBeInvalid()
+ * //sampleEnd
+ *  println("connection = $params")
+ * }
+ * ```
  */
 @OptIn(ExperimentalContracts::class)
 fun <E, A> Validated<E, A>.shouldBeValid(
@@ -24,6 +91,68 @@ fun <E, A> Validated<E, A>.shouldBeValid(
 
 /**
  * smart casts to [Validated.Invalid] and fails with [failureMessage] otherwise.
+ * ```kotlin
+ * import arrow.core.Validated
+ * import arrow.core.computations.either
+ * import arrow.core.zip
+ * import arrow.core.valid
+ * import arrow.core.invalid
+ * import arrow.core.NonEmptyList
+ * import arrow.typeclasses.Semigroup
+ *
+ * data class ConnectionParams(val url: String, val port: Int)
+ *
+ * abstract class Read<A> {
+ *  abstract fun read(s: String): A?
+ *
+ *  companion object {
+ *
+ *   val stringRead: Read<String> =
+ *    object : Read<String>() {
+ *     override fun read(s: String): String = s
+ *    }
+ *
+ *   val intRead: Read<Int> =
+ *    object : Read<Int>() {
+ *     override fun read(s: String): Int? =
+ *      if (s.matches(Regex("-?[0-9]+"))) s.toInt() else null
+ *    }
+ *  }
+ * }
+ *
+ * sealed class ConfigError {
+ *  data class MissingConfig(val field: String) : ConfigError()
+ *  data class ParseConfig(val field: String) : ConfigError()
+ * }
+ *
+ * data class Config(val map: Map<String, String>) {
+ *   suspend fun <A> parse(read: Read<A>, key: String): ValidatedNel<ConfigError, A> =
+ *     either<ConfigError, A> {
+ *       val value: String = Validated.fromNullable(map[key]) {
+ *         ConfigError.MissingConfig(key)
+ *       }.bind()
+ *       val readVal: A = Validated.fromNullable(read.read(value)) {
+ *         ConfigError.ParseConfig(key)
+ *       }.bind()
+ *       readVal
+ *     }.toValidatedNel()
+ * }
+ *
+ * suspend fun main() {
+ * //sampleStart
+ * val config = Config(mapOf("wrong field" to "127.0.0.1", "port" to "not a number"))
+ *
+ * val failures: NonEmptyList<ConfigError> =
+ *   config.parse(Read.stringRead, "url")
+ *     .zip(
+ *      Semigroup.nonEmptyList<ConfigError>(),
+ *      config.parse(Read.intRead, "port")
+ *     ) { url, port -> ConnectionParams(url, port) }
+ *     .shouldBeInvalid()
+ * //sampleEnd
+ *  println("failures = $failures")
+ * }
+ * ```
  */
 @OptIn(ExperimentalContracts::class)
 fun <E, A> Validated<E, A>.shouldBeInvalid(

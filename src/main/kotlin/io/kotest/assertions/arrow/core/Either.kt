@@ -12,9 +12,10 @@ import kotlin.contracts.contract
 
 /**
  * smart casts to [Either.Right] and fails with [failureMessage] otherwise.
+ * ```kotlin
  * import arrow.core.Either.Right
  * import arrow.core.Either
- * import arrow.core.shouldBeRight
+ * import io.kotest.assertions.arrow.core.shouldBeRight
  *
  * fun main() {
  *   //sampleStart
@@ -44,7 +45,7 @@ fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expecte
  * ```kotlin
  * import arrow.core.Either.Left
  * import arrow.core.Either
- * import arrow.core.shouldBeLeft
+ * import io.kotest.assertions.arrow.core.shouldBeLeft
  *
  * fun main() {
  *   //sampleStart

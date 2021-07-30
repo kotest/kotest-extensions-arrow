@@ -12,8 +12,6 @@ class NelMatchers : StringSpec({
     NonEmptyList(1, listOf(2, null)).shouldContainNull()
     NonEmptyList(null, listOf()).shouldContainNull()
     NonEmptyList(1, listOf(2)).shouldNotContainNull()
-
-    NonEmptyList(null, listOf()).shouldContainNull()
     NonEmptyList(1, listOf()).shouldNotContainNull()
   }
 
@@ -123,8 +121,6 @@ class NelMatchers : StringSpec({
 
   "a collection shouldNot containAll elements" {
     val col = NonEmptyList(1, listOf(2, 3, 4, 5))
-
-    col.shouldNotContainAll(99, 88, 77)
 
     col.shouldNotContainAll(99, 88, 77)
     col shouldNotContainAll listOf(99, 88, 77)

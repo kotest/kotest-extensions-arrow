@@ -72,7 +72,6 @@ class EitherMatchers : StringSpec({
       Either.Left("foo") shouldNotBeLeft "foo"
     }.message shouldBe "Either should not be Left(foo)"
 
-    Either.Left("boo") should beLeft("boo")
     Either.Left("boo").shouldBeLeft().shouldBe("boo")
     Either.Right("boo") shouldNotBeLeft "boo"
   }
