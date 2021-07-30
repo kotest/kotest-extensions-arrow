@@ -173,7 +173,6 @@ The following elements failed:
   "forExactly" {
     nel.forExactly(2) {
       it should beLessThan(3)
-
     }
   }
 

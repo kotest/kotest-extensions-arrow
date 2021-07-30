@@ -52,6 +52,7 @@ fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): Unit =
 fun <A> NonEmptyList<A>.shouldNotContainOnlyNulls(): Unit =
   shouldNot(containOnlyNulls())
 
+@Deprecated("Use shouldNotContainOnlyNulls, shouldContainOnlyNulls directly")
 fun <A> containOnlyNulls(): Matcher<NonEmptyList<A>> =
   object : Matcher<NonEmptyList<A>> {
     override fun test(value: NonEmptyList<A>): MatcherResult =
@@ -68,6 +69,7 @@ fun <A> NonEmptyList<A>.shouldContainNull(): Unit =
 fun <A> NonEmptyList<A>.shouldNotContainNull(): Unit =
   shouldNot(containNull())
 
+@Deprecated("Use shouldContainNull, shouldNotContainNull directly")
 fun <A> containNull(): Matcher<NonEmptyList<A>> =
   object : Matcher<NonEmptyList<A>> {
     override fun test(value: NonEmptyList<A>) =
@@ -101,6 +103,7 @@ fun <A> NonEmptyList<A>.shouldContainNoNulls(): Unit =
 fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): Unit =
   shouldNot(containNoNulls())
 
+@Deprecated("Use shouldNotContainNoNulls, shouldContainNoNulls directly")
 fun <A> containNoNulls(): Matcher<NonEmptyList<A>> =
   object : Matcher<NonEmptyList<A>> {
     override fun test(value: NonEmptyList<A>): MatcherResult =
@@ -117,6 +120,7 @@ infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit =
 infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit =
   shouldNot(contain(a))
 
+@Deprecated("Use shouldContain, shouldContainNoNulls directly")
 fun <T> contain(a: T): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult =
@@ -139,7 +143,7 @@ fun NonEmptyList<Any>.shouldHaveDuplicates(): Unit =
 fun NonEmptyList<Any>.shouldNotHaveDuplicates(): Unit =
   shouldNot(haveDuplicates())
 
-@Deprecated("Use shouldBeUnique, ")
+@Deprecated("Use shouldBeUnique, shouldNotBeUnique, shouldHaveDuplicates, shouldNotHaveDuplicates directly")
 fun <T> haveDuplicates(): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult =
@@ -162,9 +166,11 @@ infix fun <T> NonEmptyList<T>.shouldContainAll(ts: List<T>): Unit =
 infix fun <T> NonEmptyList<T>.shouldNotContainAll(ts: List<T>): Unit =
   shouldNot(containAll(ts))
 
+@Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
 fun <T> containAll(vararg ts: T): Matcher<NonEmptyList<T>> =
   containAll(ts.asList())
 
+@Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
 fun <T> containAll(ts: List<T>): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult =
@@ -181,6 +187,7 @@ infix fun NonEmptyList<Any>.shouldHaveSize(size: Int): Unit =
 infix fun NonEmptyList<Any>.shouldNotHaveSize(size: Int): Unit =
   shouldNot(haveSize(size))
 
+@Deprecated("Use shouldHaveSize, shouldNotHaveSize directly")
 fun <T> haveSize(size: Int): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult =
@@ -197,6 +204,7 @@ infix fun <T> NonEmptyList<T>.shouldBeSingleElement(a: T): Unit =
 infix fun <T> NonEmptyList<T>.shouldNotBeSingleElement(a: T): Unit =
   shouldNot(singleElement(a))
 
+@Deprecated("Use shouldBeSingleElement, shouldNotBeSingleElement directly")
 fun <T> singleElement(a: T): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult = MatcherResult(
@@ -212,6 +220,7 @@ fun <T : Comparable<T>> NonEmptyList<T>.shouldBeSorted(): Unit =
 fun <T : Comparable<T>> NonEmptyList<T>.shouldNotBeSorted(): Unit =
   shouldNot(beSorted())
 
+@Deprecated("Use shouldBeSorted or shouldNotBeSorted directly")
 fun <T : Comparable<T>> beSorted(): Matcher<NonEmptyList<T>> =
   object : Matcher<NonEmptyList<T>> {
     override fun test(value: NonEmptyList<T>): MatcherResult {

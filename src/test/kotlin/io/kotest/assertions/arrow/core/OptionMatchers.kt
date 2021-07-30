@@ -4,7 +4,6 @@ import arrow.core.Option
 import io.kotest.assertions.arrow.option.beNone
 import io.kotest.assertions.arrow.option.beSome
 import io.kotest.assertions.arrow.option.shouldBeSome
-import io.kotest.assertions.arrow.option.shouldBeSomeFn
 import io.kotest.assertions.arrow.option.shouldNotBeNone
 import io.kotest.assertions.arrow.option.shouldNotBeSome
 import io.kotest.assertions.throwables.shouldThrow
@@ -14,41 +13,31 @@ import io.kotest.matchers.shouldNotBe
 
 class OptionMatchers : StringSpec({
   "Option.shouldBeSome()"  {
-    val o = Option("foo")
-    o.shouldBeSome()
-    o.value shouldBe "foo"
+    val o = Option("foo").shouldBeSome()
+    o shouldBe "foo"
   }
 
   "Option shouldBe some(value)"  {
     shouldThrow<AssertionError> {
-      Option.fromNullable<String>(null) shouldBe beSome("foo")
-    }.message shouldBe "Option should be Some(foo) but was None"
+      val foo = Option.fromNullable<String>(null).shouldBeSome()
+      foo.shouldBe("foo")
+    }.message shouldBe "Expected Some, but found None"
 
     shouldThrow<AssertionError> {
-      Option.fromNullable<String>(null) shouldBeSome "foo"
-    }.message shouldBe "Option should be Some(foo) but was None"
-
-    shouldThrow<AssertionError> {
-      Option.fromNullable("boo") shouldBe beSome("foo")
+      Option.fromNullable("boo").shouldBeSome("foo")
     }.message shouldBe "Option should be Some(foo) but was Some(boo)"
 
-    val option = Option.fromNullable("foo")
-    option shouldBe beSome("foo")
-    option shouldBeSome "foo"
+    val some = Option.fromNullable("foo").shouldBeSome()
+    some.shouldBe("foo")
 
-    option shouldBeSomeFn { it shouldBe "foo" }
     shouldThrow<AssertionError> {
-      option shouldBeSomeFn { it shouldNotBe "foo" }
-
+      some shouldNotBe "foo"
     }
   }
 
-  "Option shouldNotBe some(value)" {
-
+  "Option shouldNotBeSome(value)" {
     val option = Option.fromNullable("foo")
-    option shouldNotBe beSome("bar")
     option shouldNotBeSome "bar"
-
   }
 
   "Option shouldBe none()" {
@@ -64,7 +53,6 @@ class OptionMatchers : StringSpec({
   "Option shouldNotBe none()" {
     val option = Option.fromNullable("foo")
 
-    option shouldNotBe beNone()
     option.shouldNotBeNone()
   }
 })

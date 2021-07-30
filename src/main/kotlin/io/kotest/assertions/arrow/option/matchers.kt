@@ -7,7 +7,6 @@ import io.kotest.assertions.arrow.core.shouldBeSome
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 
 @Deprecated("Use shouldBeSome directly")
@@ -28,7 +27,7 @@ fun beSome(): Matcher<Option<*>> =
 infix fun <A> Option<A>.shouldBeSome(a: A): Unit =
   should(beSome(a))
 
-@Deprecated("Use shouldBeNone instead")
+@Deprecated("Use shouldBeNone or shouldBeSome in combination with shouldNotBe instead")
 infix fun <A> Option<A>.shouldNotBeSome(a: A): Unit =
   shouldNot(beSome(a))
 
@@ -54,7 +53,7 @@ fun <A> beSome(a: A): Matcher<Option<A>> =
 infix fun <A> Option<A>.shouldBeSomeFn(fn: (A) -> Unit): Unit =
   fn(shouldBeSome())
 
-@Deprecated("Use shouldBeSome instead")
+@Deprecated("Use shouldBeSome with shouldNotBe instead")
 fun Option<Any?>.shouldNotBeNone(): Unit =
   shouldNot(beNone())
 
