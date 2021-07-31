@@ -1,235 +1,98 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
-import io.kotest.inspectors.forAll
-import io.kotest.inspectors.forAny
-import io.kotest.inspectors.forAtLeast
-import io.kotest.inspectors.forAtLeastOne
-import io.kotest.inspectors.forAtMost
-import io.kotest.inspectors.forAtMostOne
-import io.kotest.inspectors.forExactly
-import io.kotest.inspectors.forNone
-import io.kotest.inspectors.forOne
-import io.kotest.inspectors.forSome
-import io.kotest.matchers.Matcher
-import io.kotest.matchers.MatcherResult
+import io.kotest.assertions.arrow.nel.containAll
+import io.kotest.assertions.arrow.nel.haveDuplicates
+import io.kotest.matchers.collections.shouldBeSorted as kShouldBeSorted
+import io.kotest.matchers.collections.shouldNotBeSorted as kShouldNotBeSorted
+import io.kotest.matchers.collections.shouldBeUnique
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldContainNoNulls
+import io.kotest.matchers.collections.shouldContainNull
+import io.kotest.matchers.collections.shouldContainOnlyNulls
+import io.kotest.matchers.collections.shouldHaveElementAt
+import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.collections.shouldNotHaveSize
+import io.kotest.matchers.collections.shouldNotBeUnique
+import io.kotest.matchers.collections.shouldNotContain
+import io.kotest.matchers.collections.shouldNotContainAll as kshouldNotContainAll
+import io.kotest.matchers.collections.shouldNotContainNoNulls
+import io.kotest.matchers.collections.shouldNotContainNull
+import io.kotest.matchers.collections.shouldNotContainOnlyNulls
+import io.kotest.matchers.collections.shouldNotHaveElementAt
+import io.kotest.matchers.collections.shouldNotHaveSingleElement
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 
-fun <A> NonEmptyList<A>.forAll(fn: (A) -> Unit): Unit =
-  all.forAll(fn)
+fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): NonEmptyList<A> =
+  apply { all.shouldContainOnlyNulls() }
 
-fun <A> NonEmptyList<A>.forOne(fn: (A) -> Unit): Unit =
-  all.forOne(fn)
+fun <A> NonEmptyList<A>.shouldNotContainOnlyNulls(): NonEmptyList<A> =
+  apply { all.shouldNotContainOnlyNulls() }
 
-fun <A> NonEmptyList<A>.forExactly(k: Int, fn: (A) -> Unit): Unit =
-  all.forExactly(k, fn)
+fun <A> NonEmptyList<A>.shouldContainNull(): NonEmptyList<A> =
+  apply { all.shouldContainNull() }
 
-fun <A> NonEmptyList<A>.forSome(fn: (A) -> Unit): Unit =
-  all.forSome(fn)
+fun <A> NonEmptyList<A>.shouldNotContainNull(): NonEmptyList<A> =
+  apply { all.shouldNotContainNull() }
 
-fun <A> NonEmptyList<A>.forAny(f: (A) -> Unit): Unit =
-  all.forAny(f)
+fun <A> NonEmptyList<A>.shouldHaveElementAt(index: Int, element: A): Unit =
+  all.shouldHaveElementAt(index, element)
 
-fun <A> NonEmptyList<A>.forAtLeastOne(f: (A) -> Unit): Unit =
-  all.forAtLeastOne(f)
+fun <A> NonEmptyList<A>.shouldNotHaveElementAt(index: Int, element: A): Unit =
+  all.shouldNotHaveElementAt(index, element)
 
-fun <A> NonEmptyList<A>.forAtLeast(k: Int, fn: (A) -> Unit): Unit =
-  all.forAtLeast(k, fn)
+fun <A> NonEmptyList<A>.shouldContainNoNulls(): NonEmptyList<A> =
+  apply { all.shouldContainNoNulls() }
 
-fun <A> NonEmptyList<A>.forAtMostOne(f: (A) -> Unit): Unit =
-  all.forAtMostOne(f)
-
-fun <A> NonEmptyList<A>.forAtMost(k: Int, fn: (A) -> Unit): Unit =
-  all.forAtMost(k, fn)
-
-fun <T> NonEmptyList<T>.forNone(f: (T) -> Unit): Unit =
-  all.forNone(f)
-
-fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): Unit =
-  should(containOnlyNulls())
-
-fun <A> NonEmptyList<A>.shouldNotContainOnlyNulls(): Unit =
-  shouldNot(containOnlyNulls())
-
-@Deprecated("Use shouldNotContainOnlyNulls, shouldContainOnlyNulls directly")
-fun <A> containOnlyNulls(): Matcher<NonEmptyList<A>> =
-  object : Matcher<NonEmptyList<A>> {
-    override fun test(value: NonEmptyList<A>): MatcherResult =
-      MatcherResult(
-        value.all.all { it == null },
-        "NonEmptyList should contain only nulls",
-        "NonEmptyList should not contain only nulls"
-      )
-  }
-
-fun <A> NonEmptyList<A>.shouldContainNull(): Unit =
-  should(containNull())
-
-fun <A> NonEmptyList<A>.shouldNotContainNull(): Unit =
-  shouldNot(containNull())
-
-@Deprecated("Use shouldContainNull, shouldNotContainNull directly")
-fun <A> containNull(): Matcher<NonEmptyList<A>> =
-  object : Matcher<NonEmptyList<A>> {
-    override fun test(value: NonEmptyList<A>) =
-      MatcherResult(
-        value.all.any { it == null },
-        "NonEmptyList should contain at least one null",
-        "NonEmptyList should not contain any nulls"
-      )
-  }
-
-fun <A> NonEmptyList<A>.shouldContainElementAt(index: Int, element: A): Unit =
-  should(haveElementAt(index, element))
-
-fun <A> NonEmptyList<A>.shouldNotContainElementAt(index: Int, element: A): Unit =
-  shouldNot(haveElementAt(index, element))
-
-@Deprecated("Use shouldContainElementAt or shouldNotContainElementAt directly")
-fun <A> haveElementAt(index: Int, element: A): Matcher<NonEmptyList<A>> =
-  object : Matcher<NonEmptyList<A>> {
-    override fun test(value: NonEmptyList<A>): MatcherResult =
-      MatcherResult(
-        value.all[index] == element,
-        "NonEmptyList should contain $element at index $index",
-        "NonEmptyList should not contain $element at index $index"
-      )
-  }
-
-fun <A> NonEmptyList<A>.shouldContainNoNulls(): Unit =
-  should(containNoNulls())
-
-fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): Unit =
-  shouldNot(containNoNulls())
-
-@Deprecated("Use shouldNotContainNoNulls, shouldContainNoNulls directly")
-fun <A> containNoNulls(): Matcher<NonEmptyList<A>> =
-  object : Matcher<NonEmptyList<A>> {
-    override fun test(value: NonEmptyList<A>): MatcherResult =
-      MatcherResult(
-        value.all.all { it != null },
-        "NonEmptyList should not contain nulls",
-        "NonEmptyList should have at least one null"
-      )
-  }
+fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): NonEmptyList<A> =
+  apply { all.shouldNotContainNoNulls() }
 
 infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit =
-  should(contain(a))
+  all.shouldContain(a)
 
 infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit =
-  shouldNot(contain(a))
+  all.shouldNotContain(a)
 
-@Deprecated("Use shouldContain, shouldContainNoNulls directly")
-fun <T> contain(a: T): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult =
-      MatcherResult(
-        value.all.contains(a),
-        "NonEmptyList should contain element $a",
-        "NonEmptyList should not contain element $a"
-      )
-  }
+fun <A> NonEmptyList<A>.shouldBeUnique(): NonEmptyList<A> =
+  apply { all.shouldBeUnique() }
 
-fun NonEmptyList<Any>.shouldBeUnique(): Unit =
-  shouldNot(haveDuplicates())
+fun <A> NonEmptyList<A>.shouldNotBeUnique(): NonEmptyList<A> =
+  apply { all.shouldNotBeUnique() }
 
-fun NonEmptyList<Any>.shouldNotBeUnique(): Unit =
-  should(haveDuplicates())
+fun <A> NonEmptyList<A>.shouldContainDuplicates(): NonEmptyList<A> =
+  apply { should(haveDuplicates()) }
 
-fun NonEmptyList<Any>.shouldHaveDuplicates(): Unit =
-  should(haveDuplicates())
+fun <A> NonEmptyList<A>.shouldNotContainDuplicates(): NonEmptyList<A> =
+  apply { shouldNot(haveDuplicates()) }
 
-fun NonEmptyList<Any>.shouldNotHaveDuplicates(): Unit =
-  shouldNot(haveDuplicates())
-
-@Deprecated("Use shouldBeUnique, shouldNotBeUnique, shouldHaveDuplicates, shouldNotHaveDuplicates directly")
-fun <T> haveDuplicates(): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult =
-      MatcherResult(
-        value.all.toSet().size < value.size,
-        "NonEmptyList should contain duplicates",
-        "NonEmptyList should not contain duplicates"
-      )
-  }
-
-fun <T> NonEmptyList<T>.shouldContainAll(vararg ts: T): Unit =
+fun <A> NonEmptyList<A>.shouldContainAll(vararg ts: A): Unit =
   should(containAll(*ts))
 
-fun <T> NonEmptyList<T>.shouldNotContainAll(vararg ts: T): Unit =
-  shouldNot(containAll(*ts))
-
-infix fun <T> NonEmptyList<T>.shouldContainAll(ts: List<T>): Unit =
-  should(containAll(ts))
-
-infix fun <T> NonEmptyList<T>.shouldNotContainAll(ts: List<T>): Unit =
+fun <A> NonEmptyList<A>.shouldNotContainAll(vararg ts: A): Unit =
   shouldNot(containAll(ts))
 
-@Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
-fun <T> containAll(vararg ts: T): Matcher<NonEmptyList<T>> =
-  containAll(ts.asList())
+infix fun <A> NonEmptyList<A>.shouldContainAll(ts: List<A>): Unit =
+  should(containAll(ts))
 
-@Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
-fun <T> containAll(ts: List<T>): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult =
-      MatcherResult(
-        ts.all { value.contains(it) },
-        "NonEmptyList should contain all of ${ts.joinToString(",", limit = 10)}",
-        "NonEmptyList should not contain all of ${ts.joinToString(",", limit = 10)}"
-      )
-  }
+infix fun <A> NonEmptyList<A>.shouldNotContainAll(ts: List<A>): Unit =
+  shouldNot(containAll(ts))
 
-infix fun NonEmptyList<Any>.shouldHaveSize(size: Int): Unit =
-  should(haveSize(size))
+infix fun <A> NonEmptyList<A>.shouldHaveSize(size: Int): NonEmptyList<A> =
+  apply { all.shouldHaveSize(size) }
 
-infix fun NonEmptyList<Any>.shouldNotHaveSize(size: Int): Unit =
-  shouldNot(haveSize(size))
+infix fun <A> NonEmptyList<A>.shouldNotHaveSize(size: Int): NonEmptyList<A> =
+  apply { all.shouldNotHaveSize(size) }
 
-@Deprecated("Use shouldHaveSize, shouldNotHaveSize directly")
-fun <T> haveSize(size: Int): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult =
-      MatcherResult(
-        value.size == size,
-        "NonEmptyList should have size $size but has size ${value.size}",
-        "NonEmptyList should not have size $size"
-      )
-  }
+infix fun <A> NonEmptyList<A>.shouldHaveSingleElement(a: A): Unit =
+  all.shouldHaveSingleElement(a)
 
-infix fun <T> NonEmptyList<T>.shouldBeSingleElement(a: T): Unit =
-  should(singleElement(a))
+infix fun <A> NonEmptyList<A>.shouldNotHaveSingleElement(a: A): Unit =
+  all.shouldNotHaveSingleElement(a)
 
-infix fun <T> NonEmptyList<T>.shouldNotBeSingleElement(a: T): Unit =
-  shouldNot(singleElement(a))
+fun <A : Comparable<A>> NonEmptyList<A>.shouldBeSorted(): NonEmptyList<A> =
+  apply { all.kShouldBeSorted() }
 
-@Deprecated("Use shouldBeSingleElement, shouldNotBeSingleElement directly")
-fun <T> singleElement(a: T): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult = MatcherResult(
-      value.size == 1 && value.head == a,
-      "NonEmptyList should be a single element of $a but has ${value.size} elements",
-      "NonEmptyList should not be a single element of $a"
-    )
-  }
-
-fun <T : Comparable<T>> NonEmptyList<T>.shouldBeSorted(): Unit =
-  should(beSorted())
-
-fun <T : Comparable<T>> NonEmptyList<T>.shouldNotBeSorted(): Unit =
-  shouldNot(beSorted())
-
-@Deprecated("Use shouldBeSorted or shouldNotBeSorted directly")
-fun <T : Comparable<T>> beSorted(): Matcher<NonEmptyList<T>> =
-  object : Matcher<NonEmptyList<T>> {
-    override fun test(value: NonEmptyList<T>): MatcherResult {
-      val passed = value.all.sorted() == value.all
-      val snippet = value.all.joinToString(",", limit = 10)
-      return MatcherResult(
-        passed,
-        "NonEmptyList $snippet should be sorted",
-        "NonEmptyList $snippet should not be sorted"
-      )
-    }
-  }
+fun <A : Comparable<A>> NonEmptyList<A>.shouldNotBeSorted(): NonEmptyList<A> =
+  apply { all.kShouldNotBeSorted() }

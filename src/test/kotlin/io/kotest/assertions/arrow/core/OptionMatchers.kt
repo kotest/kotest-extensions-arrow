@@ -2,7 +2,6 @@ package io.kotest.assertions.arrow.core
 
 import arrow.core.Option
 import io.kotest.assertions.arrow.option.beNone
-import io.kotest.assertions.arrow.option.beSome
 import io.kotest.assertions.arrow.option.shouldBeSome
 import io.kotest.assertions.arrow.option.shouldNotBeNone
 import io.kotest.assertions.arrow.option.shouldNotBeSome

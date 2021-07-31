@@ -3,9 +3,6 @@ package io.kotest.assertions.arrow.core
 import arrow.core.NonEmptyList
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.should
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNot
 
 class NelMatchers : StringSpec({
   "containNull: a nel contains at least one null" {
@@ -16,8 +13,8 @@ class NelMatchers : StringSpec({
   }
 
   "haveElementAt: a nel contains an element at the right position" {
-    NonEmptyList(1, listOf(2, null)).shouldContainElementAt(1, 2)
-    NonEmptyList(1, listOf(2, null)).shouldNotContainElementAt(0, 42)
+    NonEmptyList(1, listOf(2, null)).shouldHaveElementAt(1, 2)
+    NonEmptyList(1, listOf(2, null)).shouldNotHaveElementAt(0, 42)
   }
 
   "a collection is sorted" {
@@ -33,8 +30,8 @@ class NelMatchers : StringSpec({
   }
 
   "haveDuplicates: a collection is unique or not" {
-    NonEmptyList(1, listOf(2, 3, 3)).shouldHaveDuplicates()
-    NonEmptyList(1, listOf(2, 3, 4)).shouldNotHaveDuplicates()
+    NonEmptyList(1, listOf(2, 3, 3)).shouldContainDuplicates()
+    NonEmptyList(1, listOf(2, 3, 4)).shouldNotContainDuplicates()
   }
 
   "beUnique: a collection is unique or not" {
@@ -43,19 +40,19 @@ class NelMatchers : StringSpec({
   }
 
   "a collection contains a single given element"  {
-    NonEmptyList(1, listOf()) shouldBeSingleElement 1
+    NonEmptyList(1, listOf()) shouldHaveSingleElement 1
     shouldThrow<AssertionError> {
-      NonEmptyList(1, listOf()) shouldBeSingleElement 2
+      NonEmptyList(1, listOf()) shouldHaveSingleElement 2
     }
     shouldThrow<AssertionError> {
-      NonEmptyList(1, listOf(2)) shouldBeSingleElement 2
+      NonEmptyList(1, listOf(2)) shouldHaveSingleElement 2
     }
 
-    NonEmptyList(1, listOf()) shouldBeSingleElement 1
+    NonEmptyList(1, listOf()) shouldHaveSingleElement 1
   }
 
   "a collection does not contain a single element"  {
-    NonEmptyList(1, listOf(2)) shouldNotBeSingleElement 1
+    NonEmptyList(1, listOf(2)) shouldNotHaveSingleElement 1
   }
 
   "a collection contains an element"  {
