@@ -1,12 +1,12 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
-import io.kotest.assertions.arrow.nel.containAll
-import io.kotest.assertions.arrow.nel.haveDuplicates
-import io.kotest.matchers.collections.shouldBeSorted as kShouldBeSorted
-import io.kotest.matchers.collections.shouldNotBeSorted as kShouldNotBeSorted
+import io.kotest.matchers.collections.shouldBeSorted
+import io.kotest.matchers.collections.shouldNotBeSorted
 import io.kotest.matchers.collections.shouldBeUnique
 import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldContainAll
+import io.kotest.matchers.collections.shouldContainDuplicates
 import io.kotest.matchers.collections.shouldContainNoNulls
 import io.kotest.matchers.collections.shouldContainNull
 import io.kotest.matchers.collections.shouldContainOnlyNulls
@@ -16,14 +16,13 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.collections.shouldNotHaveSize
 import io.kotest.matchers.collections.shouldNotBeUnique
 import io.kotest.matchers.collections.shouldNotContain
-import io.kotest.matchers.collections.shouldNotContainAll as kshouldNotContainAll
+import io.kotest.matchers.collections.shouldNotContainAll
+import io.kotest.matchers.collections.shouldNotContainDuplicates
 import io.kotest.matchers.collections.shouldNotContainNoNulls
 import io.kotest.matchers.collections.shouldNotContainNull
 import io.kotest.matchers.collections.shouldNotContainOnlyNulls
 import io.kotest.matchers.collections.shouldNotHaveElementAt
 import io.kotest.matchers.collections.shouldNotHaveSingleElement
-import io.kotest.matchers.should
-import io.kotest.matchers.shouldNot
 
 fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): NonEmptyList<A> =
   apply { all.shouldContainOnlyNulls() }
@@ -62,22 +61,22 @@ fun <A> NonEmptyList<A>.shouldNotBeUnique(): NonEmptyList<A> =
   apply { all.shouldNotBeUnique() }
 
 fun <A> NonEmptyList<A>.shouldContainDuplicates(): NonEmptyList<A> =
-  apply { should(haveDuplicates()) }
+  apply { all.shouldContainDuplicates() }
 
 fun <A> NonEmptyList<A>.shouldNotContainDuplicates(): NonEmptyList<A> =
-  apply { shouldNot(haveDuplicates()) }
+  apply { all.shouldNotContainDuplicates() }
 
 fun <A> NonEmptyList<A>.shouldContainAll(vararg ts: A): Unit =
-  should(containAll(*ts))
+  all.shouldContainAll(*ts)
 
 fun <A> NonEmptyList<A>.shouldNotContainAll(vararg ts: A): Unit =
-  shouldNot(containAll(ts))
+  all.shouldNotContainAll(*ts)
 
 infix fun <A> NonEmptyList<A>.shouldContainAll(ts: List<A>): Unit =
-  should(containAll(ts))
+  all.shouldContainAll(ts)
 
 infix fun <A> NonEmptyList<A>.shouldNotContainAll(ts: List<A>): Unit =
-  shouldNot(containAll(ts))
+  all.shouldNotContainAll(ts)
 
 infix fun <A> NonEmptyList<A>.shouldHaveSize(size: Int): NonEmptyList<A> =
   apply { all.shouldHaveSize(size) }
@@ -92,7 +91,7 @@ infix fun <A> NonEmptyList<A>.shouldNotHaveSingleElement(a: A): Unit =
   all.shouldNotHaveSingleElement(a)
 
 fun <A : Comparable<A>> NonEmptyList<A>.shouldBeSorted(): NonEmptyList<A> =
-  apply { all.kShouldBeSorted() }
+  apply { all.shouldBeSorted() }
 
 fun <A : Comparable<A>> NonEmptyList<A>.shouldNotBeSorted(): NonEmptyList<A> =
-  apply { all.kShouldNotBeSorted() }
+  apply { all.shouldNotBeSorted() }

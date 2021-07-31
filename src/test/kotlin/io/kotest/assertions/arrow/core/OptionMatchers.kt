@@ -51,7 +51,6 @@ class OptionMatchers : StringSpec({
 
   "Option shouldNotBe none()" {
     val option = Option.fromNullable("foo")
-
     option.shouldNotBeNone()
   }
 })
