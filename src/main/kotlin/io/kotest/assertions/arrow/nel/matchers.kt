@@ -206,14 +206,14 @@ fun <T> haveDuplicates(): Matcher<NonEmptyList<T>> =
   ReplaceWith("shouldContainAll(ts)", "io.kotest.assertions.arrow.core.shouldContainAll")
 )
 fun <T> NonEmptyList<T>.shouldContainAll(vararg ts: T): Unit =
-  shouldContainAll(ts)
+  shouldContainAll(*ts)
 
 @Deprecated(
   "Use shouldNotContainAll",
   ReplaceWith("shouldNotContainAll(ts)", "io.kotest.assertions.arrow.core.shouldNotContainAll")
 )
 fun <T> NonEmptyList<T>.shouldNotContainAll(vararg ts: T): Unit =
-  shouldNotContainAll(ts)
+  shouldNotContainAll(*ts)
 
 @Deprecated(
   "Use shouldContainAll",
@@ -231,7 +231,7 @@ infix fun <T> NonEmptyList<T>.shouldNotContainAll(ts: List<T>): Unit =
 
 @Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
 fun <T> containAll(vararg ts: T): Matcher<NonEmptyList<T>> =
-  containAll(ts.asList())
+  containAll(ts.toList())
 
 @Deprecated("Use shouldContainAll, shouldNotContainAll, shouldContainAll, shouldNotContainAll directly")
 fun <T> containAll(ts: List<T>): Matcher<NonEmptyList<T>> =
@@ -307,9 +307,8 @@ fun <T : Comparable<T>> NonEmptyList<T>.shouldBeSorted(): Unit {
   "Use shouldNotBeSorted",
   ReplaceWith("shouldNotBeSorted()", "io.kotest.assertions.arrow.core.shouldNotBeSorted")
 )
-fun <T : Comparable<T>> NonEmptyList<T>.shouldNotBeSorted(): Unit {
-  shouldNotBeSorted()
-}
+fun <T : Comparable<T>> NonEmptyList<T>.shouldNotBeSorted(): Unit =
+  shouldNotBeSorted().run {  }
 
 @Deprecated("Use shouldBeSorted or shouldNotBeSorted directly")
 fun <T : Comparable<T>> beSorted(): Matcher<NonEmptyList<T>> =

@@ -3,11 +3,38 @@ package io.kotest.assertions.arrow.option
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import io.kotest.assertions.arrow.core.shouldBeNone
 import io.kotest.assertions.arrow.core.shouldBeSome
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@Deprecated(
+  "Use shouldBeSome from core",
+  ReplaceWith("shouldBeSome()", "io.kotest.assertions.arrow.core.shouldBeSome")
+)
+@OptIn(ExperimentalContracts::class)
+fun Option<*>.shouldBeSome() {
+  contract {
+    returns() implies (this@shouldBeSome is Some<*>)
+  }
+  shouldBeSome()
+}
+
+@Deprecated(
+  "Use shouldBNone from core",
+  ReplaceWith("shouldBeNone()", "io.kotest.assertions.arrow.core.shouldBeNone")
+)
+@OptIn(ExperimentalContracts::class)
+fun Option<*>.shouldBeNone() {
+  contract {
+    returns() implies (this@shouldBeNone is Some<*>)
+  }
+  shouldBeNone()
+}
 
 @Deprecated("Use shouldBeSome directly")
 fun beSome(): Matcher<Option<*>> =
@@ -27,7 +54,14 @@ fun beSome(): Matcher<Option<*>> =
 infix fun <A> Option<A>.shouldBeSome(a: A): Unit =
   should(beSome(a))
 
-@Deprecated("Use shouldBeNone or shouldBeSome in combination with shouldNotBe instead")
+@Deprecated(
+  "Use shouldBeSome and shouldNotBe instead",
+  ReplaceWith(
+    "shouldBeSome().shouldBe(a)",
+    "io.kotest.assertions.arrow.core.shouldBeSome",
+    "io.kotest.matchers.shouldNotBe"
+  )
+)
 infix fun <A> Option<A>.shouldNotBeSome(a: A): Unit =
   shouldNot(beSome(a))
 
@@ -50,10 +84,10 @@ fun <A> beSome(a: A): Matcher<Option<A>> =
   }
 
 @Deprecated("Use shouldBeSome", ReplaceWith("fn(shouldBeSome())"))
-infix fun <A> Option<A>.shouldBeSomeFn(fn: (A) -> Unit): Unit =
+infix fun <A> Option<A>.shouldBeSome(fn: (A) -> Unit): Unit =
   fn(shouldBeSome())
 
-@Deprecated("Use shouldBeSome with shouldNotBe instead")
+@Deprecated("Use shouldBeSome or shouldNotBe instead")
 fun Option<Any?>.shouldNotBeNone(): Unit =
   shouldNot(beNone())
 

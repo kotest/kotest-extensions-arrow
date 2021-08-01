@@ -9,12 +9,41 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 import io.kotest.matchers.types.beInstanceOf2
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
-@Deprecated("shouldNotBeRight is shouldBeLeft")
+@Deprecated(
+  "Use shouldBeRight from core",
+  ReplaceWith("shouldBeRight()", "io.kotest.assertions.arrow.core.shouldBeRight")
+)
+@OptIn(ExperimentalContracts::class)
+fun <T> Either<*, T>.shouldBeRight() {
+  contract {
+    returns() implies (this@shouldBeRight is Either.Right<*>)
+  }
+  shouldBeRight()
+}
+
+@Deprecated(
+  "Use shouldBeLeft from core",
+  ReplaceWith("shouldBeLeft()", "io.kotest.assertions.arrow.core.shouldBeLeft")
+)
+@OptIn(ExperimentalContracts::class)
+fun <T> Either<T, Any?>.shouldBeLeft() {
+  contract {
+    returns() implies (this@shouldBeLeft is Either.Left<*>)
+  }
+  shouldBeLeft()
+}
+
+@Deprecated(
+  "shouldNotBeRight is shouldBeLeft",
+  ReplaceWith("shouldBeLeft()", "io.kotest.assertions.arrow.core.shouldBeLeft")
+)
 fun <B> Either<Any?, B>.shouldNotBeRight(): Unit =
   shouldNot(beRight())
 
-@Deprecated("Use shouldBeRight and shoudlBe or shouldNotBe")
+@Deprecated("Use shouldBeRight and shouldBe or shouldNotBe")
 fun <B> beRight(): Matcher<Either<Any?, B>> =
   beInstanceOf2<Either<Any?, B>, Either.Right<B>>()
 
@@ -44,11 +73,11 @@ fun <B> beRight(b: B): Matcher<Either<Any?, B>> =
     }
   }
 
-@Deprecated("Use shouldBeLeft and shoudlBe or shouldNotBe")
+@Deprecated("Use shouldBeLeft and shouldBe or shouldNotBe")
 fun <A> beLeft(): Matcher<Either<A, Any?>> =
   beInstanceOf2<Either<A, Any?>, Either.Left<A>>()
 
-@Deprecated("Use shouldBeLeft and shoudlBe or shouldNotBe")
+@Deprecated("Use shouldBeLeft and shouldBe or shouldNotBe")
 fun <A> beLeft(a: A): Matcher<Either<A, Any?>> =
   object : Matcher<Either<A, Any?>> {
     override fun test(value: Either<A, Any?>): MatcherResult {
@@ -97,7 +126,7 @@ inline infix fun <A> Either<A, *>.shouldBeLeft(fn: (A) -> Unit): Unit =
   )
 )
 infix fun <B> Either<Any?, B>.shouldBeRight(b: B): Unit =
-  shouldBeRight().shouldBe(b)
+  shouldBe(beRight(b))
 
 @Deprecated(
   "Convenience function is deprecated",
@@ -108,17 +137,34 @@ infix fun <B> Either<Any?, B>.shouldBeRight(b: B): Unit =
   )
 )
 infix fun <A> Either<A, Any?>.shouldBeLeft(a: A): Unit =
-  shouldBeLeft().shouldBe(a)
+  shouldBe(beLeft(a))
 
-@Deprecated("shouldNotBeRight can be replaced with shouldBeLeft")
+@Deprecated(
+  "Convenience function is deprecated",
+  ReplaceWith(
+    "shouldBeRight().shouldNotBe(b)",
+    "io.kotest.matchers.shouldNotBe",
+    "io.kotest.assertions.arrow.core.shouldBeRight"
+  )
+)
 infix fun <B> Either<Any?, B>.shouldNotBeRight(b: B): Unit =
   shouldNot(beRight(b))
 
-@Deprecated("shouldNotBeLeft can be replaced with shouldBeRight")
+@Deprecated(
+  "Convenience function is deprecated",
+  ReplaceWith(
+    "shouldBeLeft().shouldNotBe(b)",
+    "io.kotest.matchers.shouldBe",
+    "io.kotest.assertions.arrow.core.shouldBeLeft"
+  )
+)
 infix fun <A> Either<A, Any?>.shouldNotBeLeft(a: A): Unit =
   shouldNot(beLeft(a))
 
-@Deprecated("shouldNotBeLeft can be replaced with shouldBeRight")
+@Deprecated(
+  "shouldNotBeLeft can be replaced with shouldBeRight",
+  ReplaceWith("shouldBeRight()", "io.kotest.assertions.arrow.core.shouldBeRight")
+)
 fun <A> Either<A, Any?>.shouldNotBeLeft(): Unit =
   shouldNot(beLeft())
 

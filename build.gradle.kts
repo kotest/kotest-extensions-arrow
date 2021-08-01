@@ -19,10 +19,10 @@ allprojects {
    dependencies {
       implementation(Libs.Kotest.assertionsShared)
       implementation(Libs.Kotest.assertionsCore)
-      implementation(Libs.Arrow.core)
-      implementation(Libs.Arrow.fx)
+      implementation(Libs.Kotest.property)
+      compileOnly(Libs.Arrow.core)
       testImplementation(Libs.Kotest.junit5)
-      testImplementation(Libs.Kotest.property)
+      testImplementation(Libs.Arrow.core)
    }
 
    tasks.named<Test>("test") {

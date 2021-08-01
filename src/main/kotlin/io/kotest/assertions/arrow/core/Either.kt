@@ -1,12 +1,9 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.Either
-import io.kotest.matchers.Matcher
-import io.kotest.matchers.MatcherResult
-import io.kotest.matchers.should
-import io.kotest.matchers.types.beInstanceOf2
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNot
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.choice
+import io.kotest.property.arbitrary.map
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -31,13 +28,13 @@ import kotlin.contracts.contract
  */
 @OptIn(ExperimentalContracts::class)
 fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expected Either.Right, but found Either.Left with value $it" }): B {
-   contract {
-      returns() implies (this@shouldBeRight is Either.Right<B>)
-   }
-   return when (this) {
-      is Either.Right -> value
-      is Either.Left -> throw AssertionError(failureMessage(value))
-   }
+  contract {
+    returns() implies (this@shouldBeRight is Either.Right<B>)
+  }
+  return when (this) {
+    is Either.Right -> value
+    is Either.Left -> throw AssertionError(failureMessage(value))
+  }
 }
 
 /**
@@ -59,11 +56,17 @@ fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expecte
  */
 @OptIn(ExperimentalContracts::class)
 fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected Either.Left, but found Either.Right with value $it" }): A {
-   contract {
-      returns() implies (this@shouldBeLeft is Either.Left<A>)
-   }
-   return when (this) {
-      is Either.Left -> value
-      is Either.Right -> throw AssertionError(failureMessage(value))
-   }
+  contract {
+    returns() implies (this@shouldBeLeft is Either.Left<A>)
+  }
+  return when (this) {
+    is Either.Left -> value
+    is Either.Right -> throw AssertionError(failureMessage(value))
+  }
+}
+
+fun <E, A> Arb.Companion.either(arbE: Arb<E>, arbA: Arb<A>): Arb<Either<E, A>> {
+  val arbLeft = arbE.map { Either.Left(it) }
+  val arbRight = arbA.map { Either.Right(it) }
+  return Arb.choice(arbLeft, arbRight)
 }
