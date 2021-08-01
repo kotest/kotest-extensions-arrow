@@ -20,7 +20,7 @@ class OptionMatchers : StringSpec({
 
     shouldThrow<AssertionError> {
       Option.fromNullable("boo").shouldBeSome() shouldBe "foo"
-    }.message shouldBe "Option should be Some(foo) but was Some(boo)"
+    }.message shouldBe "expected:<\"foo\"> but was:<\"boo\">"
 
     val some = Option.fromNullable("foo").shouldBeSome()
     some.shouldBe("foo")
@@ -32,14 +32,14 @@ class OptionMatchers : StringSpec({
 
   "Option shouldNotBeSome(value)" {
     val option = Option.fromNullable("foo")
-    option.shouldBeSome() shouldBe "bar"
+    option.shouldBeSome() shouldNotBe "bar"
   }
 
   "Option shouldBe none()" {
 
     shouldThrow<AssertionError> {
       Option.fromNullable("foo").shouldBeNone()
-    }.message shouldBe "Option should be None but was Some(foo)"
+    }.message shouldBe "Expected None, but found Some with value foo"
 
     Option.fromNullable<String>(null).shouldBeNone()
   }
