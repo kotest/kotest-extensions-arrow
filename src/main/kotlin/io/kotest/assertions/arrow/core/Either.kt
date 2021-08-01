@@ -1,6 +1,8 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.Either
+import arrow.core.Either.Left
+import arrow.core.Either.Right
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.map
@@ -65,8 +67,5 @@ fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected
   }
 }
 
-fun <E, A> Arb.Companion.either(arbE: Arb<E>, arbA: Arb<A>): Arb<Either<E, A>> {
-  val arbLeft = arbE.map { Either.Left(it) }
-  val arbRight = arbA.map { Either.Right(it) }
-  return Arb.choice(arbLeft, arbRight)
-}
+fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
+  choice(left.map(::Left), right.map(::Right))

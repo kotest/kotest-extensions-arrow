@@ -8,25 +8,29 @@ import io.kotest.property.Arb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.assertions.arrow.validation.shouldNotBeValid
 import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.string.shouldContain
 import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.string
+import io.kotest.property.checkAll
 import io.kotest.property.forAll
 
 class ValidatedMatchers : StringSpec({
   "Validated shouldBeValid" {
-    shouldThrow<AssertionError> {
-      Invalid("error").shouldBeValid() shouldBe "error"
-    }.message shouldBe "Expected Validated.Valid, but found Invalid with value error"
-
-    Valid("ok").shouldBeValid() shouldBe "ok"
-    shouldThrow<AssertionError> {
-      Valid("ok").shouldBeValid() shouldNotBe "ok"
+    checkAll(
+      Arb.validated(Arb.string(), Arb.int())
+    ) { v ->
+      if (v.isInvalid) {
+        shouldThrow<AssertionError> {
+          v.shouldBeValid()
+        }.message shouldContain "Expected Validated.Valid, but found Invalid with value"
+      } else {
+        v.shouldBeValid() shouldBe v.value
+        shouldThrow<AssertionError> {
+          v.shouldBeValid() shouldNotBe v.value
+        }
+      }
     }
-
-    shouldThrow<AssertionError> {
-      Valid("ok") shouldNotBeValid "ok"
-    }.message shouldBe "Validated.Valid(ok) should not be Valid(ok)"
   }
 
   "Validated uses contracts to smart cast Valid" {
@@ -52,6 +56,5 @@ class ValidatedMatchers : StringSpec({
     shouldThrow<AssertionError> {
       Invalid("error").shouldBeInvalid() shouldNotBe "error"
     }
-    Invalid("error").shouldNotBeValid()
   }
 })

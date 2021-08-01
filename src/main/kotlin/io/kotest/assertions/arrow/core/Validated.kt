@@ -3,6 +3,9 @@ package io.kotest.assertions.arrow.core
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.choice
+import io.kotest.property.arbitrary.map
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -166,3 +169,6 @@ fun <E, A> Validated<E, A>.shouldBeInvalid(
     is Invalid -> value
   }
 }
+
+fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
+  choice(invalid.map(::Invalid), valid.map(::Valid))

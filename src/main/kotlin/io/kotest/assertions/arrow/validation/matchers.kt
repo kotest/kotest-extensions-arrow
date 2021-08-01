@@ -96,17 +96,20 @@ fun Validated<*, *>.shouldBeInvalid(): Unit {
 infix fun <E> Validated<E, *>.shouldBeInvalid(value: E): Unit =
   should(beInvalid(value))
 
+@Deprecated("Use shouldBeInvalid instead")
 infix fun <E> Validated<E, *>.shouldBeInvalid(fn: (Invalid<E>) -> Unit): Unit {
   this.shouldBeInvalid()
   fn(this)
 }
 
+@Deprecated("Use shouldBeInvalid directly")
 fun <E> beInvalid(): Matcher<Validated<E, *>> =
   object : Matcher<Validated<E, *>> {
     override fun test(value: Validated<E, *>): MatcherResult =
       MatcherResult(value is Invalid, "$value should be Invalid", "$value should not be Invalid")
   }
 
+@Deprecated("Use shouldBeInvalid with shouldBe or shouldNotBe directly")
 fun <E> beInvalid(e: E): Matcher<Validated<E, *>> =
   object : Matcher<Validated<E, *>> {
     override fun test(value: Validated<E, *>): MatcherResult =
