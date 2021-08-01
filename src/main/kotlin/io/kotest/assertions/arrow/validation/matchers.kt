@@ -3,6 +3,7 @@ package io.kotest.assertions.arrow.validation
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import io.kotest.assertions.arrow.core.shouldBeValid
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
@@ -10,12 +11,13 @@ import io.kotest.matchers.shouldNot
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
+@Deprecated(
+  "Use shouldBeValid from core",
+  ReplaceWith("shouldBeValid()", "io.kotest.assertions.arrow.core.shouldBeValid")
+)
 @OptIn(ExperimentalContracts::class)
-fun Validated<*, *>.shouldBeValid() {
-  contract {
-    returns() implies (this@shouldBeValid is Valid<*>)
-  }
-  should(beValid())
+fun Validated<*, *>.shouldBeValid(): Unit {
+  shouldBeValid()
 }
 
 fun <A> Validated<*, A>.shouldNotBeValid() =

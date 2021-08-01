@@ -1,17 +1,5 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-buildscript {
-   repositories {
-      mavenCentral()
-      maven {
-         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-      }
-      maven {
-         url = uri("https://plugins.gradle.org/m2/")
-      }
-   }
-}
-
 plugins {
    java
    `java-library`
@@ -34,6 +22,7 @@ allprojects {
       implementation(Libs.Arrow.core)
       implementation(Libs.Arrow.fx)
       testImplementation(Libs.Kotest.junit5)
+      testImplementation(Libs.Kotest.property)
    }
 
    tasks.named<Test>("test") {
@@ -53,7 +42,6 @@ allprojects {
    }
 
    repositories {
-      mavenLocal()
       mavenCentral()
       maven {
          url = uri("https://oss.sonatype.org/content/repositories/snapshots")

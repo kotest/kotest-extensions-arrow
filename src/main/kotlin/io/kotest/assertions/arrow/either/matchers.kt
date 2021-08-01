@@ -88,11 +88,25 @@ inline infix fun <B> Either<*, B>.shouldBeRight(fn: (B) -> Unit): Unit =
 inline infix fun <A> Either<A, *>.shouldBeLeft(fn: (A) -> Unit): Unit =
   fn(shouldBeLeft())
 
-@Deprecated("Convenience function is deprecated", ReplaceWith("shouldBeRight().shouldBe(b)", "io.kotest.matchers.shouldBe", "io.kotest.assertions.arrow.core.shouldBeRight"))
+@Deprecated(
+  "Convenience function is deprecated",
+  ReplaceWith(
+    "shouldBeRight().shouldBe(b)",
+    "io.kotest.matchers.shouldBe",
+    "io.kotest.assertions.arrow.core.shouldBeRight"
+  )
+)
 infix fun <B> Either<Any?, B>.shouldBeRight(b: B): Unit =
   shouldBeRight().shouldBe(b)
 
-@Deprecated("Convenience function is deprecated", ReplaceWith("shouldBeLeft().shouldBe(a)", "io.kotest.matchers.shouldBe", "io.kotest.assertions.arrow.core.shouldBeLeft"))
+@Deprecated(
+  "Convenience function is deprecated",
+  ReplaceWith(
+    "shouldBeLeft().shouldBe(a)",
+    "io.kotest.matchers.shouldBe",
+    "io.kotest.assertions.arrow.core.shouldBeLeft"
+  )
+)
 infix fun <A> Either<A, Any?>.shouldBeLeft(a: A): Unit =
   shouldBeLeft().shouldBe(a)
 

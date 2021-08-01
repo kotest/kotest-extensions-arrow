@@ -4,67 +4,54 @@ import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.invalid
 import arrow.core.valid
-import io.kotest.assertions.arrow.validation.beInvalid
-import io.kotest.assertions.arrow.validation.beValid
-import io.kotest.assertions.arrow.validation.shouldBeInvalid
-import io.kotest.assertions.arrow.validation.shouldBeValid
-import io.kotest.assertions.arrow.validation.shouldNotBeValid
+import io.kotest.property.Arb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.assertions.arrow.validation.shouldNotBeValid
 import io.kotest.matchers.shouldNotBe
+import io.kotest.property.arbitrary.int
+import io.kotest.property.forAll
 
 class ValidatedMatchers : StringSpec({
+  "Validated shouldBeValid" {
+    shouldThrow<AssertionError> {
+      Invalid("error").shouldBeValid() shouldBe "error"
+    }.message shouldBe "Expected Validated.Valid, but found Invalid with value error"
 
-   "Validated shouldBe Valid" {
+    Valid("ok").shouldBeValid() shouldBe "ok"
+    shouldThrow<AssertionError> {
+      Valid("ok").shouldBeValid() shouldNotBe "ok"
+    }
 
-      shouldThrow<AssertionError> {
-         Invalid("error") should beValid()
-      }.message shouldBe "Validated.Invalid(error) should be Valid"
+    shouldThrow<AssertionError> {
+      Valid("ok") shouldNotBeValid "ok"
+    }.message shouldBe "Validated.Valid(ok) should not be Valid(ok)"
+  }
 
-      Valid("ok") should beValid()
-      Valid("ok").shouldBeValid()
-      Valid("ok") shouldBeValid "ok"
-      Valid("ok") shouldBeValid { it.value shouldBe "ok" }
-      shouldThrow<AssertionError> {
-         Valid("ok") shouldBeValid { it.value shouldNotBe "ok" }
-      }
+  "Validated uses contracts to smart cast Valid" {
+    forAll(Arb.int()) {
+      val v = it.valid()
+      v.shouldBeValid() == it
+    }
+  }
 
-      shouldThrow<AssertionError> {
-         Valid("ok") shouldNotBeValid "ok"
-      }.message shouldBe "Validated.Valid(ok) should not be Valid(ok)"
+  "Validated uses contracts to smart cast Invalid" {
+    forAll(Arb.int()) {
+      val v = it.invalid()
+      v.shouldBeInvalid() == it
+    }
+  }
 
-      shouldThrow<AssertionError> {
-         Invalid("error") should beValid("error")
-      }.message shouldBe "Validated.Invalid(error) should be Valid(error)"
-   }
+  "Validated shouldBe Invalid" {
+    shouldThrow<AssertionError> {
+      Valid("foo").shouldBeInvalid()
+    }.message shouldBe "Expected Validated.Invalid, but found Valid with value foo"
 
-   "Validated should use contracts to smart cast Valids" {
-      val e = "boo".valid()
-      e.shouldBeValid()
-      e.value shouldBe "boo"
-   }
-
-   "Validated shouldBe Invalid" {
-
-      shouldThrow<AssertionError> {
-         Valid("foo") should beInvalid()
-      }.message shouldBe "Validated.Valid(foo) should be Invalid"
-
-      Invalid("error") should beInvalid()
-      Invalid("error").shouldBeInvalid()
-      Invalid("error") shouldBeInvalid "error"
-      Invalid("error") shouldBeInvalid { it.value shouldBe "error" }
-      shouldThrow<AssertionError> {
-         Invalid("error") shouldBeInvalid { it.value shouldNotBe "error" }
-      }
-      Invalid("error").shouldNotBeValid()
-   }
-
-   "use contracts to smart cast Invalids" {
-      val e = "boo".invalid()
-      e.shouldBeInvalid()
-      e.value shouldBe "boo"
-   }
+    Invalid("error").shouldBeInvalid() shouldBe "error"
+    shouldThrow<AssertionError> {
+      Invalid("error").shouldBeInvalid() shouldNotBe "error"
+    }
+    Invalid("error").shouldNotBeValid()
+  }
 })
