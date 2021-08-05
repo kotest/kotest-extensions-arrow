@@ -1,14 +1,9 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.validation
 
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.invalid
 import arrow.core.valid
-import io.kotest.assertions.arrow.validation.beInvalid
-import io.kotest.assertions.arrow.validation.beValid
-import io.kotest.assertions.arrow.validation.shouldBeInvalid
-import io.kotest.assertions.arrow.validation.shouldBeValid
-import io.kotest.assertions.arrow.validation.shouldNotBeValid
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.should
@@ -26,7 +21,7 @@ class ValidatedMatchersTest : StringSpec({
       Valid("ok") should beValid()
       Valid("ok").shouldBeValid()
       Valid("ok") shouldBeValid "ok"
-      Valid("ok") shouldBeValid { it.value shouldBe "ok" }
+      Valid("ok").shouldBeValid { it.value shouldBe "ok" }
       shouldThrow<AssertionError> {
          Valid("ok") shouldBeValid { it.value shouldNotBe "ok" }
       }
@@ -59,7 +54,7 @@ class ValidatedMatchersTest : StringSpec({
       shouldThrow<AssertionError> {
          Invalid("error") shouldBeInvalid { it.value shouldNotBe "error" }
       }
-      Invalid("error").shouldNotBeValid()
+     Invalid("error").shouldBeInvalid()
    }
 
    "use contracts to smart cast Invalids" {

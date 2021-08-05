@@ -1,0 +1,65 @@
+package io.kotest.assertions.arrow.core
+
+import arrow.core.None
+import arrow.core.Option
+import arrow.core.Some
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+/**
+ * smart casts to [Some] and fails with [failureMessage] otherwise.
+ * ```kotlin
+ * import arrow.core.Option
+ * import arrow.core.Some
+ * import io.kotest.assertions.arrow.core.shouldBeSome
+ *
+ * fun main() {
+ *   //sampleStart
+ *   val list = listOf("4", "5", "6")
+ *   val option = Option.fromNullable(list.getOrNull(2))
+ *   val element = option.shouldBeSome()
+ *   val smartCasted: Some<String> = option
+ *   //sampleEnd
+ *   println(smartCasted)
+ * }
+ * ```
+ */
+@OptIn(ExperimentalContracts::class)
+fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, but found None" }): A {
+  contract {
+    returns() implies (this@shouldBeSome is Some<A>)
+  }
+  return when (this) {
+    None -> throw AssertionError(failureMessage())
+    is Some -> value
+  }
+}
+
+/**
+ * smart casts to [None] and fails with [failureMessage] otherwise.
+ * ```kotlin
+ * import arrow.core.Option
+ * import arrow.core.None
+ * import io.kotest.assertions.arrow.core.shouldBeNone
+ *
+ * fun main() {
+ *   //sampleStart
+ *   val list = listOf("4", "5", "6")
+ *   val option = Option.fromNullable(list.getOrNull(5))
+ *   val element = option.shouldBeNone()
+ *   val smartCasted: None = option
+ *   //sampleEnd
+ *   println(smartCasted)
+ * }
+ * ```
+ */
+@OptIn(ExperimentalContracts::class)
+fun <A> Option<A>.shouldBeNone(failureMessage: (Some<A>) -> String = { "Expected None, but found Some with value ${it.value}" }): None {
+  contract {
+    returns() implies (this@shouldBeNone is None)
+  }
+  return when (this) {
+    None -> None
+    is Some -> throw AssertionError(failureMessage(this))
+  }
+}

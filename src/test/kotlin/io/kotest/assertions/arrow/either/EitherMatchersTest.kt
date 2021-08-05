@@ -1,14 +1,6 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.either
 
 import arrow.core.Either
-import io.kotest.assertions.arrow.either.beLeft
-import io.kotest.assertions.arrow.either.beRight
-import io.kotest.assertions.arrow.either.shouldBeLeft
-import io.kotest.assertions.arrow.either.shouldBeLeftOfType
-import io.kotest.assertions.arrow.either.shouldBeRight
-import io.kotest.assertions.arrow.either.shouldNotBeLeft
-import io.kotest.assertions.arrow.either.shouldNotBeLeftOfType
-import io.kotest.assertions.arrow.either.shouldNotBeRight
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.should
@@ -20,6 +12,7 @@ class EitherMatchersTest : WordSpec() {
     object Foo : MyError()
     object Boo : MyError()
   }
+  data class Person(val name: String, val location: String)
 
   init {
 
@@ -37,7 +30,6 @@ class EitherMatchersTest : WordSpec() {
 
     "Either should beRight(fn)" should {
       "test that the either is of type right" {
-        data class Person(val name: String, val location: String)
         Either.Right(Person("sam", "chicago")) shouldBeRight {
           it.name shouldBe "sam"
           it.location shouldBe "chicago"
@@ -78,7 +70,6 @@ class EitherMatchersTest : WordSpec() {
 
     "Either should beLeft(fn)" should {
       "test that the either is of type right" {
-        data class Person(val name: String, val location: String)
         Either.Left(Person("sam", "chicago")) shouldBeLeft {
           it.name shouldBe "sam"
           it.location shouldBe "chicago"

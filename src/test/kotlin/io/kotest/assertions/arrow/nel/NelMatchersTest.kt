@@ -1,38 +1,6 @@
-package io.kotest.assertions.arrow
+package io.kotest.assertions.arrow.nel
 
 import arrow.core.NonEmptyList
-import io.kotest.assertions.arrow.nel.beSorted
-import io.kotest.assertions.arrow.nel.contain
-import io.kotest.assertions.arrow.nel.containAll
-import io.kotest.assertions.arrow.nel.containNoNulls
-import io.kotest.assertions.arrow.nel.containNull
-import io.kotest.assertions.arrow.nel.containOnlyNulls
-import io.kotest.assertions.arrow.nel.haveDuplicates
-import io.kotest.assertions.arrow.nel.haveElementAt
-import io.kotest.assertions.arrow.nel.haveSize
-import io.kotest.assertions.arrow.nel.shouldBeSingleElement
-import io.kotest.assertions.arrow.nel.shouldBeSorted
-import io.kotest.assertions.arrow.nel.shouldBeUnique
-import io.kotest.assertions.arrow.nel.shouldContain
-import io.kotest.assertions.arrow.nel.shouldContainAll
-import io.kotest.assertions.arrow.nel.shouldContainElementAt
-import io.kotest.assertions.arrow.nel.shouldContainNoNulls
-import io.kotest.assertions.arrow.nel.shouldContainNull
-import io.kotest.assertions.arrow.nel.shouldContainOnlyNulls
-import io.kotest.assertions.arrow.nel.shouldHaveDuplicates
-import io.kotest.assertions.arrow.nel.shouldHaveSize
-import io.kotest.assertions.arrow.nel.shouldNotBeSingleElement
-import io.kotest.assertions.arrow.nel.shouldNotBeSorted
-import io.kotest.assertions.arrow.nel.shouldNotBeUnique
-import io.kotest.assertions.arrow.nel.shouldNotContain
-import io.kotest.assertions.arrow.nel.shouldNotContainAll
-import io.kotest.assertions.arrow.nel.shouldNotContainElementAt
-import io.kotest.assertions.arrow.nel.shouldNotContainNoNulls
-import io.kotest.assertions.arrow.nel.shouldNotContainNull
-import io.kotest.assertions.arrow.nel.shouldNotContainOnlyNulls
-import io.kotest.assertions.arrow.nel.shouldNotHaveDuplicates
-import io.kotest.assertions.arrow.nel.shouldNotHaveSize
-import io.kotest.assertions.arrow.nel.singleElement
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.should
@@ -42,7 +10,6 @@ import io.kotest.matchers.shouldNot
 class NelMatchersTest : WordSpec() {
 
   init {
-
     "containNull()" should {
       "test that a nel contains at least one null" {
         NonEmptyList(1, listOf(2, null)) should containNull()

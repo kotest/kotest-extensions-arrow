@@ -2,7 +2,7 @@
 *.log
 .idea
 *.iml
-.kotlintest
+**/.kotlintest/
 .gradle
 
 target/
@@ -15,3 +15,4 @@ project/boot/
 project/plugins/project/
 credentials.sbt
 /.idea/
+.DS_Store

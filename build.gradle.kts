@@ -1,25 +1,11 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-buildscript {
-   repositories {
-      jcenter()
-      mavenCentral()
-      maven {
-         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-      }
-      maven {
-         url = uri("https://plugins.gradle.org/m2/")
-      }
-   }
-}
-
 plugins {
    java
    `java-library`
    id("java-library")
    id("maven-publish")
    signing
-   maven
    `maven-publish`
    kotlin("jvm").version(Libs.kotlinVersion)
 }
@@ -33,9 +19,10 @@ allprojects {
    dependencies {
       implementation(Libs.Kotest.assertionsShared)
       implementation(Libs.Kotest.assertionsCore)
-      implementation(Libs.Arrow.core)
-      implementation(Libs.Arrow.fx)
+      implementation(Libs.Kotest.property)
+      compileOnly(Libs.Arrow.core)
       testImplementation(Libs.Kotest.junit5)
+      testImplementation(Libs.Arrow.core)
    }
 
    tasks.named<Test>("test") {
@@ -48,11 +35,13 @@ allprojects {
    }
 
    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-      kotlinOptions.jvmTarget = "1.8"
+      kotlinOptions {
+         jvmTarget = "1.8"
+         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+      }
    }
 
    repositories {
-      mavenLocal()
       mavenCentral()
       maven {
          url = uri("https://oss.sonatype.org/content/repositories/snapshots")
