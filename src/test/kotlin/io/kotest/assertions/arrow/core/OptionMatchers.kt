@@ -36,7 +36,6 @@ class OptionMatchers : StringSpec({
   }
 
   "Option shouldBe none()" {
-
     shouldThrow<AssertionError> {
       Option.fromNullable("foo").shouldBeNone()
     }.message shouldBe "Expected None, but found Some with value foo"

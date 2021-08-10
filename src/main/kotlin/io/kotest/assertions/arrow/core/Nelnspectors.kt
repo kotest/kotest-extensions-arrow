@@ -39,5 +39,5 @@ fun <A> NonEmptyList<A>.forAtMostOne(f: (A) -> Unit): Unit =
 fun <A> NonEmptyList<A>.forAtMost(k: Int, f: (A) -> Unit): Unit =
   all.forAtMost(k, f)
 
-fun <T> NonEmptyList<T>.forNone(f: (T) -> Unit): Unit =
+fun <A> NonEmptyList<A>.forNone(f: (A) -> Unit): Unit =
   all.forNone(f)
