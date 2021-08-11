@@ -41,6 +41,10 @@ allprojects {
       }
    }
 
+   kotlin {
+      explicitApiWarning()
+   }
+
    repositories {
       mavenCentral()
       maven {
