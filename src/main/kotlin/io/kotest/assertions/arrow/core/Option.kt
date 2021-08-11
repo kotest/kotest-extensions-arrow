@@ -3,6 +3,10 @@ package io.kotest.assertions.arrow.core
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import arrow.core.toOption
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.map
+import io.kotest.property.arbitrary.orNull
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -25,7 +29,7 @@ import kotlin.contracts.contract
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, but found None" }): A {
+public fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, but found None" }): A {
   contract {
     returns() implies (this@shouldBeSome is Some<A>)
   }
@@ -54,7 +58,7 @@ fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected Some, 
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <A> Option<A>.shouldBeNone(failureMessage: (Some<A>) -> String = { "Expected None, but found Some with value ${it.value}" }): None {
+public fun <A> Option<A>.shouldBeNone(failureMessage: (Some<A>) -> String = { "Expected None, but found Some with value ${it.value}" }): None {
   contract {
     returns() implies (this@shouldBeNone is None)
   }
@@ -63,3 +67,6 @@ fun <A> Option<A>.shouldBeNone(failureMessage: (Some<A>) -> String = { "Expected
     is Some -> throw AssertionError(failureMessage(this))
   }
 }
+
+public fun <B> Arb.Companion.option(arb: Arb<B>): Arb<Option<B>> =
+  arb.orNull().map { it.toOption() }

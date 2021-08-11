@@ -29,78 +29,77 @@ import io.kotest.property.arbitrary.filter
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
 
-fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): NonEmptyList<A> =
   apply { all.shouldContainOnlyNulls() }
 
-fun <A> NonEmptyList<A>.shouldNotContainOnlyNulls(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldNotContainOnlyNulls(): NonEmptyList<A> =
   apply { all.shouldNotContainOnlyNulls() }
 
-fun <A> NonEmptyList<A>.shouldContainNull(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldContainNull(): NonEmptyList<A> =
   apply { all.shouldContainNull() }
 
-fun <A> NonEmptyList<A>.shouldNotContainNull(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldNotContainNull(): NonEmptyList<A> =
   apply { all.shouldNotContainNull() }
 
-fun <A> NonEmptyList<A>.shouldHaveElementAt(index: Int, element: A): Unit =
+public fun <A> NonEmptyList<A>.shouldHaveElementAt(index: Int, element: A): Unit =
   all.shouldHaveElementAt(index, element)
 
-fun <A> NonEmptyList<A>.shouldNotHaveElementAt(index: Int, element: A): Unit =
+public fun <A> NonEmptyList<A>.shouldNotHaveElementAt(index: Int, element: A): Unit =
   all.shouldNotHaveElementAt(index, element)
 
-fun <A> NonEmptyList<A>.shouldContainNoNulls(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldContainNoNulls(): NonEmptyList<A> =
   apply { all.shouldContainNoNulls() }
 
-fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): NonEmptyList<A> =
   apply { all.shouldNotContainNoNulls() }
 
-infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit =
   all.shouldContain(a)
 
-infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit =
   all.shouldNotContain(a)
 
-fun <A> NonEmptyList<A>.shouldBeUnique(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldBeUnique(): NonEmptyList<A> =
   apply { all.shouldBeUnique() }
 
-fun <A> NonEmptyList<A>.shouldNotBeUnique(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldNotBeUnique(): NonEmptyList<A> =
   apply { all.shouldNotBeUnique() }
 
-fun <A> NonEmptyList<A>.shouldContainDuplicates(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldContainDuplicates(): NonEmptyList<A> =
   apply { all.shouldContainDuplicates() }
 
-fun <A> NonEmptyList<A>.shouldNotContainDuplicates(): NonEmptyList<A> =
+public fun <A> NonEmptyList<A>.shouldNotContainDuplicates(): NonEmptyList<A> =
   apply { all.shouldNotContainDuplicates() }
 
-fun <A> NonEmptyList<A>.shouldContainAll(vararg ts: A): Unit =
+public fun <A> NonEmptyList<A>.shouldContainAll(vararg ts: A): Unit =
   all.shouldContainAll(*ts)
 
-fun <A> NonEmptyList<A>.shouldNotContainAll(vararg ts: A): Unit =
+public fun <A> NonEmptyList<A>.shouldNotContainAll(vararg ts: A): Unit =
   all.shouldNotContainAll(*ts)
 
-infix fun <A> NonEmptyList<A>.shouldContainAll(ts: List<A>): Unit =
+public infix fun <A> NonEmptyList<A>.shouldContainAll(ts: List<A>): Unit =
   all.shouldContainAll(ts)
 
-infix fun <A> NonEmptyList<A>.shouldNotContainAll(ts: List<A>): Unit =
+public infix fun <A> NonEmptyList<A>.shouldNotContainAll(ts: List<A>): Unit =
   all.shouldNotContainAll(ts)
 
-infix fun <A> NonEmptyList<A>.shouldHaveSize(size: Int): NonEmptyList<A> =
+public infix fun <A> NonEmptyList<A>.shouldHaveSize(size: Int): NonEmptyList<A> =
   apply { all.shouldHaveSize(size) }
 
-infix fun <A> NonEmptyList<A>.shouldNotHaveSize(size: Int): NonEmptyList<A> =
+public infix fun <A> NonEmptyList<A>.shouldNotHaveSize(size: Int): NonEmptyList<A> =
   apply { all.shouldNotHaveSize(size) }
 
-infix fun <A> NonEmptyList<A>.shouldHaveSingleElement(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldHaveSingleElement(a: A): Unit =
   all.shouldHaveSingleElement(a)
 
-infix fun <A> NonEmptyList<A>.shouldNotHaveSingleElement(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldNotHaveSingleElement(a: A): Unit =
   all.shouldNotHaveSingleElement(a)
 
-fun <A : Comparable<A>> NonEmptyList<A>.shouldBeSorted(): NonEmptyList<A> =
+public fun <A : Comparable<A>> NonEmptyList<A>.shouldBeSorted(): NonEmptyList<A> =
   apply { all.shouldBeSorted() }
 
-fun <A : Comparable<A>> NonEmptyList<A>.shouldNotBeSorted(): NonEmptyList<A> =
+public fun <A : Comparable<A>> NonEmptyList<A>.shouldNotBeSorted(): NonEmptyList<A> =
   apply { all.shouldNotBeSorted() }
 
-fun <A> Arb.Companion.nonEmptyList(a: Arb<A>): Arb<NonEmptyList<A>> =
+public fun <A> Arb.Companion.nonEmptyList(a: Arb<A>): Arb<NonEmptyList<A>> =
   list(a).filter(List<A>::isNotEmpty).map(::fromListUnsafe)
-

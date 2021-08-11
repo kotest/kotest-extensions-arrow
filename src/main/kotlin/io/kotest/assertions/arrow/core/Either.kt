@@ -29,7 +29,7 @@ import kotlin.contracts.contract
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expected Either.Right, but found Either.Left with value $it" }): B {
+public fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expected Either.Right, but found Either.Left with value $it" }): B {
   contract {
     returns() implies (this@shouldBeRight is Either.Right<B>)
   }
@@ -57,7 +57,7 @@ fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expecte
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected Either.Left, but found Either.Right with value $it" }): A {
+public fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected Either.Left, but found Either.Right with value $it" }): A {
   contract {
     returns() implies (this@shouldBeLeft is Either.Left<A>)
   }
@@ -67,5 +67,5 @@ fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected
   }
 }
 
-fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
+public fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
   choice(left.map(::Left), right.map(::Right))

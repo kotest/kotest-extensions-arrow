@@ -80,7 +80,7 @@ import kotlin.contracts.contract
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <E, A> Validated<E, A>.shouldBeValid(
+public fun <E, A> Validated<E, A>.shouldBeValid(
   failureMessage: (Invalid<E>) -> String = { "Expected Validated.Valid, but found Invalid with value ${it.value}" }
 ): A {
   contract {
@@ -158,7 +158,7 @@ fun <E, A> Validated<E, A>.shouldBeValid(
  * ```
  */
 @OptIn(ExperimentalContracts::class)
-fun <E, A> Validated<E, A>.shouldBeInvalid(
+public fun <E, A> Validated<E, A>.shouldBeInvalid(
   failureMessage: (Valid<A>) -> String = { "Expected Validated.Invalid, but found Valid with value ${it.value}" }
 ): E {
   contract {
@@ -170,5 +170,5 @@ fun <E, A> Validated<E, A>.shouldBeInvalid(
   }
 }
 
-fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
+public fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
   choice(invalid.map(::Invalid), valid.map(::Valid))
