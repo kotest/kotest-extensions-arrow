@@ -17,3 +17,10 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 ### 1.0.2
 * Updated to arrow 0.13.1
 * Updated option to support nullables
+
+### 1.0.3
+* Update to Arrow 0.13.2
+* Added a deprecation cycle for previous descriptors in 1.0.2 in favor of smart-casted variants in `io.kotest.assertions.arrow.core`
+* Reorg existing functions to `io.kotest.assertions.arrow.core`
+* Not leaking the arrow dependency into the runtime of users
+* Added Arb<Either<A, B>, Arb<Validated<E, A>>
