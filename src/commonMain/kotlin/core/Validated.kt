@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package core
 
 import arrow.core.Invalid
 import arrow.core.Valid

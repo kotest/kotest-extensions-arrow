@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package core
 
 import arrow.core.Either
 import arrow.core.Either.Left

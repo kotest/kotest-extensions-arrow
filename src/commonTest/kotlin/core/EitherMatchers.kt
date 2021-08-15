@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package core
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
