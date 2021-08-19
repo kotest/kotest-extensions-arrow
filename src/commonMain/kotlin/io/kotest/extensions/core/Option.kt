@@ -1,4 +1,4 @@
-package core
+package io.kotest.extensions.core
 
 import arrow.core.None
 import arrow.core.Option

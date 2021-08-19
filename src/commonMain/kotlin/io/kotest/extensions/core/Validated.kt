@@ -1,4 +1,4 @@
-package core
+package io.kotest.extensions.core
 
 import arrow.core.Invalid
 import arrow.core.Valid
