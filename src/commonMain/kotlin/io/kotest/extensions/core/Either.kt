@@ -31,11 +31,11 @@ import kotlin.contracts.contract
 @OptIn(ExperimentalContracts::class)
 public fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "Expected Either.Right, but found Either.Left with value $it" }): B {
   contract {
-    returns() implies (this@shouldBeRight is Either.Right<B>)
+    returns() implies (this@shouldBeRight is Right<B>)
   }
   return when (this) {
-    is Either.Right -> value
-    is Either.Left -> throw AssertionError(failureMessage(value))
+    is Right -> value
+    is Left -> throw AssertionError(failureMessage(value))
   }
 }
 
@@ -59,11 +59,11 @@ public fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "
 @OptIn(ExperimentalContracts::class)
 public fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "Expected Either.Left, but found Either.Right with value $it" }): A {
   contract {
-    returns() implies (this@shouldBeLeft is Either.Left<A>)
+    returns() implies (this@shouldBeLeft is Left<A>)
   }
   return when (this) {
-    is Either.Left -> value
-    is Either.Right -> throw AssertionError(failureMessage(value))
+    is Left -> value
+    is Right -> throw AssertionError(failureMessage(value))
   }
 }
 

@@ -20,6 +20,7 @@ import kotlin.contracts.contract
  * import arrow.typeclasses.Semigroup
  * import java.net.MalformedURLException
  * import java.net.URL
+ * import io.kotest.extensions.core.shouldBeValid
  *
  * data class ConnectionParams(val url: URL, val port: Int)
  *
@@ -102,6 +103,7 @@ public fun <E, A> Validated<E, A>.shouldBeValid(
  * import arrow.core.invalid
  * import arrow.core.NonEmptyList
  * import arrow.typeclasses.Semigroup
+ * import io.kotest.extensions.core.shouldBeInvalid
  *
  * data class ConnectionParams(val url: String, val port: Int)
  *

@@ -1,5 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
 repositories {
   mavenCentral()
@@ -28,19 +29,16 @@ kotlin {
 
     jvm {
       withJava()
+      compilerArgs()
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += listOf(
-            "-Xskip-runtime-version-check",
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xextended-compiler-checks"
-          )
           jvmTarget = "1.8"
         }
       }
     }
 
     js(BOTH) {
+      compilerArgs()
       browser {
         testTask {
           useKarma {
@@ -95,5 +93,16 @@ tasks.named<Test>("jvmTest") {
     exceptionFormat = TestExceptionFormat.FULL
   }
 }
+
+fun KotlinTarget.compilerArgs(): Unit =
+  compilations.all {
+    kotlinOptions {
+      freeCompilerArgs += listOf(
+        "-Xskip-runtime-version-check",
+        "-Xopt-in=kotlin.RequiresOptIn",
+        "-Xextended-compiler-checks"
+      )
+    }
+  }
 
 apply("./publish.gradle.kts")
