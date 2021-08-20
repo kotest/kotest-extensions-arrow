@@ -83,3 +83,7 @@ public infix fun <A, B> Either<A, B>.shouldNotBeLeft(a: A): A =
 
 public fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
   choice(left.map(::Left), right.map(::Right))
+
+public fun <A, B> Arb<A>.or(arbB: Arb<B>): Arb<Either<A, B>> =
+  Arb.either(this, arbB)
+

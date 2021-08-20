@@ -62,8 +62,11 @@ kotlin {
         compileOnly(Libs.stdLib)
         compileOnly(Libs.Kotest.assertionsShared)
         compileOnly(Libs.Kotest.assertionsCore)
+        compileOnly(Libs.KotlinX.coroutines)
+        compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
         compileOnly(Libs.Arrow.fx)
+        compileOnly(Libs.Arrow.optics)
       }
     }
 
@@ -73,6 +76,7 @@ kotlin {
         implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
         implementation(Libs.Arrow.fx)
+        implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
       }
     }
