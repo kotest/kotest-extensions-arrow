@@ -4,6 +4,8 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.toOption
+import io.kotest.assertions.arrow.shouldBe
+import io.kotest.assertions.arrow.shouldNotBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.orNull
@@ -38,6 +40,12 @@ public fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected
     is Some -> value
   }
 }
+
+public infix fun <A> Option<A>.shouldBeSome(a: A): A =
+  shouldBeSome().shouldBe(a)
+
+public infix fun <A> Option<A>.shouldNotBeSome(a: A): A =
+  shouldBeSome().shouldNotBe(a)
 
 /**
  * smart casts to [None] and fails with [failureMessage] otherwise.

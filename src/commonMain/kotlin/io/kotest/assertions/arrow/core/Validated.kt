@@ -3,6 +3,8 @@ package io.kotest.assertions.arrow.core
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import io.kotest.assertions.arrow.shouldBe
+import io.kotest.assertions.arrow.shouldNotBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.map
@@ -20,6 +22,7 @@ import kotlin.contracts.contract
  * import arrow.typeclasses.Semigroup
  * import java.net.MalformedURLException
  * import java.net.URL
+ * import io.kotest.assertions.arrow.core.shouldBeValid
  *
  * data class ConnectionParams(val url: URL, val port: Int)
  *
@@ -92,6 +95,12 @@ public fun <E, A> Validated<E, A>.shouldBeValid(
   }
 }
 
+public infix fun <E, A> Validated<E, A>.shouldBeValid(a: A): A =
+  shouldBeValid().shouldBe(a)
+
+public infix fun <E, A> Validated<E, A>.shouldNotBeValid(a: A): A =
+  shouldBeValid().shouldNotBe(a)
+
 /**
  * smart casts to [Validated.Invalid] and fails with [failureMessage] otherwise.
  * ```kotlin
@@ -102,6 +111,7 @@ public fun <E, A> Validated<E, A>.shouldBeValid(
  * import arrow.core.invalid
  * import arrow.core.NonEmptyList
  * import arrow.typeclasses.Semigroup
+ * import io.kotest.assertions.arrow.core.shouldBeInvalid
  *
  * data class ConnectionParams(val url: String, val port: Int)
  *
@@ -169,6 +179,12 @@ public fun <E, A> Validated<E, A>.shouldBeInvalid(
     is Invalid -> value
   }
 }
+
+public infix fun <E, A> Validated<E, A>.shouldBeInvalid(e: E): E =
+  shouldBeInvalid().shouldBe(e)
+
+public infix fun <E, A> Validated<E, A>.shouldNotBeInvalid(e: E): E =
+  shouldBeInvalid().shouldNotBe(e)
 
 public fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
   choice(invalid.map(::Invalid), valid.map(::Valid))

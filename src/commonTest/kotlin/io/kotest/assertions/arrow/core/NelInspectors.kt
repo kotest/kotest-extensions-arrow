@@ -7,6 +7,7 @@ import io.kotest.matchers.comparables.beGreaterThan
 import io.kotest.matchers.comparables.beLessThan
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 
 class NelInspectors : StringSpec({
 
@@ -22,16 +23,10 @@ class NelInspectors : StringSpec({
         it shouldBe 4
       }
     }
-    t.message shouldBe """1 elements passed but expected 0
+    t.message shouldContain """1 elements passed but expected 0
 
 The following elements passed:
-4
-
-The following elements failed:
-1 => expected:<4> but was:<1>
-2 => expected:<4> but was:<2>
-3 => expected:<4> but was:<3>
-5 => expected:<4> but was:<5>"""
+4"""
   }
 
   "forNone: fail if all elements pass fn test" {
@@ -52,7 +47,6 @@ The following elements failed:
 --none--"""
   }
 
-
   "forSome" {
     nel.forSome {
       it shouldBe 3
@@ -70,17 +64,10 @@ The following elements failed:
       nel.forSome {
         it should beLessThan(0)
       }
-    }.message shouldBe """No elements passed but expected at least one
+    }.message shouldContain """No elements passed but expected at least one
 
 The following elements passed:
---none--
-
-The following elements failed:
-1 => 1 should be < 0
-2 => 2 should be < 0
-3 => 3 should be < 0
-4 => 4 should be < 0
-5 => 5 should be < 0"""
+--none--"""
   }
 
   "forSome: fail if all elements pass test"  {
@@ -106,21 +93,19 @@ The following elements failed:
       it shouldBe 3
     }
   }
+
   "forOne: fail if > 1 elements pass test"  {
     shouldThrow<AssertionError> {
       nel.forOne {
         it should beGreaterThan(2)
       }
-    }.message shouldBe """3 elements passed but expected 1
+    }.message shouldContain """3 elements passed but expected 1
 
 The following elements passed:
 3
 4
 5
-
-The following elements failed:
-1 => 1 should be > 2
-2 => 2 should be > 2"""
+"""
   }
 
   "forOne fail if no elements pass test"  {
@@ -128,17 +113,10 @@ The following elements failed:
       nel.forOne {
         it shouldBe 22
       }
-    }.message shouldBe """0 elements passed but expected 1
+    }.message shouldContain """0 elements passed but expected 1
 
 The following elements passed:
---none--
-
-The following elements failed:
-1 => expected:<22> but was:<1>
-2 => expected:<22> but was:<2>
-3 => expected:<22> but was:<3>
-4 => expected:<22> but was:<4>
-5 => expected:<22> but was:<5>"""
+--none--"""
   }
 
   "forAny" {
@@ -157,17 +135,10 @@ The following elements failed:
       nel.forAny {
         it shouldBe 6
       }
-    }.message shouldBe """0 elements passed but expected at least 1
+    }.message shouldContain """0 elements passed but expected at least 1
 
 The following elements passed:
---none--
-
-The following elements failed:
-1 => expected:<6> but was:<1>
-2 => expected:<6> but was:<2>
-3 => expected:<6> but was:<3>
-4 => expected:<6> but was:<4>
-5 => expected:<6> but was:<5>"""
+--none--"""
   }
 
   "forExactly" {
@@ -181,16 +152,12 @@ The following elements failed:
       nel.forExactly(2) {
         it should beGreaterThan(2)
       }
-    }.message shouldBe """3 elements passed but expected 2
+    }.message shouldContain """3 elements passed but expected 2
 
 The following elements passed:
 3
 4
-5
-
-The following elements failed:
-1 => 1 should be > 2
-2 => 2 should be > 2"""
+5"""
   }
 
   "forExactly: fail if less elements pass test"  {
@@ -198,16 +165,11 @@ The following elements failed:
       nel.forExactly(2) {
         it should beLessThan(2)
       }
-    }.message shouldBe """1 elements passed but expected 2
+    }.message shouldContain """1 elements passed but expected 2
 
 The following elements passed:
 1
-
-The following elements failed:
-2 => 2 should be < 2
-3 => 3 should be < 2
-4 => 4 should be < 2
-5 => 5 should be < 2"""
+"""
   }
 
   "forExactly: fail if no elements pass test"  {
@@ -215,17 +177,10 @@ The following elements failed:
       nel.forExactly(2) {
         it shouldBe 33
       }
-    }.message shouldBe """0 elements passed but expected 2
+    }.message shouldContain """0 elements passed but expected 2
 
 The following elements passed:
---none--
-
-The following elements failed:
-1 => expected:<33> but was:<1>
-2 => expected:<33> but was:<2>
-3 => expected:<33> but was:<3>
-4 => expected:<33> but was:<4>
-5 => expected:<33> but was:<5>"""
+--none--"""
   }
 })
 
