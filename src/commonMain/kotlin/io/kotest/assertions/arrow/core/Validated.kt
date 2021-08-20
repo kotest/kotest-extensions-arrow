@@ -3,6 +3,9 @@ package io.kotest.assertions.arrow.core
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import arrow.core.ValidatedNel
+import arrow.core.invalidNel
+import arrow.core.validNel
 import io.kotest.assertions.arrow.shouldBe
 import io.kotest.assertions.arrow.shouldNotBe
 import io.kotest.property.Arb
@@ -188,3 +191,6 @@ public infix fun <E, A> Validated<E, A>.shouldNotBeInvalid(e: E): E =
 
 public fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
   choice(invalid.map(::Invalid), valid.map(::Valid))
+
+public fun <E, A> Arb.Companion.validatedNel(invalidNel: Arb<E>, valid: Arb<A>): Arb<ValidatedNel<E, A>> =
+  choice(invalidNel.map { it.invalidNel() }, valid.map { r -> r.validNel() })

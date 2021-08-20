@@ -66,6 +66,7 @@ kotlin {
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
         compileOnly(Libs.Arrow.fx)
+        compileOnly(Libs.Arrow.optics)
       }
     }
 
