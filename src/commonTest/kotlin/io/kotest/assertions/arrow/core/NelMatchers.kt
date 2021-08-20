@@ -1,4 +1,4 @@
-package io.kotest.extensions.arrow.core
+package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
 import io.kotest.assertions.throwables.shouldThrow

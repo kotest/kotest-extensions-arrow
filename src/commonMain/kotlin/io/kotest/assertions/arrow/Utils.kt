@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package io.kotest.extensions.arrow
+package io.kotest.assertions.arrow
 
 import io.kotest.assertions.assertionCounter
 import io.kotest.assertions.collectOrThrow
@@ -21,11 +21,11 @@ internal infix fun <A> A.shouldBe(a: A): A =
     }
   }
 
-internal infix fun <A> A.shouldNotBe(any: Any?): A =
-  when (any) {
-    is Matcher<*> -> invokeMatcher(this, (any as Matcher<A>).invert())
+internal infix fun <A> A.shouldNotBe(a: A?): A =
+  when (a) {
+    is Matcher<*> -> invokeMatcher(this, (a as Matcher<A>).invert())
     else -> {
-      invokeMatcher(this, equalityMatcher(any).invert())
+      invokeMatcher(this, equalityMatcher(a).invert())
       this
     }
   }
