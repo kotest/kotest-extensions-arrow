@@ -1,4 +1,4 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import arrow.core.NonEmptyList
 import arrow.core.NonEmptyList.Companion.fromListUnsafe

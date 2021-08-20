@@ -1,8 +1,9 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import arrow.core.Invalid
 import arrow.core.Valid
 import arrow.core.Validated
+import io.kotest.extensions.arrow.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.map
@@ -93,6 +94,9 @@ public fun <E, A> Validated<E, A>.shouldBeValid(
   }
 }
 
+public infix fun <E, A> Validated<E, A>.shouldBeValid(a: A): A =
+  shouldBeValid().shouldBe(a)
+
 /**
  * smart casts to [Validated.Invalid] and fails with [failureMessage] otherwise.
  * ```kotlin
@@ -171,6 +175,9 @@ public fun <E, A> Validated<E, A>.shouldBeInvalid(
     is Invalid -> value
   }
 }
+
+public infix fun <E, A> Validated<E, A>.shouldBeInvalid(e: E): E =
+  shouldBeInvalid().shouldBe(e)
 
 public fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<Validated<E, A>> =
   choice(invalid.map(::Invalid), valid.map(::Valid))

@@ -1,15 +1,19 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import arrow.core.Option
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.checkAll
 
 class OptionMatchers : StringSpec({
-  "Option.shouldBeSome()"  {
-    val o = Option("foo").shouldBeSome()
-    o shouldBe "foo"
+  "Option.shouldBeSome"  {
+    checkAll(Arb.int()) { i ->
+      Option(i) shouldBeSome i
+    }
   }
 
   "Option shouldBe some(value)"  {

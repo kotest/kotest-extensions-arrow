@@ -1,5 +1,7 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
+import arrow.core.Either
+import io.kotest.core.datatest.forAll
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -11,6 +13,18 @@ class EitherMatchers : StringSpec({
   "shouldBeRight shouldBeLeft" {
     checkAll(Arb.either(Arb.string(), Arb.int())) {
       if (it.isRight()) it.shouldBeRight() shouldBe it.value else it.shouldBeLeft() shouldBe it.value
+    }
+  }
+
+  "shouldBeRight"{
+    checkAll(Arb.int()) { i ->
+      Either.Right(i) shouldBeRight i
+    }
+  }
+
+  "shouldBeLeft"{
+    checkAll(Arb.int()) { i ->
+      Either.Left(i) shouldBeLeft i
     }
   }
 })

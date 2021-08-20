@@ -1,4 +1,4 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import io.kotest.property.Arb
 import io.kotest.assertions.throwables.shouldThrow

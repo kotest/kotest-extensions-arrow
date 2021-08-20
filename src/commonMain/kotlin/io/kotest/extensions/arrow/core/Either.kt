@@ -1,8 +1,9 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
+import io.kotest.extensions.arrow.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.map
@@ -39,6 +40,9 @@ public fun <A, B> Either<A, B>.shouldBeRight(failureMessage: (A) -> String = { "
   }
 }
 
+public infix fun <A, B> Either<A, B>.shouldBeRight(b: B): B =
+  shouldBeRight().shouldBe(b)
+
 /**
  * smart casts to [Either.Left] and fails with [failureMessage] otherwise.
  * ```kotlin
@@ -66,6 +70,9 @@ public fun <A, B> Either<A, B>.shouldBeLeft(failureMessage: (B) -> String = { "E
     is Right -> throw AssertionError(failureMessage(value))
   }
 }
+
+public infix fun <A, B> Either<A, B>.shouldBeLeft(a: A): A =
+  shouldBeLeft().shouldBe(a)
 
 public fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
   choice(left.map(::Left), right.map(::Right))

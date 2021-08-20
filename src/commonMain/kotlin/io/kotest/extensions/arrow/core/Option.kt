@@ -1,9 +1,10 @@
-package io.kotest.extensions.core
+package io.kotest.extensions.arrow.core
 
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.toOption
+import io.kotest.extensions.arrow.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.orNull
@@ -38,6 +39,10 @@ public fun <A> Option<A>.shouldBeSome(failureMessage: () -> String = { "Expected
     is Some -> value
   }
 }
+
+public infix fun <A> Option<A>.shouldBeSome(a: A): A =
+  shouldBeSome().shouldBe(a)
+
 
 /**
  * smart casts to [None] and fails with [failureMessage] otherwise.
