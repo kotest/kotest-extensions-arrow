@@ -1,6 +1,6 @@
 # kotest-assertions-arrow
 
-Kotest assertions for the functional programming library [Arrow](https://arrow-kt.io/).
+Kotest extensions for [Arrow](https://arrow-kt.io/).
 
 See [docs](https://kotest.io/docs/assertions/arrow.html).
 
