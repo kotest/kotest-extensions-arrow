@@ -11,11 +11,9 @@ repositories {
 
 plugins {
   java
-  `java-library`
   id("java-library")
   id("maven-publish")
   signing
-  `maven-publish`
   kotlin("multiplatform").version(Libs.kotlinVersion)
 }
 
