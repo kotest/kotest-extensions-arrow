@@ -53,21 +53,21 @@ kotlin {
       }
     }
 
-    linuxX64()
-
-    mingwX64()
-
-    macosX64()
-    tvos()
-
-    watchosArm32()
-    watchosArm64()
-    watchosX86()
-    watchosX64()
-
-    iosX64()
-    iosArm64()
-    iosArm32()
+//    linuxX64()
+//
+//    mingwX64()
+//
+//    macosX64()
+//    tvos()
+//
+//    watchosArm32()
+//    watchosArm64()
+//    watchosX86()
+//    watchosX64()
+//
+//    iosX64()
+//    iosArm64()
+//    iosArm32()
   }
 
   sourceSets {
@@ -95,53 +95,53 @@ kotlin {
       }
     }
 
-    val desktopMain by creating {
-      dependsOn(commonMain)
-    }
-
-    val macosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val mingwX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val linuxX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosArm64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosArm32Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosArm32Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosArm64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosX86Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val tvosMain by getting {
-      dependsOn(desktopMain)
-    }
+//    val desktopMain by creating {
+//      dependsOn(commonMain)
+//    }
+//
+//    val macosX64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val mingwX64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val linuxX64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val iosX64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val iosArm64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val iosArm32Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val watchosArm32Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val watchosArm64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val watchosX86Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val watchosX64Main by getting {
+//      dependsOn(desktopMain)
+//    }
+//
+//    val tvosMain by getting {
+//      dependsOn(desktopMain)
+//    }
   }
 }
 
