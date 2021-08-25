@@ -56,14 +56,14 @@ publishing {
     register("mavenJava", MavenPublication::class) {
       from(components["java"])
       pom {
-        name.set("kotest-assertions-arrow")
-        description.set("Kotest assertions for arrow")
-        url.set("http://www.github.com/kotest/kotest-assertions-arrow")
+        name.set("kotest-extensions-arrow")
+        description.set("Kotest extensions for arrow")
+        url.set("http://www.github.com/kotest/kotest-extensions-arrow")
 
         scm {
-          connection.set("scm:git:http://www.github.com/kotest/kotest-assertions-arrow")
+          connection.set("scm:git:http://www.github.com/kotest/kotest-extensions-arrow")
           developerConnection.set("scm:git:http://github.com/sksamuel")
-          url.set("http://www.github.com/kotest/kotest-assertions-arrow")
+          url.set("http://www.github.com/kotest/kotest-extensions-arrow")
         }
 
         licenses {
