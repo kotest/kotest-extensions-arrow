@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
 repositories {
@@ -151,12 +149,11 @@ tasks.named<Test>("jvmTest") {
   testLogging {
     showExceptions = true
     showStandardStreams = true
-    exceptionFormat = TestExceptionFormat.FULL
     events = setOf(
-      TestLogEvent.FAILED,
-      TestLogEvent.PASSED
+      org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+      org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
     )
-    exceptionFormat = TestExceptionFormat.FULL
+    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
   }
 }
 
@@ -171,4 +168,4 @@ fun KotlinTarget.compilerArgs(): Unit =
     }
   }
 
-apply("./publish.gradle.kts")
+apply("./publish-mpp.gradle.kts")
