@@ -2,7 +2,7 @@ object Libs {
 
   const val kotlinVersion = "1.5.21"
   const val org = "io.kotest.extensions"
-
+  const val dokkaVersion = "0.10.1"
   const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
 
   object KotlinX {

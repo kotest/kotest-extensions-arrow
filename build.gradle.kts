@@ -13,6 +13,7 @@ plugins {
   id("maven-publish")
   signing
   kotlin("multiplatform").version(Libs.kotlinVersion)
+  id("org.jetbrains.dokka") version Libs.dokkaVersion
 }
 
 group = Libs.org
@@ -51,12 +52,13 @@ kotlin {
       }
     }
 
-//    linuxX64()
-//
-//    mingwX64()
-//
-//    macosX64()
-//    tvos()
+    linuxX64()
+
+    mingwX64()
+
+    macosX64()
+
+    //    tvos()
 //
 //    watchosArm32()
 //    watchosArm64()
