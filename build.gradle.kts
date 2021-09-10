@@ -34,7 +34,7 @@ kotlin {
       }
     }
 
-    js(BOTH) {
+    js(IR) {
       compilerArgs()
       browser {
         testTask {
@@ -79,8 +79,8 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
-       // compileOnly(Libs.Arrow.fx)
-       // compileOnly(Libs.Arrow.optics)
+        compileOnly(Libs.Arrow.fx)
+        compileOnly(Libs.Arrow.optics)
       }
     }
 
