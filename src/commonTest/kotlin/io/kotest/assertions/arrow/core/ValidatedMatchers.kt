@@ -5,6 +5,7 @@ import arrow.core.Validated.Valid
 import io.kotest.property.Arb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.filter
@@ -29,13 +30,19 @@ class ValidatedMatchers : StringSpec({
 
   "shouldBeValid" {
     checkAll(Arb.int()) { v ->
-      Valid(v) shouldBeValid v
+      val valid = Valid(v)
+      valid shouldBeValid v
+      // smart cast test
+      valid.value shouldBe v
     }
   }
 
   "shouldBeInvalid" {
     checkAll(Arb.int()) { v ->
-      Validated.Invalid(v) shouldBeInvalid v
+      val invalid = Validated.Invalid(v)
+      invalid shouldBeInvalid v
+      // smart cast test
+      invalid.value shouldBe v
     }
   }
 
