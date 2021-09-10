@@ -14,6 +14,7 @@ plugins {
   signing
   kotlin("multiplatform").version(Libs.kotlinVersion)
   id("org.jetbrains.dokka") version Libs.dokkaVersion
+  id("io.kotest.multiplatform") version "5.0.0.5"
 }
 
 group = Libs.org
@@ -52,11 +53,11 @@ kotlin {
       }
     }
 
-   // linuxX64()
+    linuxX64()
 
-  //  mingwX64()
+    //mingwX64()
 
-  //  macosX64()
+    macosX64()
 
     //    tvos()
 //
@@ -89,28 +90,35 @@ kotlin {
       dependencies {
         implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
-       // implementation(Libs.Arrow.fx)
+        implementation(Libs.Arrow.fx)
         implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
       }
     }
 
-//    val desktopMain by creating {
-//      dependsOn(commonMain)
-//    }
-//
-//    val macosX64Main by getting {
-//      dependsOn(desktopMain)
-//    }
-//
+    val jvmTest by getting {
+      dependsOn(commonTest)
+      dependencies {
+        implementation(Libs.Kotest.junit5)
+      }
+    }
+
+    val desktopMain by creating {
+      dependsOn(commonMain)
+    }
+
+    val macosX64Main by getting {
+      dependsOn(desktopMain)
+    }
+
 //    val mingwX64Main by getting {
 //      dependsOn(desktopMain)
 //    }
-//
-//    val linuxX64Main by getting {
-//      dependsOn(desktopMain)
-//    }
-//
+
+    val linuxX64Main by getting {
+      dependsOn(desktopMain)
+    }
+
 //    val iosX64Main by getting {
 //      dependsOn(desktopMain)
 //    }

@@ -1,17 +1,17 @@
 object Libs {
 
-  const val kotlinVersion = "1.5.21"
+  const val kotlinVersion = "1.5.30"
   const val org = "io.kotest.extensions"
   const val dokkaVersion = "0.10.1"
   const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
 
   object KotlinX {
-    private const val version = "1.5.1"
+    private const val version = "1.5.2"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
   }
 
   object Kotest {
-    private const val version = "4.6.1"
+    private const val version = "5.0.0.M1"
     const val assertionsShared = "io.kotest:kotest-assertions-shared:$version"
     const val assertionsCore = "io.kotest:kotest-assertions-core:$version"
     const val property = "io.kotest:kotest-property:$version"
