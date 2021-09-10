@@ -52,11 +52,11 @@ kotlin {
       }
     }
 
-    linuxX64()
+   // linuxX64()
 
-    mingwX64()
+  //  mingwX64()
 
-    macosX64()
+  //  macosX64()
 
     //    tvos()
 //
@@ -79,8 +79,8 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
-        compileOnly(Libs.Arrow.fx)
-        compileOnly(Libs.Arrow.optics)
+       // compileOnly(Libs.Arrow.fx)
+       // compileOnly(Libs.Arrow.optics)
       }
     }
 
@@ -89,7 +89,7 @@ kotlin {
       dependencies {
         implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
-        implementation(Libs.Arrow.fx)
+       // implementation(Libs.Arrow.fx)
         implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
       }
