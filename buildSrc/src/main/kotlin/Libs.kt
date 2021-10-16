@@ -16,6 +16,7 @@ object Libs {
     const val assertionsCore = "io.kotest:kotest-assertions-core:$version"
     const val property = "io.kotest:kotest-property:$version"
     const val api = "io.kotest:kotest-framework-api:$version"
+    const val junit5Runner = "io.kotest:kotest-runner-junit5:$version"
     const val engine = "io.kotest:kotest-framework-engine:$version"
     const val junit5 = "io.kotest:kotest-runner-junit5-jvm:$version"
   }
@@ -23,7 +24,7 @@ object Libs {
   object Arrow {
     private const val version = "1.0.0"
     const val core = "io.arrow-kt:arrow-core:$version"
-    const val fx = "io.arrow-kt:arrow-fx-coroutines:$version"
-    const val optics = "io.arrow-kt:arrow-optics:$version"
+    const val fx = "io.arrow-kt:arrow-fx-coroutines-jvm:$version"
+    const val optics = "io.arrow-kt:arrow-optics-jvm:$version"
   }
 }

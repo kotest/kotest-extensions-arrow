@@ -2,6 +2,18 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
+buildscript {
+
+  repositories {
+    maven {
+      url = uri("https://plugins.gradle.org/m2/")
+    }
+  }
+  dependencies {
+    classpath("ru.vyarus:gradle-animalsniffer-plugin:1.5.3")
+  }
+}
+
 repositories {
   mavenCentral()
   maven {
@@ -10,7 +22,6 @@ repositories {
 }
 
 plugins {
-  java
   `java-library`
   id("java-library")
   id("maven-publish")
@@ -18,6 +29,8 @@ plugins {
   `maven-publish`
   kotlin("multiplatform").version(Libs.kotlinVersion)
 }
+
+apply(plugin = "ru.vyarus.animalsniffer")
 
 group = Libs.org
 version = Ci.version
@@ -28,29 +41,9 @@ kotlin {
   targets {
 
     jvm {
-      withJava()
-      compilerArgs()
       compilations.all {
         kotlinOptions {
           jvmTarget = "1.8"
-        }
-      }
-    }
-
-    js(BOTH) {
-      compilerArgs()
-      browser {
-        testTask {
-          useKarma {
-            useChromeHeadless()
-          }
-        }
-      }
-      nodejs {
-        testTask {
-          useMocha {
-            timeout = "600000"
-          }
         }
       }
     }
@@ -65,19 +58,27 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
+        implementation("org.codehaus.mojo:animal-sniffer-annotations:1.19")
+      }
+    }
+
+    val jvmMain by getting {
+      dependsOn(commonMain)
+      dependencies {
         compileOnly(Libs.Arrow.fx)
         compileOnly(Libs.Arrow.optics)
       }
     }
 
-    val commonTest by getting {
-      dependsOn(commonMain)
+    val jvmTest by getting {
+      dependsOn(jvmMain)
       dependencies {
         implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
         implementation(Libs.Arrow.fx)
         implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
+        implementation(Libs.Kotest.junit5Runner)
       }
     }
   }
