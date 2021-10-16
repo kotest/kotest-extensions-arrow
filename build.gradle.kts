@@ -10,15 +10,15 @@ repositories {
 }
 
 plugins {
-  `java-library`
+  java
   id("java-library")
   id("maven-publish")
   signing
-  `maven-publish`
   kotlin("multiplatform").version(Libs.kotlinVersion)
+  id("org.jetbrains.dokka") version Libs.dokkaVersion
+  id("io.kotest.multiplatform") version "5.0.0.5"
   id("ru.vyarus.animalsniffer").version("1.5.3")
 }
-
 
 group = Libs.org
 version = Ci.version
@@ -32,6 +32,24 @@ kotlin {
       compilations.all {
         kotlinOptions {
           jvmTarget = "1.8"
+        }
+      }
+    }
+
+    js(BOTH) {
+      compilerArgs()
+      browser {
+        testTask {
+          useKarma {
+            useChromeHeadless()
+          }
+        }
+      }
+      nodejs {
+        testTask {
+          useMocha {
+            timeout = "600000"
+          }
         }
       }
     }
@@ -77,7 +95,6 @@ tasks.named<Test>("jvmTest") {
   testLogging {
     showExceptions = true
     showStandardStreams = true
-    exceptionFormat = TestExceptionFormat.FULL
     events = setOf(
       TestLogEvent.FAILED,
       TestLogEvent.PASSED
@@ -97,4 +114,4 @@ fun KotlinTarget.compilerArgs(): Unit =
     }
   }
 
-apply("./publish.gradle.kts")
+apply("./publish-mpp.gradle.kts")
