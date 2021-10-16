@@ -1,12 +1,12 @@
 object Libs {
 
-  const val kotlinVersion = "1.5.21"
+  const val kotlinVersion = "1.5.31"
   const val org = "io.kotest.extensions"
 
   const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
 
   object KotlinX {
-    private const val version = "1.5.1"
+    private const val version = "1.5.2"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
   }
 
@@ -21,7 +21,7 @@ object Libs {
   }
 
   object Arrow {
-    private const val version = "1.0.0-SNAPSHOT"
+    private const val version = "1.0.0"
     const val core = "io.arrow-kt:arrow-core:$version"
     const val fx = "io.arrow-kt:arrow-fx-coroutines:$version"
     const val optics = "io.arrow-kt:arrow-optics:$version"

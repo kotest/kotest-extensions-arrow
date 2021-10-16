@@ -43,7 +43,7 @@ publishing {
     maven {
       val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
       val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-      name = "deploy"
+      //name = "deploy"
       url = if (Ci.isRelease) releasesRepoUrl else snapshotsRepoUrl
       credentials {
         username = java.lang.System.getenv("OSSRH_USERNAME") ?: ""
