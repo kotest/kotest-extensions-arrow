@@ -2,18 +2,6 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
-buildscript {
-
-  repositories {
-    maven {
-      url = uri("https://plugins.gradle.org/m2/")
-    }
-  }
-  dependencies {
-    classpath("ru.vyarus:gradle-animalsniffer-plugin:1.5.3")
-  }
-}
-
 repositories {
   mavenCentral()
   maven {
@@ -28,9 +16,9 @@ plugins {
   signing
   `maven-publish`
   kotlin("multiplatform").version(Libs.kotlinVersion)
+  id("ru.vyarus.animalsniffer").version("1.5.3")
 }
 
-apply(plugin = "ru.vyarus.animalsniffer")
 
 group = Libs.org
 version = Ci.version
@@ -58,7 +46,6 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
-        implementation("org.codehaus.mojo:animal-sniffer-annotations:1.19")
       }
     }
 
