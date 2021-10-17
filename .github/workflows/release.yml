@@ -32,4 +32,4 @@ jobs:
                ref: ${{ github.event.inputs.branch }}
 
          -  name: deploy to sonatype
-            run: ./gradlew publish
+            run: ./gradlew publishAllPublicationsToDeployRepository
