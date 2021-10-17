@@ -71,6 +71,7 @@ kotlin {
       dependsOn(jvmMain)
       dependencies {
         implementation(Libs.Kotest.junit5)
+        implementation(Libs.Arrow.core)
       }
     }
   }

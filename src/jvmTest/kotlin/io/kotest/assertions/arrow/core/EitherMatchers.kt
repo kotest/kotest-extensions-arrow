@@ -38,7 +38,7 @@ class EitherMatchers : StringSpec({
     }
   }
 
-  "shouldNotBeRight" {
+  "shouldNotBeLeft" {
     checkAll(
       Arb.bind(Arb.int(), Arb.int(), ::Pair)
         .filter { (a, b) -> a != b }
