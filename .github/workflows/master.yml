@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew check --scan
 
       - name: publish snapshots
-        run: ./gradlew publishAllPublicationsToDeployRepository
+        run: ./gradlew publish
 
       - name: Bundle the build report
         if: failure()
