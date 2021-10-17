@@ -16,7 +16,7 @@ import kotlin.contracts.contract
  * ```kotlin
  * import arrow.core.Either.Right
  * import arrow.core.Either
- * import io.kotest.assertions.arrow.core.shouldBeRight
+ * import shouldBeRight
  *
  * fun main() {
  *   //sampleStart
@@ -52,7 +52,7 @@ public infix fun <A, B> Either<A, B>.shouldNotBeRight(b: B): B =
  * ```kotlin
  * import arrow.core.Either.Left
  * import arrow.core.Either
- * import io.kotest.assertions.arrow.core.shouldBeLeft
+ * import shouldBeLeft
  *
  * fun main() {
  *   //sampleStart

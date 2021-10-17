@@ -35,47 +35,7 @@ kotlin {
       }
     }
   }
-
-  sourceSets {
-    val commonMain by getting {
-      dependencies {
-        compileOnly(Libs.stdLib)
-        compileOnly(Libs.Kotest.assertionsShared)
-        compileOnly(Libs.Kotest.assertionsCore)
-        compileOnly(Libs.KotlinX.coroutines)
-        compileOnly(Libs.Kotest.api)
-        compileOnly(Libs.Kotest.property)
-      }
-    }
-
-    val jvmMain by getting {
-      dependsOn(commonMain)
-      dependencies {
-        compileOnly(Libs.Arrow.core)
-      }
-    }
-
-    val commonTest by getting {
-      dependsOn(commonMain)
-      dependencies {
-        implementation(Libs.KotlinX.coroutines)
-        implementation(Libs.Kotest.engine)
-        implementation(Libs.Kotest.api)
-        implementation(Libs.Kotest.property)
-      }
-    }
-
-    val jvmTest by getting {
-      dependsOn(commonTest)
-      dependsOn(jvmMain)
-      dependencies {
-        implementation(Libs.Kotest.junit5)
-        implementation(Libs.Arrow.core)
-      }
-    }
-  }
 }
-
 
 tasks.named<Test>("jvmTest") {
   useJUnitPlatform()
@@ -93,7 +53,7 @@ tasks.named<Test>("jvmTest") {
 fun KotlinTarget.compilerArgs(): Unit =
   compilations.all {
     kotlinOptions {
-      freeCompilerArgs += listOf(
+      freeCompilerArgs = freeCompilerArgs + listOf(
         "-Xskip-runtime-version-check",
         "-Xopt-in=kotlin.RequiresOptIn",
         "-Xextended-compiler-checks"

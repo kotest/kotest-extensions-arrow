@@ -17,7 +17,7 @@ import kotlin.contracts.contract
  * ```kotlin
  * import arrow.core.Option
  * import arrow.core.Some
- * import io.kotest.assertions.arrow.core.shouldBeSome
+ * import shouldBeSome
  *
  * fun main() {
  *   //sampleStart
@@ -52,7 +52,7 @@ public infix fun <A> Option<A>.shouldNotBeSome(a: A): A =
  * ```kotlin
  * import arrow.core.Option
  * import arrow.core.None
- * import io.kotest.assertions.arrow.core.shouldBeNone
+ * import shouldBeNone
  *
  * fun main() {
  *   //sampleStart
