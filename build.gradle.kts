@@ -27,7 +27,6 @@ kotlin {
   explicitApi()
 
   targets {
-
     jvm {
       compilations.all {
         kotlinOptions {
@@ -101,5 +100,9 @@ fun KotlinTarget.compilerArgs(): Unit =
       )
     }
   }
+
+animalsniffer {
+  ignore = listOf("java.lang.*")
+}
 
 apply("./publish-mpp.gradle.kts")
