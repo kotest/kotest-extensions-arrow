@@ -35,24 +35,6 @@ kotlin {
         }
       }
     }
-
-    js(BOTH) {
-      compilerArgs()
-      browser {
-        testTask {
-          useKarma {
-            useChromeHeadless()
-          }
-        }
-      }
-      nodejs {
-        testTask {
-          useMocha {
-            timeout = "600000"
-          }
-        }
-      }
-    }
   }
 
   sourceSets {
@@ -70,20 +52,25 @@ kotlin {
     val jvmMain by getting {
       dependsOn(commonMain)
       dependencies {
-        compileOnly(Libs.Arrow.fx)
-        compileOnly(Libs.Arrow.optics)
+        compileOnly(Libs.Arrow.core)
+      }
+    }
+
+    val commonTest by getting {
+      dependsOn(commonMain)
+      dependencies {
+        implementation(Libs.KotlinX.coroutines)
+        implementation(Libs.Kotest.engine)
+        implementation(Libs.Kotest.api)
+        implementation(Libs.Kotest.property)
       }
     }
 
     val jvmTest by getting {
+      dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation(Libs.KotlinX.coroutines)
-        implementation(Libs.Kotest.engine)
-        implementation(Libs.Arrow.fx)
-        implementation(Libs.Kotest.api)
-        implementation(Libs.Kotest.property)
-        implementation(Libs.Kotest.junit5Runner)
+        implementation(Libs.Kotest.junit5)
       }
     }
   }
