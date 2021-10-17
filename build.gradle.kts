@@ -20,9 +20,6 @@ plugins {
   id("ru.vyarus.animalsniffer").version("1.5.3")
 }
 
-group = Libs.org
-version = Ci.version
-
 kotlin {
   explicitApi()
 
@@ -37,32 +34,39 @@ kotlin {
   }
 }
 
-tasks.named<Test>("jvmTest") {
-  useJUnitPlatform()
-  testLogging {
-    showExceptions = true
-    showStandardStreams = true
-    events = setOf(
-      TestLogEvent.FAILED,
-      TestLogEvent.PASSED
-    )
-    exceptionFormat = TestExceptionFormat.FULL
-  }
-}
+allprojects {
 
-fun KotlinTarget.compilerArgs(): Unit =
-  compilations.all {
-    kotlinOptions {
-      freeCompilerArgs = freeCompilerArgs + listOf(
-        "-Xskip-runtime-version-check",
-        "-Xopt-in=kotlin.RequiresOptIn",
-        "-Xextended-compiler-checks"
+  group = Libs.org
+  version = Ci.version
+
+
+  tasks.named<Test>("jvmTest") {
+    useJUnitPlatform()
+    testLogging {
+      showExceptions = true
+      showStandardStreams = true
+      events = setOf(
+        TestLogEvent.FAILED,
+        TestLogEvent.PASSED
       )
+      exceptionFormat = TestExceptionFormat.FULL
     }
   }
 
-animalsniffer {
-  ignore = listOf("java.lang.*")
+  fun KotlinTarget.compilerArgs(): Unit =
+    compilations.all {
+      kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + listOf(
+          "-Xskip-runtime-version-check",
+          "-Xopt-in=kotlin.RequiresOptIn",
+          "-Xextended-compiler-checks"
+        )
+      }
+    }
+
+  animalsniffer {
+    ignore = listOf("java.lang.*")
+  }
 }
 
 apply("./publish-mpp.gradle.kts")
