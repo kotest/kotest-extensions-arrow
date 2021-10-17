@@ -1,6 +1,6 @@
 object Libs {
 
-  const val kotlinVersion = "1.5.30"
+  const val kotlinVersion = "1.5.31"
   const val org = "io.kotest.extensions"
   const val dokkaVersion = "0.10.1"
   const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
@@ -23,7 +23,7 @@ object Libs {
   object Arrow {
     private const val version = "1.0.0"
     const val core = "io.arrow-kt:arrow-core:$version"
-    const val fx = "io.arrow-kt:arrow-fx-coroutines:$version"
-    const val optics = "io.arrow-kt:arrow-optics:$version"
+    const val fx = "io.arrow-kt:arrow-fx-coroutines-jvm:$version"
+    const val optics = "io.arrow-kt:arrow-optics-jvm:$version"
   }
 }

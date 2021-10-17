@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
 repositories {
@@ -15,6 +17,7 @@ plugins {
   kotlin("multiplatform").version(Libs.kotlinVersion)
   id("org.jetbrains.dokka") version Libs.dokkaVersion
   id("io.kotest.multiplatform") version "5.0.0.5"
+  id("ru.vyarus.animalsniffer").version("1.5.3")
 }
 
 group = Libs.org
@@ -24,51 +27,13 @@ kotlin {
   explicitApi()
 
   targets {
-
     jvm {
-      withJava()
-      compilerArgs()
       compilations.all {
         kotlinOptions {
           jvmTarget = "1.8"
         }
       }
     }
-
-    js(IR) {
-      compilerArgs()
-      browser {
-        testTask {
-          useKarma {
-            useChromeHeadless()
-          }
-        }
-      }
-      nodejs {
-        testTask {
-          useMocha {
-            timeout = "600000"
-          }
-        }
-      }
-    }
-
-    linuxX64()
-
-    mingwX64()
-
-    macosX64()
-
-    tvos()
-
-    watchosArm32()
-    watchosArm64()
-    watchosX86()
-    watchosX64()
-
-    iosX64()
-    iosArm64()
-    iosArm32()
   }
 
   sourceSets {
@@ -80,8 +45,13 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
-        compileOnly(Libs.Arrow.fx)
-        compileOnly(Libs.Arrow.optics)
+      }
+    }
+
+    val jvmMain by getting {
+      dependsOn(commonMain)
+      dependencies {
+        compileOnly(Libs.Arrow.core)
       }
     }
 
@@ -90,7 +60,6 @@ kotlin {
       dependencies {
         implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
-        implementation(Libs.Arrow.fx)
         implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
       }
@@ -98,57 +67,11 @@ kotlin {
 
     val jvmTest by getting {
       dependsOn(commonTest)
+      dependsOn(jvmMain)
       dependencies {
         implementation(Libs.Kotest.junit5)
+        implementation(Libs.Arrow.core)
       }
-    }
-
-    val desktopMain by creating {
-      dependsOn(commonMain)
-    }
-
-    val macosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val mingwX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val linuxX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosArm64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val iosArm32Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosArm32Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosArm64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosX86Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val watchosX64Main by getting {
-      dependsOn(desktopMain)
-    }
-
-    val tvosMain by getting {
-      dependsOn(desktopMain)
     }
   }
 }
@@ -160,10 +83,10 @@ tasks.named<Test>("jvmTest") {
     showExceptions = true
     showStandardStreams = true
     events = setOf(
-      org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
+      TestLogEvent.FAILED,
+      TestLogEvent.PASSED
     )
-    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    exceptionFormat = TestExceptionFormat.FULL
   }
 }
 
@@ -177,5 +100,9 @@ fun KotlinTarget.compilerArgs(): Unit =
       )
     }
   }
+
+animalsniffer {
+  ignore = listOf("java.lang.*")
+}
 
 apply("./publish-mpp.gradle.kts")

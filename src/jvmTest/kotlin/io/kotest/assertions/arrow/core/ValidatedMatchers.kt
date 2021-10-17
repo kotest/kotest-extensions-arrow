@@ -55,7 +55,7 @@ class ValidatedMatchers : StringSpec({
     }
   }
 
-  "shouldNotBeValid"{
+  "shouldNotBeInvalid"{
     checkAll(
       Arb.bind(Arb.int(), Arb.int(), ::Pair)
         .filter { (a, b) -> a != b }
