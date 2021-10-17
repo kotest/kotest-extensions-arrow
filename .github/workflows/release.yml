@@ -1,15 +1,15 @@
 name: release
 
 on:
-   workflow_dispatch:
-      inputs:
-         version:
-            description: "The release version"
-            required: true
-         branch:
-            description: "The branch to release from"
-            required: true
-            default: 'master'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The release version"
+        required: true
+      branch:
+        description: "The branch to release from"
+        required: true
+        default: 'master'
 
 
 env:
@@ -21,15 +21,20 @@ env:
   ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
 jobs:
-   publish:
-      runs-on: ubuntu-latest
+  publish:
+    runs-on: ubuntu-latest
 
-      steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v2
-            with:
-               fetch-depth: 0
-               ref: ${{ github.event.inputs.branch }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.branch }}
 
-         -  name: deploy to sonatype
-            run: ./gradlew publish
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+
+      - name: deploy to sonatype
+        run: ./gradlew publish
