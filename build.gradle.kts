@@ -1,6 +1,5 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
 repositories {
   mavenCentral()
@@ -28,6 +27,11 @@ kotlin {
       compilations.all {
         kotlinOptions {
           jvmTarget = "1.8"
+          freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xskip-runtime-version-check",
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xextended-compiler-checks"
+          )
         }
       }
     }
@@ -35,38 +39,25 @@ kotlin {
 }
 
 allprojects {
-
   group = Libs.org
   version = Ci.version
+}
 
-
-  tasks.named<Test>("jvmTest") {
-    useJUnitPlatform()
-    testLogging {
-      showExceptions = true
-      showStandardStreams = true
-      events = setOf(
-        TestLogEvent.FAILED,
-        TestLogEvent.PASSED
-      )
-      exceptionFormat = TestExceptionFormat.FULL
-    }
+tasks.named<Test>("jvmTest") {
+  useJUnitPlatform()
+  testLogging {
+    showExceptions = true
+    showStandardStreams = true
+    events = setOf(
+      TestLogEvent.FAILED,
+      TestLogEvent.PASSED
+    )
+    exceptionFormat = TestExceptionFormat.FULL
   }
+}
 
-  fun KotlinTarget.compilerArgs(): Unit =
-    compilations.all {
-      kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + listOf(
-          "-Xskip-runtime-version-check",
-          "-Xopt-in=kotlin.RequiresOptIn",
-          "-Xextended-compiler-checks"
-        )
-      }
-    }
-
-  animalsniffer {
-    ignore = listOf("java.lang.*")
-  }
+animalsniffer {
+  ignore = listOf("java.lang.*")
 }
 
 apply("./publish-mpp.gradle.kts")
