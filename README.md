@@ -1,6 +1,6 @@
-# kotest-assertions-arrow
+# kotest-extensions-arrow
 
-Kotest assertions for [Arrow](https://arrow-kt.io/).
+Kotest extension for [Arrow](https://arrow-kt.io/).
 
 See [docs](https://kotest.io/docs/assertions/arrow.html).
 
