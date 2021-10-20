@@ -1,3 +1,5 @@
+rootProject.name = "kotest-extension-arrow"
+
 pluginManagement {
    repositories {
       mavenCentral()
@@ -5,5 +7,4 @@ pluginManagement {
    }
 }
 
-include("kotest-assertions-arrow")
-include("kotest-property-arrow")
+include("kotest-assertions-arrow-core", "kotest-property-arrow-core")
