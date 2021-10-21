@@ -44,22 +44,20 @@ public fun beSome(): Matcher<Option<*>> =
   }
 
 @Deprecated(
-  "Can be simplified",
+  "Use shouldBeSome from core",
   ReplaceWith(
-    "shouldBeSome().shouldBe(a)",
-    "io.kotest.assertions.arrow.core.shouldBeSome",
-    "io.kotest.matchers.shouldBe"
+    "shouldBeSome(a)",
+    "io.kotest.assertions.arrow.core.shouldBeSome"
   )
 )
 public infix fun <A> Option<A>.shouldBeSome(a: A): Unit =
   should(beSome(a))
 
 @Deprecated(
-  "Use shouldBeSome and shouldNotBe instead",
+  "Use shouldNotBeSome from core instead",
   ReplaceWith(
-    "shouldBeSome().shouldBe(a)",
-    "io.kotest.assertions.arrow.core.shouldBeSome",
-    "io.kotest.matchers.shouldNotBe"
+    "shouldNotBeSome(a)",
+    "io.kotest.assertions.arrow.core.shouldNotBeSome"
   )
 )
 public infix fun <A> Option<A>.shouldNotBeSome(a: A): Unit =

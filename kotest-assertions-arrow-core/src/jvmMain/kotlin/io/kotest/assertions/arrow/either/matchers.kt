@@ -118,10 +118,9 @@ public inline infix fun <A> Either<A, *>.shouldBeLeft(fn: (A) -> Unit): Unit =
   fn(shouldBeLeft())
 
 @Deprecated(
-  "Convenience function is deprecated",
+  "Use shouldBeRight from core",
   ReplaceWith(
-    "shouldBeRight().shouldBe(b)",
-    "io.kotest.matchers.shouldBe",
+    "shouldBeRight(b)",
     "io.kotest.assertions.arrow.core.shouldBeRight"
   )
 )
@@ -129,10 +128,9 @@ public infix fun <B> Either<Any?, B>.shouldBeRight(b: B): Unit =
   shouldBe(beRight(b))
 
 @Deprecated(
-  "Convenience function is deprecated",
+  "Use shouldBeLeft from core",
   ReplaceWith(
-    "shouldBeLeft().shouldBe(a)",
-    "io.kotest.matchers.shouldBe",
+    "shouldBeLeft(a)",
     "io.kotest.assertions.arrow.core.shouldBeLeft"
   )
 )
@@ -140,30 +138,28 @@ public infix fun <A> Either<A, Any?>.shouldBeLeft(a: A): Unit =
   shouldBe(beLeft(a))
 
 @Deprecated(
-  "Convenience function is deprecated",
+  "Use core package",
   ReplaceWith(
-    "shouldBeRight().shouldNotBe(b)",
-    "io.kotest.matchers.shouldNotBe",
-    "io.kotest.assertions.arrow.core.shouldBeRight"
+    "shouldNotBeRight(b)",
+    "io.kotest.assertions.arrow.core.shouldNotBeRight"
   )
 )
 public infix fun <B> Either<Any?, B>.shouldNotBeRight(b: B): Unit =
   shouldNot(beRight(b))
 
 @Deprecated(
-  "Convenience function is deprecated",
+  "Use core package",
   ReplaceWith(
-    "shouldBeLeft().shouldNotBe(b)",
-    "io.kotest.matchers.shouldBe",
-    "io.kotest.assertions.arrow.core.shouldBeLeft"
+    "shouldNotBeLeft(b)",
+    "io.kotest.assertions.arrow.core.shouldNotBeLeft"
   )
 )
 public infix fun <A> Either<A, Any?>.shouldNotBeLeft(a: A): Unit =
   shouldNot(beLeft(a))
 
 @Deprecated(
-  "shouldNotBeLeft can be replaced with shouldBeRight",
-  ReplaceWith("shouldBeRight()", "io.kotest.assertions.arrow.core.shouldBeRight")
+  "Use shouldNotBeLeft from core",
+  ReplaceWith("shouldNotBeLeft()", "io.kotest.assertions.arrow.core.shouldNotBeLeft")
 )
 public fun <A> Either<A, Any?>.shouldNotBeLeft(): Unit =
   shouldNot(beLeft())

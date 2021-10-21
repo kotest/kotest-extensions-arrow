@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package io.kotest.property.arrow.core
 
 import arrow.core.Tuple10
 import arrow.core.Tuple11

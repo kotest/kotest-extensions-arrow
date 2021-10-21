@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package io.kotest.property.arrow.core
 
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.map
