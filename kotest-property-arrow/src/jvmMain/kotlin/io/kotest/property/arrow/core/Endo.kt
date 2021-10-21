@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.core
+package io.kotest.property.arrow.core
 
 import arrow.core.Endo
 import io.kotest.property.Arb

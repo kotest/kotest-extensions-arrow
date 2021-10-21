@@ -24,10 +24,6 @@ import io.kotest.matchers.collections.shouldNotContainNull
 import io.kotest.matchers.collections.shouldNotContainOnlyNulls
 import io.kotest.matchers.collections.shouldNotHaveElementAt
 import io.kotest.matchers.collections.shouldNotHaveSingleElement
-import io.kotest.property.Arb
-import io.kotest.property.arbitrary.filter
-import io.kotest.property.arbitrary.list
-import io.kotest.property.arbitrary.map
 
 public fun <A> NonEmptyList<A>.shouldContainOnlyNulls(): NonEmptyList<A> =
   apply { all.shouldContainOnlyNulls() }
@@ -101,5 +97,3 @@ public fun <A : Comparable<A>> NonEmptyList<A>.shouldBeSorted(): NonEmptyList<A>
 public fun <A : Comparable<A>> NonEmptyList<A>.shouldNotBeSorted(): NonEmptyList<A> =
   apply { all.shouldNotBeSorted() }
 
-public fun <A> Arb.Companion.nonEmptyList(a: Arb<A>): Arb<NonEmptyList<A>> =
-  list(a).filter(List<A>::isNotEmpty).map(::fromListUnsafe)

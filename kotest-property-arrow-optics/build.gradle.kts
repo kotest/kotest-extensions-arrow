@@ -23,13 +23,14 @@ kotlin {
         compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
         compileOnly(Libs.Kotest.property)
+        api(project(Libs.Kotest.propertyArrowCore))
       }
     }
 
     val jvmMain by getting {
       dependsOn(commonMain)
       dependencies {
-        compileOnly(Libs.Arrow.core)
+        compileOnly(Libs.Arrow.optics)
       }
     }
 
@@ -48,7 +49,7 @@ kotlin {
       dependsOn(jvmMain)
       dependencies {
         implementation(Libs.Kotest.junit5)
-        implementation(Libs.Arrow.core)
+        implementation(Libs.Arrow.optics)
         implementation(project(Libs.Kotest.assertionsArrowCore))
       }
     }

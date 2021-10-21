@@ -1,4 +1,4 @@
-package io.kotest.assertions.arrow.laws
+package io.kotest.property.arrow.laws
 
 import io.kotest.assertions.fail
 import io.kotest.core.names.TestName

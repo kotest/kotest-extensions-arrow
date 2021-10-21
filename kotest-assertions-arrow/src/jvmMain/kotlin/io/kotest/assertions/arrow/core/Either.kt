@@ -5,9 +5,6 @@ import arrow.core.Either.Left
 import arrow.core.Either.Right
 import io.kotest.assertions.arrow.shouldBe
 import io.kotest.assertions.arrow.shouldNotBe
-import io.kotest.property.Arb
-import io.kotest.property.arbitrary.choice
-import io.kotest.property.arbitrary.map
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -81,9 +78,4 @@ public infix fun <A, B> Either<A, B>.shouldBeLeft(a: A): A =
 public infix fun <A, B> Either<A, B>.shouldNotBeLeft(a: A): A =
   shouldBeLeft().shouldNotBe(a)
 
-public fun <A, B> Arb.Companion.either(left: Arb<A>, right: Arb<B>): Arb<Either<A, B>> =
-  choice(left.map(::Left), right.map(::Right))
-
-public fun <A, B> Arb<A>.or(arbB: Arb<B>): Arb<Either<A, B>> =
-  Arb.either(this, arbB)
 

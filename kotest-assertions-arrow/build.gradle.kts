@@ -1,14 +1,8 @@
-plugins {
-  id("java")
-  kotlin("multiplatform")
-  id("java-library")
-}
-
-repositories {
-  mavenCentral()
-}
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 kotlin {
+  explicitApi()
 
   targets {
     jvm {
@@ -26,9 +20,7 @@ kotlin {
         compileOnly(Libs.stdLib)
         compileOnly(Libs.Kotest.assertionsShared)
         compileOnly(Libs.Kotest.assertionsCore)
-        compileOnly(Libs.KotlinX.coroutines)
         compileOnly(Libs.Kotest.api)
-        compileOnly(Libs.Kotest.property)
       }
     }
 
@@ -42,7 +34,6 @@ kotlin {
     val commonTest by getting {
       dependsOn(commonMain)
       dependencies {
-        implementation(Libs.KotlinX.coroutines)
         implementation(Libs.Kotest.engine)
         implementation(Libs.Kotest.api)
         implementation(Libs.Kotest.property)
@@ -60,25 +51,19 @@ kotlin {
   }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-  kotlinOptions.jvmTarget = "1.8"
-  kotlinOptions.apiVersion = "1.5"
-}
-
 tasks.named<Test>("jvmTest") {
   useJUnitPlatform()
-  filter {
-    isFailOnNoMatchingTests = false
-  }
   testLogging {
     showExceptions = true
+    showStandardStreams = true
     events = setOf(
-      org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-      org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+      TestLogEvent.FAILED,
+      TestLogEvent.PASSED
     )
-    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    exceptionFormat = TestExceptionFormat.FULL
   }
 }
 
-apply(from = "../publish-mpp.gradle.kts")
+animalsniffer {
+  ignore = listOf("java.lang.*")
+}
