@@ -49,7 +49,7 @@ kotlin {
       dependsOn(jvmMain)
       dependencies {
         implementation(Libs.Kotest.junit5)
-        implementation(Libs.Arrow.core)
+        implementation(Libs.Arrow.optics)
         implementation(project(Libs.Kotest.assertionsArrowCore))
       }
     }
