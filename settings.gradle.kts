@@ -1,4 +1,4 @@
-rootProject.name = "kotest-extension-arrow"
+rootProject.name = "kotest-extensions-arrow"
 
 pluginManagement {
    repositories {
