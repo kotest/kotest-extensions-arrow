@@ -7,4 +7,4 @@ pluginManagement {
    }
 }
 
-include("kotest-assertions-arrow-core", "kotest-property-arrow-core")
+include("kotest-assertions-arrow", "kotest-property-arrow", "kotest-property-arrow-optics")
