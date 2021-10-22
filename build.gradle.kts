@@ -25,11 +25,14 @@ allprojects {
     maven {
       url = uri("https://oss.sonatype.org/content/repositories/snapshots")
     }
+    gradlePluginPortal()
   }
 
   apply(plugin = "ru.vyarus.animalsniffer")
+  // apply(plugin = "java")
+  // apply(plugin = "java-library")
   apply(plugin = "io.kotest.multiplatform")
-  apply("${project.rootDir}/publish-mpp.gradle.kts")
+  apply("$rootDir/publish-mpp.gradle.kts")
   apply(plugin = "maven-publish")
 
   tasks.withType<KotlinCompile>().configureEach {
