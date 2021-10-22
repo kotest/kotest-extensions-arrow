@@ -9,6 +9,8 @@ repositories {
 
 plugins {
   id("maven-publish")
+  java
+  `java-library`
   signing
   kotlin("multiplatform").version(Libs.kotlinVersion) apply false
   id("org.jetbrains.dokka") version Libs.dokkaVersion
@@ -29,8 +31,8 @@ allprojects {
   }
 
   apply(plugin = "ru.vyarus.animalsniffer")
-  // apply(plugin = "java")
-  // apply(plugin = "java-library")
+  apply(plugin = "java")
+  apply(plugin = "java-library")
   apply(plugin = "io.kotest.multiplatform")
   apply("$rootDir/publish-mpp.gradle.kts")
   apply(plugin = "maven-publish")
