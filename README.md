@@ -15,7 +15,7 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 ## Changelog
 
 ### 1.1.0
-* Update to Arrow 1.1.0
+* Update to Arrow 1.0.0
 * fix Java 1.8 compatibility [#2437](https://github.com/kotest/kotest/issues/2437)
 * Added `kotest-property-arrow` and `kotest-property-arrow-optics` for property-based testing with Arrow
 * includes deprecation cycle of 1.0.3
