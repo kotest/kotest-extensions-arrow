@@ -72,3 +72,5 @@ tasks.named<Test>("jvmTest") {
 animalsniffer {
   ignore = listOf("java.lang.*")
 }
+
+apply(from = "../publish-mpp.gradle.kts")

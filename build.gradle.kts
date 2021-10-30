@@ -8,11 +8,11 @@ repositories {
 }
 
 plugins {
-  id("maven-publish")
   java
-  `java-library`
-  signing
   kotlin("multiplatform").version(Libs.kotlinVersion) apply false
+  `java-library`
+  id("maven-publish")
+  signing
   id("org.jetbrains.dokka") version Libs.dokkaVersion
   id("io.kotest.multiplatform") version "5.0.0.5"
   id("ru.vyarus.animalsniffer") version "1.5.3"
@@ -34,7 +34,6 @@ allprojects {
   apply(plugin = "java")
   apply(plugin = "java-library")
   apply(plugin = "io.kotest.multiplatform")
-  apply("$rootDir/publish-mpp.gradle.kts")
   apply(plugin = "maven-publish")
 
   tasks.withType<KotlinCompile>().configureEach {
@@ -45,4 +44,12 @@ allprojects {
 
 subprojects {
   apply(plugin = "org.jetbrains.kotlin.multiplatform")
+}
+
+val publications: PublicationContainer = (extensions.getByName("publishing") as PublishingExtension).publications
+
+signing {
+  useGpgCmd()
+  if (Ci.isRelease)
+    sign(publications)
 }
