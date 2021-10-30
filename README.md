@@ -14,6 +14,9 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.1.1
+* removes deprecated members in `kotest-assertions-arrow`
+
 ### 1.1.0
 * Update to Arrow 1.0.0
 * fix Java 1.8 compatibility [#2437](https://github.com/kotest/kotest/issues/2437)
