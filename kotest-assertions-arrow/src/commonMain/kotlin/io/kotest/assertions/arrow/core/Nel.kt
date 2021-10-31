@@ -1,7 +1,6 @@
 package io.kotest.assertions.arrow.core
 
 import arrow.core.NonEmptyList
-import arrow.core.NonEmptyList.Companion.fromListUnsafe
 import io.kotest.matchers.collections.shouldBeSorted
 import io.kotest.matchers.collections.shouldNotBeSorted
 import io.kotest.matchers.collections.shouldBeUnique

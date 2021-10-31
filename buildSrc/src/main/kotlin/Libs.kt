@@ -11,7 +11,7 @@ object Libs {
   }
 
   object Kotest {
-    private const val version = "5.0.0.M2"
+    private const val version = "5.0.0.M3"
     const val assertionsShared = "io.kotest:kotest-assertions-shared:$version"
     const val assertionsCore = "io.kotest:kotest-assertions-core:$version"
     const val assertionsArrowCore = ":kotest-assertions-arrow"
@@ -23,9 +23,9 @@ object Libs {
   }
 
   object Arrow {
-    private const val version = "1.0.0"
+    private const val version = "1.0.1"
     const val core = "io.arrow-kt:arrow-core:$version"
-    const val fx = "io.arrow-kt:arrow-fx-coroutines-jvm:$version"
-    const val optics = "io.arrow-kt:arrow-optics-jvm:$version"
+    const val fx = "io.arrow-kt:arrow-fx-coroutines:$version"
+    const val optics = "io.arrow-kt:arrow-optics:$version"
   }
 }
