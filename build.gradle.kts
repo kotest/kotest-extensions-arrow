@@ -9,17 +9,17 @@ repositories {
 
 plugins {
   java
-  kotlin("multiplatform").version(Libs.kotlinVersion) apply false
+  kotlin("multiplatform").version("1.5.31") apply false
   `java-library`
   id("maven-publish")
   signing
-  id("org.jetbrains.dokka") version Libs.dokkaVersion
+  id("org.jetbrains.dokka") version "0.10.1"
   id("io.kotest.multiplatform") version "5.0.0.5"
   id("ru.vyarus.animalsniffer") version "1.5.3"
 }
 
 allprojects {
-  group = Libs.org
+  group = "io.kotest.extensions"
   version = Ci.version
 
   repositories {

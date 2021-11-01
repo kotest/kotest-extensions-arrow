@@ -151,21 +151,11 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        compileOnly(Libs.stdLib)
-        compileOnly(Libs.Kotest.assertionsShared)
-        compileOnly(Libs.Kotest.assertionsCore)
-        compileOnly(Libs.Kotest.api)
-        compileOnly(Libs.Arrow.core)
-      }
-    }
-
-    val commonTest by getting {
-      dependsOn(commonMain)
-      dependencies {
-        implementation(Libs.Kotest.engine)
-        implementation(Libs.Kotest.api)
-        implementation(Libs.Kotest.property)
-        implementation(Libs.Arrow.core)
+        compileOnly("org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31")
+        compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
+        compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
+        compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
+        compileOnly("io.arrow-kt:arrow-core:1.0.0")
       }
     }
 
@@ -173,11 +163,20 @@ kotlin {
       dependsOn(commonMain)
     }
 
+    val commonTest by getting {
+      dependsOn(commonMain)
+      dependencies {
+        implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
+        implementation("io.kotest:kotest-framework-api:5.0.0.M3")
+        implementation("io.kotest:kotest-property:5.0.0.M3")
+      }
+    }
+
     val jvmTest by getting {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation(Libs.Kotest.junit5)
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0.M3")
       }
     }
 
@@ -208,14 +207,7 @@ kotlin {
     val watchosX86Main by getting
 
     create("nativeMain") {
-      dependencies {
-        implementation(Libs.stdLib)
-        implementation(Libs.Kotest.assertionsShared)
-        implementation(Libs.Kotest.assertionsCore)
-        implementation(Libs.Kotest.api)
-        implementation(Libs.Arrow.core)
-      }
-
+      dependsOn(commonMain)
       mingwX64Main.dependsOn(this)
       linuxX64Main.dependsOn(this)
       iosArm32Main.dependsOn(this)
