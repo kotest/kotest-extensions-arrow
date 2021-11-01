@@ -17,30 +17,30 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        compileOnly(Libs.stdLib)
-        compileOnly(Libs.Kotest.assertionsShared)
-        compileOnly(Libs.Kotest.assertionsCore)
-        compileOnly(Libs.KotlinX.coroutines)
-        compileOnly(Libs.Kotest.api)
-        compileOnly(Libs.Kotest.property)
-        api(project(Libs.Kotest.propertyArrowCore))
+        compileOnly("org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31")
+        compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
+        compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
+        compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+        compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
+        compileOnly("io.kotest:kotest-property:5.0.0.M3")
+        api(project(propertyArrowCore))
       }
     }
 
     val jvmMain by getting {
       dependsOn(commonMain)
       dependencies {
-        compileOnly(Libs.Arrow.optics)
+        compileOnly("io.arrow-kt:arrow-optics-jvm:1.0.0")
       }
     }
 
     val commonTest by getting {
       dependsOn(commonMain)
       dependencies {
-        implementation(Libs.KotlinX.coroutines)
-        implementation(Libs.Kotest.engine)
-        implementation(Libs.Kotest.api)
-        implementation(Libs.Kotest.property)
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+        implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
+        implementation("io.kotest:kotest-framework-api:5.0.0.M3")
+        implementation("io.kotest:kotest-property:5.0.0.M3")
       }
     }
 
@@ -48,9 +48,9 @@ kotlin {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation(Libs.Kotest.junit5)
-        implementation(Libs.Arrow.optics)
-        implementation(project(Libs.Kotest.assertionsArrowCore))
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0.M3")
+        implementation("io.arrow-kt:arrow-optics-jvm:1.0.0")
+        implementation(project(assertionsArrowCore))
       }
     }
   }
