@@ -29,7 +29,7 @@ kotlin {
     val jvmMain by getting {
       dependsOn(commonMain)
       dependencies {
-        compileOnly("io.arrow-kt:arrow-core:1.0.0")
+        compileOnly("io.arrow-kt:arrow-core:1.0.1")
       }
     }
 
