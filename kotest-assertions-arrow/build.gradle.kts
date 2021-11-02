@@ -19,7 +19,7 @@ kotlin {
       dependencies {
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31")
         compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
-        compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
+        compileOnly("io.kotest:kotest-assertions-core:5.0.0.690-SNAPSHOT")
         compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
       }
     }
