@@ -27,14 +27,14 @@ kotlin {
     val jvmMain by getting {
       dependsOn(commonMain)
       dependencies {
-        compileOnly("io.arrow-kt:arrow-core:1.0.0")
+        compileOnly("io.arrow-kt:arrow-core:1.0.1")
       }
     }
 
     val commonTest by getting {
       dependsOn(commonMain)
       dependencies {
-        implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
+        implementation("io.kotest:kotest-framework-engine:5.0.0.688-SNAPSHOT")
         implementation("io.kotest:kotest-framework-api:5.0.0.M3")
         implementation("io.kotest:kotest-property:5.0.0.M3")
       }
