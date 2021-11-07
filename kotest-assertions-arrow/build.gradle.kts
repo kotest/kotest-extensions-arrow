@@ -20,7 +20,7 @@ kotlin {
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31")
         compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
         compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
-        compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
+        compileOnly("io.kotest:kotest-framework-api:5.0.0.696-SNAPSHOT")
       }
     }
 
@@ -35,7 +35,7 @@ kotlin {
       dependsOn(commonMain)
       dependencies {
         implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
-        implementation("io.kotest:kotest-framework-api:5.0.0.M3")
+        implementation("io.kotest:kotest-framework-api:5.0.0.696-SNAPSHOT")
         implementation("io.kotest:kotest-property:5.0.0.M3")
       }
     }
