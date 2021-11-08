@@ -48,7 +48,7 @@ kotlin {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0.M3")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0.698-SNAPSHOT")
         implementation("io.arrow-kt:arrow-optics-jvm:1.0.1")
         implementation(project(assertionsArrowCore))
       }
