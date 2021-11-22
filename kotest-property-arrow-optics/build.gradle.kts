@@ -21,7 +21,7 @@ kotlin {
         compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
         compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
         compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
-        compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
+        compileOnly("io.kotest:kotest-framework-api:5.0.0.794-SNAPSHOT")
         compileOnly("io.kotest:kotest-property:5.0.0.M3")
         api(project(propertyArrowCore))
       }
