@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 package io.kotest.assertions.arrow
 
 import io.kotest.matchers.shouldBe as coreShouldBe
