@@ -168,6 +168,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-api:5.0.0")
         implementation("io.kotest:kotest-property:5.0.0")
         implementation("io.arrow-kt:arrow-core:1.0.1")
+        implementation(project(assertionsArrowCore))
       }
     }
 
@@ -180,7 +181,6 @@ kotlin {
       dependsOn(jvmMain)
       dependencies {
         implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0")
-        implementation(project(assertionsArrowCore))
       }
     }
 
