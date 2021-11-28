@@ -48,11 +48,13 @@ public fun <A> NonEmptyList<A>.shouldContainNoNulls(): NonEmptyList<A> =
 public fun <A> NonEmptyList<A>.shouldNotContainNoNulls(): NonEmptyList<A> =
   apply { all.shouldNotContainNoNulls() }
 
-public infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldContain(a: A): Unit {
   all.shouldContain(a)
+}
 
-public infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit =
+public infix fun <A> NonEmptyList<A>.shouldNotContain(a: A): Unit {
   all.shouldNotContain(a)
+}
 
 public fun <A> NonEmptyList<A>.shouldBeUnique(): NonEmptyList<A> =
   apply { all.shouldBeUnique() }
