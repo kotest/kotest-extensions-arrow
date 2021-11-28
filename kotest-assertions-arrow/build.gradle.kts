@@ -152,9 +152,9 @@ kotlin {
     val commonMain by getting {
       dependencies {
         compileOnly("org.jetbrains.kotlin:kotlin-stdlib-common:1.6.0")
-        compileOnly("io.kotest:kotest-assertions-shared:5.0.0.M3")
-        compileOnly("io.kotest:kotest-assertions-core:5.0.0.M3")
-        compileOnly("io.kotest:kotest-framework-api:5.0.0.M3")
+        compileOnly("io.kotest:kotest-assertions-shared:5.0.0")
+        compileOnly("io.kotest:kotest-assertions-core:5.0.0")
+        compileOnly("io.kotest:kotest-framework-api:5.0.0")
         compileOnly("io.arrow-kt:arrow-core:1.0.1")
       }
     }
@@ -166,9 +166,9 @@ kotlin {
     val commonTest by getting {
       dependsOn(commonMain)
       dependencies {
-        implementation("io.kotest:kotest-framework-engine:5.0.0.M3")
-        implementation("io.kotest:kotest-framework-api:5.0.0.M3")
-        implementation("io.kotest:kotest-property:5.0.0.M3")
+        implementation("io.kotest:kotest-framework-engine:5.0.0")
+        implementation("io.kotest:kotest-framework-api:5.0.0")
+        implementation("io.kotest:kotest-property:5.0.0")
         implementation("io.arrow-kt:arrow-core:1.0.1")
       }
     }
@@ -177,7 +177,7 @@ kotlin {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0.M3")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.0.0")
       }
     }
 
@@ -194,7 +194,7 @@ kotlin {
     val linuxX64Main by getting
     val iosArm32Main by getting
     val iosArm64Main by getting
-    val iosSimulatorArm64Main by getting
+    // val iosSimulatorArm64Main by getting
     val iosX64Main by getting
     val macosArm64Main by getting
     val macosX64Main by getting
@@ -213,7 +213,7 @@ kotlin {
       linuxX64Main.dependsOn(this)
       iosArm32Main.dependsOn(this)
       iosArm64Main.dependsOn(this)
-      iosSimulatorArm64Main.dependsOn(this)
+      // iosSimulatorArm64Main.dependsOn(this)
       iosX64Main.dependsOn(this)
       macosArm64Main.dependsOn(this)
       macosX64Main.dependsOn(this)
