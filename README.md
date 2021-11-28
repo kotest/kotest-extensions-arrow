@@ -14,6 +14,12 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.2.0
+* Upgrade to Arrow 1.0.1
+* Multiplatform artifacts for `kotest-assertions-arrow`, `kotest-property-arrow` and `kotest-property-arrow-optics`
+* `#2670` Replace explicit usage of eq with should be from kotest assertion core
+* `testLaws` has `RootScope` as a receiver instead of `RootContext`
+
 ### 1.1.1
 * removes deprecated members in `kotest-assertions-arrow`
 
