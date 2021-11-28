@@ -9,12 +9,12 @@ repositories {
 
 plugins {
   java
-  kotlin("multiplatform").version("1.5.31") apply false
+  kotlin("multiplatform").version("1.6.0") apply false
   `java-library`
   id("maven-publish")
   signing
-  id("org.jetbrains.dokka") version "1.5.31"
-  id("io.kotest.multiplatform") version "5.0.0.5"
+  id("org.jetbrains.dokka") version "1.6.0"
+  id("io.kotest.multiplatform") version "5.0.0"
   id("ru.vyarus.animalsniffer") version "1.5.4"
 }
 
@@ -38,7 +38,6 @@ allprojects {
 
   tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.apiVersion = "1.5"
   }
 }
 
