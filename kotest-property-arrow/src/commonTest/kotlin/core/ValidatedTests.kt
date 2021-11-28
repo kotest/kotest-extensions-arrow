@@ -1,4 +1,4 @@
-package io.kotest.property.arrow.core
+package core
 
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeValid
@@ -8,6 +8,7 @@ import io.kotest.matchers.string.shouldContain
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.string
+import io.kotest.property.arrow.core.validated
 import io.kotest.property.checkAll
 
 class ValidatedTests : StringSpec({
