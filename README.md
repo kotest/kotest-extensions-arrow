@@ -18,12 +18,15 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 * removes deprecated members in `kotest-assertions-arrow`
 
 ### 1.1.0
+
+**Note that from this release, the minimium requirements are Kotest 5.0+ and Kotlin 1.6**
+
 * Update to Arrow 1.0.0
 * fix Java 1.8 compatibility [#2437](https://github.com/kotest/kotest/issues/2437)
 * Added `kotest-property-arrow` and `kotest-property-arrow-optics` for property-based testing with Arrow
 * includes deprecation cycle of 1.0.3
 * remove dependency to kotlinX-coroutines and kotest-property in `kotest-assertions-arrow`
-* compatible with Kotlin 1.6.0 and kotest 5.0.0 or higher
+
 
 ### 1.0.3
 * Update to Arrow 0.13.2
