@@ -46,62 +46,65 @@ jobs:
           name: error-report
           path: build-reports.zips
 
-#  macos:
-#    runs-on: macOS-latest
-#    steps:
-#      - name: Checkout the repo
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
+  macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-#      - name: Setup JDK
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: '8'
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
 
-#      - name: Run macos tests
-#        run: ./gradlew macosX64Test --scan
+      - name: Run macos tests
+        run: ./gradlew macosX64Test macosArm64Test iosX64Test iosSimulatorArm64Test tvosX64Test tvosSimulatorArm64Test watchosX64Test watchosX86Test watchosSimulatorArm64Test --scan
 
-#      - name: publish macos snapshots
-#        run: ./gradlew publishMacosX64PublicationToDeployRepository
+      - name: publish macos snapshots
+        run: |
+        ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository \
+        publishTvosArm64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulator64PublicationToDeployRepository \
+        publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
 
-#      - name: Bundle the build report
-#        if: failure()
-#        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
 
-#      - name: Upload the build report
-#        if: failure()
-#        uses: actions/upload-artifact@master
-#        with:
-#          name: error-report
-#          path: build-reports.zip
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip
 
-#  windows:
-#    runs-on: windows-latest
-#    steps:
-#      - name: Checkout the repo
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Setup JDK
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: '8'
-#
-#      - name: Run tests
-#        run: ./gradlew mingwX64Test --scan
-#
-#      - name: publish mingw64 snapshot
-#        run: ./gradlew publishMingwX64PublicationToDeployRepository
-#
-#      - name: Bundle the build report
-#        if: failure()
-#        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-#
-#      - name: Upload the build report
-#        if: failure()
-#        uses: actions/upload-artifact@master
-#        with:
-#          name: error-report
-#          path: build-reports.zip
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+
+      - name: Run tests
+        run: ./gradlew mingwX64Test --scan
+
+      - name: publish mingw64 snapshot
+        run: ./gradlew publishMingwX64PublicationToDeployRepository
+
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip
