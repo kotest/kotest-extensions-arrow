@@ -14,7 +14,7 @@ plugins {
   id("maven-publish")
   signing
   id("org.jetbrains.dokka") version "1.6.0"
-  id("io.kotest.multiplatform") version "5.0.0"
+  id("io.kotest.multiplatform") version "5.0.1"
   id("ru.vyarus.animalsniffer") version "1.5.4"
 }
 
