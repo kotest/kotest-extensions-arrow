@@ -166,7 +166,7 @@ kotlin {
       dependencies {
         implementation("io.kotest:kotest-framework-engine:5.0.1")
         implementation("io.kotest:kotest-framework-api:5.0.1")
-        implementation("io.kotest:kotest-property:5.0.0")
+        implementation("io.kotest:kotest-property:5.0.1")
         implementation("io.arrow-kt:arrow-core:1.0.1")
       }
     }
