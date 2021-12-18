@@ -8,8 +8,8 @@ import io.kotest.core.test.TestScope
 
 public data class Law(val name: String, val test: suspend TestScope.() -> Unit)
 
-public fun <A> A.equalUnderTheLaw(b: A, f: (A, A) -> Boolean = { a, b -> a == b }): Boolean =
-  if (f(this, b)) true else fail("Found $this but expected: $b")
+public fun <A> A.equalUnderTheLaw(other: A, f: (A, A) -> Boolean = { a, b -> a == b }): Boolean =
+  if (f(this, other)) true else fail("Found $this but expected: $other")
 
 public fun RootScope.testLaws(vararg laws: List<Law>): Unit =
   laws
