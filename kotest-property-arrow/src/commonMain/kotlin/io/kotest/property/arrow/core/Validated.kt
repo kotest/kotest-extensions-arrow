@@ -15,3 +15,7 @@ public fun <E, A> Arb.Companion.validated(invalid: Arb<E>, valid: Arb<A>): Arb<V
 
 public fun <E, A> Arb.Companion.validatedNel(invalidNel: Arb<E>, valid: Arb<A>): Arb<ValidatedNel<E, A>> =
   choice(invalidNel.map { it.invalidNel() }, valid.map { r -> r.validNel() })
+
+public fun <A> Arb.Companion.valid(arb: Arb<A>): Arb<Valid<A>> = arb.map { Valid(it) }
+
+public fun <E> Arb.Companion.invalid(arb: Arb<E>): Arb<Invalid<E>> = arb.map { Invalid(it) }
