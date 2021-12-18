@@ -14,13 +14,20 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.2.1
+
+* Added Arb.valid and Arb.invalid
+* Added Arb.nel(arb, range) - a variant of Arb.nel(arb) that accepts a range parameter
+
 ### 1.2.0
+
 * Upgrade to Arrow 1.0.1
 * Multiplatform artifacts for `kotest-assertions-arrow`, `kotest-property-arrow` and `kotest-property-arrow-optics`
 * `#2670` Replace explicit usage of eq with should be from kotest assertion core
 * `testLaws` has `RootScope` as a receiver instead of `RootContext`
 
 ### 1.1.1
+
 * removes deprecated members in `kotest-assertions-arrow`
 
 ### 1.1.0
@@ -35,6 +42,7 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 
 ### 1.0.3
+
 * Update to Arrow 0.13.2
 * Added a deprecation cycle for previous descriptors in 1.0.2 in favor of smart-casted variants in `io.kotest.assertions.arrow.core`
 * Reorg existing functions to `io.kotest.assertions.arrow.core`
@@ -42,5 +50,6 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 * Added Arb<Either<A, B>, Arb<Validated<E, A>>
 
 ### 1.0.2
+
 * Updated to arrow 0.13.1
 * Updated option to support nullables
