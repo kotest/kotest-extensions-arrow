@@ -155,7 +155,7 @@ kotlin {
         compileOnly("io.kotest:kotest-assertions-core:5.0.1")
         compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC3")
         compileOnly("io.kotest:kotest-framework-api:5.0.2")
-        compileOnly("io.kotest:kotest-property:5.0.1")
+        compileOnly("io.kotest:kotest-property:5.0.3")
         compileOnly("io.arrow-kt:arrow-optics:1.0.1")
         api(project(propertyArrowCore))
       }
@@ -167,7 +167,7 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
         implementation("io.kotest:kotest-framework-engine:5.0.2")
         implementation("io.kotest:kotest-framework-api:5.0.2")
-        implementation("io.kotest:kotest-property:5.0.0")
+        implementation("io.kotest:kotest-property:5.0.3")
         implementation("io.arrow-kt:arrow-optics:1.0.1")
         implementation(project(assertionsArrowCore))
       }
