@@ -13,7 +13,7 @@ plugins {
   `java-library`
   id("maven-publish")
   signing
-  id("org.jetbrains.dokka") version "1.6.0"
+  id("org.jetbrains.dokka") version "1.6.10"
   id("io.kotest.multiplatform") version "5.0.2"
   id("ru.vyarus.animalsniffer") version "1.5.4"
 }
