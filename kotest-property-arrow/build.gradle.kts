@@ -164,7 +164,7 @@ kotlin {
       dependsOn(commonMain)
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
-        implementation("io.kotest:kotest-framework-engine:5.0.2")
+        implementation("io.kotest:kotest-framework-engine:5.0.3")
         implementation("io.kotest:kotest-framework-api:5.0.2")
         implementation("io.kotest:kotest-property:5.0.3")
         implementation("io.arrow-kt:arrow-core:1.0.1")
