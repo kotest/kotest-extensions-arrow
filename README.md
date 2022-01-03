@@ -12,6 +12,12 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 [![kotest @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=kotest&color=blue&logo=slack)](https://kotlinlang.slack.com/archives/CT0G9SD7Z)
 [<img src="https://img.shields.io/nexus/s/https/oss.sonatype.org/io.kotest.extensions/kotest-assertions-arrow.svg?label=latest%20snapshot"/>](https://oss.sonatype.org/content/repositories/snapshots/io/kotest/extensions/kotest-assertions-arrow/)
 
+Note: 
+Please add `io.arrow-kt:arrow-core:arrow-version` or `io.arrow-kt:arrow-optics:arrow-version`, if they're missing in your classpath. 
+Otherwise, it will lead to unresolved Reference errors. 
+In the form of: "Cannot access class `arrow.core.Either` Check your module classpath for missing or conflicting dependencies."
+The project is not shipping the arrow jars because this leads to dependency conflicts and further adjusting the dependency graph.
+
 ## Changelog
 
 ### 1.2.1
