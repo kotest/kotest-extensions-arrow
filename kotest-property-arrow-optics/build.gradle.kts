@@ -155,7 +155,7 @@ kotlin {
         compileOnly("io.kotest:kotest-assertions-core:5.0.3")
         compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC3")
         compileOnly("io.kotest:kotest-framework-api:5.0.3")
-        compileOnly("io.kotest:kotest-property:5.0.3")
+        compileOnly("io.kotest:kotest-property:5.1.0")
         compileOnly("io.arrow-kt:arrow-optics:1.0.1")
         api(project(propertyArrowCore))
       }
