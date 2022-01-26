@@ -38,4 +38,4 @@ jobs:
 
       - name: deploy to sonatype
         run: |
-          ./gradlew publishToSonatype
+          ./gradlew publish
