@@ -12,6 +12,24 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 [![kotest @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=kotest&color=blue&logo=slack)](https://kotlinlang.slack.com/archives/CT0G9SD7Z)
 [<img src="https://img.shields.io/nexus/s/https/oss.sonatype.org/io.kotest.extensions/kotest-assertions-arrow.svg?label=latest%20snapshot"/>](https://oss.sonatype.org/content/repositories/snapshots/io/kotest/extensions/kotest-assertions-arrow/)
 
+## How to use it
+
+```kotlin
+depedencies {
+  implementation("io.kotest.extensions:kotest-assertions-arrow:<version>")
+}
+```
+
+for property-based testing: 
+
+```kotlin
+dependencies {
+  implementation("io.kotest.extensions:kotest-property-arrow:<version>")
+  // optional: the following includes optics related Laws
+  implementation("io.kotest.extensions:kotest-property-arrow:<version>")
+}
+```
+
 Note: 
 Please add `io.arrow-kt:arrow-core:arrow-version` or `io.arrow-kt:arrow-optics:arrow-version`, if they're missing in your classpath. 
 Otherwise, it will lead to unresolved Reference errors. 
@@ -19,6 +37,12 @@ In the form of: "Cannot access class `arrow.core.Either` Check your module class
 The project is not shipping the arrow jars because this leads to dependency conflicts and further adjusting the dependency graph.
 
 ## Changelog
+
+### 1.2.2
+
+* update kotest to 5.1.0
+* update kotlin to 1.6.10
+* publish missing multiplatform targets affecting `1.2.1` and `1.2.0`
 
 ### 1.2.1
 
