@@ -9,7 +9,7 @@ repositories {
 
 plugins {
   java
-  kotlin("multiplatform").version("1.6.0") apply false
+  kotlin("multiplatform").version("1.6.10") apply false
   `java-library`
   id("maven-publish")
   signing
