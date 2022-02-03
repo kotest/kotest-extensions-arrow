@@ -26,7 +26,7 @@ for property-based testing:
 dependencies {
   implementation("io.kotest.extensions:kotest-property-arrow:<version>")
   // optional: the following includes optics related Laws
-  implementation("io.kotest.extensions:kotest-property-arrow:<version>")
+  implementation("io.kotest.extensions:kotest-property-arrow-optics:<version>")
 }
 ```
 
