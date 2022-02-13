@@ -222,6 +222,9 @@ kotlin {
       watchosSimulatorArm64Main.dependsOn(this)
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
+      dependencies {
+        implementation("io.arrow-kt:arrow-core:1.0.1")
+      }
     }
   }
 }
