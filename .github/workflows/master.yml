@@ -64,7 +64,7 @@ jobs:
 
       - name: publish macos snapshots
         run: |
-          ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository\
+          ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
           publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
           publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
 
