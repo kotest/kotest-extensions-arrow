@@ -230,7 +230,7 @@ kotlin {
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
       dependencies {
-        implementation("io.arrow-kt:arrow-core:1.0.1")
+        implementation("io.arrow-kt:arrow-optics:1.0.1")
       }
     }
   }
