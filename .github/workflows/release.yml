@@ -21,6 +21,24 @@ env:
   ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
 jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+
+      - name: deploy to sonatype
+        run: ./gradlew publish
+
   macos:
     runs-on: macos-11
 
@@ -38,4 +56,24 @@ jobs:
 
       - name: deploy to sonatype
         run: |
-          ./gradlew publish
+          ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository \
+          publishTvosArm64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
+          publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
+
+  windows:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '8'
+
+      - name: deploy to sonatype
+        run: ./gradlew publishMingwX64PublicationToDeployRepository
