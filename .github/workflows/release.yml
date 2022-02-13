@@ -61,7 +61,7 @@ jobs:
           publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
 
   windows:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout the repo
