@@ -5,6 +5,7 @@ package io.kotest.assertions.arrow.fx.coroutines
 import arrow.fx.coroutines.ExitCase
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlinx.coroutines.CancellationException
 
 public fun ExitCase.shouldBeCancelled(
   failureMessage: (ExitCase) -> String = { "Expected ExitCase.Cancelled, but found $it" }
@@ -16,6 +17,15 @@ public fun ExitCase.shouldBeCancelled(
     is ExitCase.Completed -> throw AssertionError(failureMessage(this))
     is ExitCase.Cancelled -> this
     is ExitCase.Failure -> throw AssertionError(failureMessage(this))
+  }
+}
+
+public fun ExitCase.shouldBeCancelled(cancelled: CancellationException): ExitCase.Cancelled {
+  contract {
+    returns() implies (this@shouldBeCancelled is ExitCase.Cancelled)
+  }
+  return shouldBeCancelled().also {
+    exception shouldBe cancelled
   }
 }
 
@@ -42,5 +52,14 @@ public fun ExitCase.shouldBeFailure(
     is ExitCase.Completed -> throw AssertionError(failureMessage(this))
     is ExitCase.Cancelled -> throw AssertionError(failureMessage(this))
     is ExitCase.Failure -> this
+  }
+}
+
+public fun ExitCase.shouldBeFailure(throwable: Throwable): ExitCase.Failure {
+  contract {
+    returns() implies (this@shouldBeFailure is ExitCase.Failure)
+  }
+  return shouldBeFailure().also {
+    failure shouldBe throwable
   }
 }

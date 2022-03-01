@@ -3,9 +3,11 @@ package io.kotest.assertions.arrow.fx.coroutines
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.guaranteeCase
 import kotlin.coroutines.Continuation
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.intrinsics.intercepted
 import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
+import kotlin.coroutines.resume
 import kotlin.coroutines.startCoroutine
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
@@ -62,6 +64,12 @@ public suspend fun <A> A.suspend(dispatcher: CoroutineDispatcher = Dispatchers.D
   }
 
 /**
+ * runs [suspend] with a suspended block
+ */
+public fun <A> A.suspended(): suspend () -> A =
+  suspend { suspend() }
+
+/**
  * throws the receiver in a suspended environment, running in [dispatcher]
  */
 public suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatchers.Default): Nothing =
@@ -69,6 +77,17 @@ public suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatche
     suspend { throw this }.startCoroutine(
       Continuation(dispatcher) {
         cont.intercepted().resumeWith(it)
+      }
+    )
+
+    COROUTINE_SUSPENDED
+  }
+
+public suspend fun CoroutineContext.shift(): Unit =
+  suspendCoroutineUninterceptedOrReturn { cont ->
+    suspend { this }.startCoroutine(
+      Continuation(this) {
+        cont.resume(Unit)
       }
     )
 
