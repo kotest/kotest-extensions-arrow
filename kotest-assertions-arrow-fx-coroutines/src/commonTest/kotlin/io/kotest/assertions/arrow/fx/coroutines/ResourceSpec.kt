@@ -24,7 +24,7 @@ class ResourceSpec : StringSpec({
 
       resource(Resource({ n }, { _, ex -> require(p.complete(ex)) }))
 
-      p.await() shouldBe ExitCase.Completed
+      p.await().shouldBeCompleted()
     }
   }
 })

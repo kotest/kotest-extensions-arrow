@@ -83,6 +83,10 @@ public suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatche
     COROUTINE_SUSPENDED
   }
 
+/**
+ * shifts into a new Coroutine by,
+ * starting a new Coroutine with the receiver [CoroutineContext] and resuming with [Unit]
+ */
 public suspend fun CoroutineContext.shift(): Unit =
   suspendCoroutineUninterceptedOrReturn { cont ->
     suspend { this }.startCoroutine(
