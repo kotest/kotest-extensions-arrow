@@ -25,6 +25,53 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
 /**
  * ensures that all finalizers of [resource] are invoked for the given [TestConfiguration],
  * by registering a listener.
+ *
+ * ```kotlin
+ * interface Database { // given a Dependency
+ *   fun isRunning(): Boolean
+ *   suspend fun version(): String?
+ * }
+ *
+ * // and a Way to create it, here with Hikari and SqlDelight
+ * fun database(hikari: HikariDataSource): Database =
+ *   object : Database {
+ *     override fun isRunning(): Boolean = hikari.isRunning
+ *     override suspend fun version(): String? =
+ *       hikari.queryOneOrNull("SHOW server_version;") { string() }
+ *    }
+ *
+ * fun hikari(): Resource<HikariDataSource> =
+ *   Resource.fromCloseable {
+ *     HikariDataSource(
+ *      HikariConfig().apply {
+ *       // config settings
+ *      }
+ *     )
+ *   }
+ * fun sqlDelight(hikariDataSource: HikariDataSource): Resource<SqlDelight> =
+ *   Resource.fromCloseable { hikariDataSource.asJdbcDriver() }.map { driver -> SqlDelight(driver) }
+ *
+ * // we can define a Database Resource
+ * fun database(): Resource<Database> =
+ *  hikari().flatMap { hikari ->
+ *   sqlDelight(hikari).map { sqlDelight -> database(hikari) }
+ *  }
+ *
+ * // and define Tests with our backend Application, here with Ktor
+ * class HealthCheckSpec :
+ *   StringSpec({
+ *     val database: Database = resource(database())
+ *
+ *     "healthy" {
+ *       testApplication {
+ *         application { app(database) }
+ *         val response = client.get("/health")
+ *         response.status shouldBe HttpStatusCode.OK
+ *         response.bodyAsText() shouldBe Json.encodeToString(HealthCheck("14.1"))
+ *       }
+ *     }
+ *   })
+ * ```
  */
 public suspend inline fun <A> TestConfiguration.resource(resource: Resource<A>): A =
   TestResource(resource).also(this::listener).bind()
