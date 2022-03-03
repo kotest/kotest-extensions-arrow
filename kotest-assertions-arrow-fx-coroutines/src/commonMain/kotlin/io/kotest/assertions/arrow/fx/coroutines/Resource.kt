@@ -14,8 +14,7 @@ import arrow.fx.coroutines.Platform
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.bracketCase
 import io.kotest.core.listeners.TestListener
-import io.kotest.core.test.TestCase
-import io.kotest.core.test.TestResult
+import io.kotest.core.spec.Spec
 
 public suspend fun <A> Resource<A>.shouldBeResource(a: A): A =
   use { it shouldBe a }
@@ -74,14 +73,14 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * ```
  */
 public suspend inline fun <A> TestConfiguration.resource(resource: Resource<A>): A =
-  TestResource(resource).also(this::listener).bind()
+  TestResource(resource).also(this::listener).value()
 
 @PublishedApi
 internal class TestResource<A>(private val resource: Resource<A>) : TestListener {
   private val finalizers: AtomicRef<List<suspend (ExitCase) -> Unit>> = AtomicRef(emptyList())
 
   @PublishedApi
-  internal suspend fun bind(): A =
+  internal suspend fun value(): A =
     resource.bind()
 
   // Remove once resource computation block is available
@@ -115,8 +114,8 @@ internal class TestResource<A>(private val resource: Resource<A>) : TestListener
       is Resource.Defer -> resource().bind()
     }
 
-  override suspend fun afterTest(testCase: TestCase, result: TestResult) {
-    super.afterTest(testCase, result)
+  override suspend fun afterSpec(spec: Spec) {
+    super.afterSpec(spec)
     finalizers.get().cancelAll(ExitCase.Completed)
   }
 }

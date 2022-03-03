@@ -22,9 +22,11 @@ class ResourceSpec : StringSpec({
     checkAll(Arb.int()) { n: Int ->
       val p = CompletableDeferred<ExitCase>()
 
-      resource(Resource({ n }, { _, ex -> require(p.complete(ex)) }))
+      resource(Resource({ n }, { _, ex -> p.complete(ex) }))
 
-      p.await().shouldBeCompleted()
+      afterSpec {
+        p.await().shouldBeCompleted()
+      }
     }
   }
 })

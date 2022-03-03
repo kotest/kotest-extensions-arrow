@@ -12,7 +12,6 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.completeWith
 import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
 
-
 class PredefTest : StringSpec({
   "suspended always suspends" {
     checkAll(Arb.int()) { i ->

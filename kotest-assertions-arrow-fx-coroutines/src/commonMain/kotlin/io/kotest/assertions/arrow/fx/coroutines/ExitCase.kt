@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalContracts::class)
-
 package io.kotest.assertions.arrow.fx.coroutines
 
 import arrow.fx.coroutines.ExitCase
@@ -7,6 +5,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlinx.coroutines.CancellationException
 
+@OptIn(ExperimentalContracts::class)
 public fun ExitCase.shouldBeCancelled(
   failureMessage: (ExitCase) -> String = { "Expected ExitCase.Cancelled, but found $it" }
 ): ExitCase.Cancelled {
@@ -20,6 +19,7 @@ public fun ExitCase.shouldBeCancelled(
   }
 }
 
+@OptIn(ExperimentalContracts::class)
 public fun ExitCase.shouldBeCancelled(cancelled: CancellationException): ExitCase.Cancelled {
   contract {
     returns() implies (this@shouldBeCancelled is ExitCase.Cancelled)
@@ -29,6 +29,7 @@ public fun ExitCase.shouldBeCancelled(cancelled: CancellationException): ExitCas
   }
 }
 
+@OptIn(ExperimentalContracts::class)
 public fun ExitCase.shouldBeCompleted(
   failureMessage: (ExitCase) -> String = { "Expected ExitCase.Completed, but found $it" }
 ): ExitCase.Completed {
@@ -42,6 +43,7 @@ public fun ExitCase.shouldBeCompleted(
   }
 }
 
+@OptIn(ExperimentalContracts::class)
 public fun ExitCase.shouldBeFailure(
   failureMessage: (ExitCase) -> String = { "Expected ExitCase.Failure, but found $it" }
 ): ExitCase.Failure {
@@ -55,6 +57,7 @@ public fun ExitCase.shouldBeFailure(
   }
 }
 
+@OptIn(ExperimentalContracts::class)
 public fun ExitCase.shouldBeFailure(throwable: Throwable): ExitCase.Failure {
   contract {
     returns() implies (this@shouldBeFailure is ExitCase.Failure)
