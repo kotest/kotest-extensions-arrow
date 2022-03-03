@@ -14,7 +14,8 @@ import arrow.fx.coroutines.Platform
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.bracketCase
 import io.kotest.core.listeners.TestListener
-import io.kotest.core.spec.Spec
+import io.kotest.core.test.TestCase
+import io.kotest.core.test.TestResult
 
 public suspend fun <A> Resource<A>.shouldBeResource(a: A): A =
   use { it shouldBe a }
@@ -60,9 +61,8 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * // and define Tests with our backend Application, here with Ktor
  * class HealthCheckSpec :
  *   StringSpec({
- *     val database: Database = resource(database())
- *
  *     "healthy" {
+ *       val database: Database = resource(database())
  *       testApplication {
  *         application { app(database) }
  *         val response = client.get("/health")
@@ -115,8 +115,8 @@ internal class TestResource<A>(private val resource: Resource<A>) : TestListener
       is Resource.Defer -> resource().bind()
     }
 
-  override suspend fun afterSpec(spec: Spec) {
-    super.afterSpec(spec)
+  override suspend fun afterTest(testCase: TestCase, result: TestResult) {
+    super.afterTest(testCase, result)
     finalizers.get().cancelAll(ExitCase.Completed)
   }
 }
