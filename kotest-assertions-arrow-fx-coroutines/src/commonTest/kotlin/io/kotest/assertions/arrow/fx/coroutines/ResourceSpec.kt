@@ -29,4 +29,14 @@ class ResourceSpec : StringSpec({
       }
     }
   }
+
+  val exitCase = CompletableDeferred<ExitCase>()
+  val n = resource(Resource({ 24 }, { _, ex -> exitCase.complete(ex) }))
+
+  "resource from SpecScope can be consumed and is released with Completed" {
+    (n + 1) shouldBe 25
+    afterSpec {
+      exitCase.await().shouldBeCompleted()
+    }
+  }
 })

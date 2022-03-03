@@ -13,6 +13,7 @@ import io.kotest.core.TestConfiguration
 import arrow.fx.coroutines.Platform
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.bracketCase
+import io.kotest.common.runBlocking
 import io.kotest.core.listeners.TestListener
 import io.kotest.core.spec.Spec
 
@@ -60,8 +61,9 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * // and define Tests with our backend Application, here with Ktor
  * class HealthCheckSpec :
  *   StringSpec({
+ *     val database: Database = resource(database())
+ *
  *     "healthy" {
- *       val database: Database = resource(database())
  *       testApplication {
  *         application { app(database) }
  *         val response = client.get("/health")
@@ -72,15 +74,13 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  *   })
  * ```
  */
-public suspend inline fun <A> TestConfiguration.resource(resource: Resource<A>): A =
-  TestResource(resource).also(this::listener).value()
+public fun <A> TestConfiguration.resource(resource: Resource<A>): A =
+  runBlocking { TestResource(resource).also(this::listener).value() }
 
-@PublishedApi
-internal class TestResource<A>(private val resource: Resource<A>) : TestListener {
+private class TestResource<A>(private val resource: Resource<A>) : TestListener {
   private val finalizers: AtomicRef<List<suspend (ExitCase) -> Unit>> = AtomicRef(emptyList())
 
-  @PublishedApi
-  internal suspend fun value(): A =
+  suspend fun value(): A =
     resource.bind()
 
   // Remove once resource computation block is available
