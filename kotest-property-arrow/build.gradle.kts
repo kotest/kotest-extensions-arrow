@@ -154,7 +154,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10")
         implementation("io.kotest:kotest-assertions-core:5.1.0")
         implementation("io.kotest:kotest-framework-api:5.1.0")
-        implementation("io.kotest:kotest-property:5.1.0")
+        implementation("io.kotest:kotest-property:5.2.1")
         compileOnly("io.arrow-kt:arrow-core:1.0.1")
       }
     }
@@ -165,7 +165,7 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
         implementation("io.kotest:kotest-framework-engine:5.1.0")
         implementation("io.kotest:kotest-framework-api:5.1.0")
-        implementation("io.kotest:kotest-property:5.1.0")
+        implementation("io.kotest:kotest-property:5.2.1")
         implementation("io.arrow-kt:arrow-core:1.0.1")
         implementation(project(assertionsArrowCore))
       }

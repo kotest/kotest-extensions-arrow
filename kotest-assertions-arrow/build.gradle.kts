@@ -165,7 +165,7 @@ kotlin {
       dependsOn(commonMain)
       dependencies {
         implementation("io.kotest:kotest-framework-engine:5.1.0")
-        implementation("io.kotest:kotest-property:5.1.0")
+        implementation("io.kotest:kotest-property:5.2.1")
         implementation("io.arrow-kt:arrow-core:1.0.1")
       }
     }
