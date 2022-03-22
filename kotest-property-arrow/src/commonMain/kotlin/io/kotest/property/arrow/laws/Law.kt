@@ -14,14 +14,14 @@ public suspend fun ContainerScope.testLaws(vararg laws: List<Law>): Unit =
   laws
     .flatMap { list: List<Law> -> list.asIterable() }
     .distinctBy { law: Law -> law.name }
-    .forEach { law ->
-      registerTest(TestName(law.name), disabled = false, config = null) { law.test(this) }
+    .forEachIndexed { idx, law ->
+      registerTest(TestName("($idx) ${law.name}"), disabled = false, config = null) { law.test(this) }
     }
 
 public suspend fun ContainerScope.testLaws(prefix: String, vararg laws: List<Law>): Unit =
   laws
     .flatMap { list: List<Law> -> list.asIterable() }
     .distinctBy { law: Law -> law.name }
-    .forEach { law: Law ->
-      registerTest(TestName(prefix, law.name, true), disabled = false, config = null) { law.test(this) }
+    .forEachIndexed { idx, law: Law ->
+      registerTest(TestName(prefix, "($idx) ${law.name}", true), disabled = false, config = null) { law.test(this) }
     }
