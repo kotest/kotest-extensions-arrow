@@ -12,7 +12,7 @@ class MonoidLawTests : FunSpec({
   context("Boolean, Int, String obeys MonoidLaws") {
     testLaws(
       MonoidLaws.laws(Monoid.boolean(), Arb.boolean()),
-      MonoidLaws.laws(Monoid.int(), Arb.int()),
+      MonoidLaws.laws(Monoid.int(), Arb.int(-10000..10000)),
       MonoidLaws.laws(Monoid.string(), Arb.string())
     )
   }
