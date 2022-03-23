@@ -2,7 +2,7 @@ package io.kotest.property.arrow.optics
 
 import arrow.optics.Optional
 import arrow.optics.Traversal
-import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.boolean
 import io.kotest.property.arbitrary.int
@@ -14,7 +14,7 @@ import io.kotest.property.arrow.core.functionAToB
 import io.kotest.property.arrow.core.tuple10
 import io.kotest.property.arrow.laws.testLaws
 
-class TraversalTests : FunSpec({
+class TraversalTests : StringSpec({
   testLaws(
     "Traversal Laws for Optional",
     TraversalLaws.laws(
