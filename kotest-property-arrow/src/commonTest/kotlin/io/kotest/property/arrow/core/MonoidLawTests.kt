@@ -9,11 +9,9 @@ import io.kotest.property.arbitrary.string
 import io.kotest.property.arrow.laws.testLaws
 
 class MonoidLawTests : StringSpec({
-  "Boolean, Int, String obeys MonoidLaws" {
-    testLaws(
-      MonoidLaws.laws(Monoid.boolean(), Arb.boolean()),
-      MonoidLaws.laws(Monoid.int(), Arb.int()),
-      MonoidLaws.laws(Monoid.string(), Arb.string())
-    )
-  }
+  testLaws(
+    MonoidLaws.laws(Monoid.boolean(), Arb.boolean()),
+    MonoidLaws.laws(Monoid.int(), Arb.int()),
+    MonoidLaws.laws(Monoid.string(), Arb.string())
+  )
 })
