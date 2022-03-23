@@ -15,43 +15,42 @@ import io.kotest.property.arrow.core.tuple10
 import io.kotest.property.arrow.laws.testLaws
 
 class TraversalTests : FunSpec({
-  context("Traversal Laws for Optional") {
-    testLaws(
-      TraversalLaws.laws(
-        traversal = Optional.listHead<Int>(),
-        aGen = Arb.list(Arb.int()),
-        bGen = Arb.int(),
-        funcGen = Arb.functionAToB(Arb.int()),
+  testLaws(
+    "Traversal Laws for Optional",
+    TraversalLaws.laws(
+      traversal = Optional.listHead<Int>(),
+      aGen = Arb.list(Arb.int()),
+      bGen = Arb.int(),
+      funcGen = Arb.functionAToB(Arb.int()),
+    ),
+    TraversalLaws.laws(
+      traversal = Traversal.either(),
+      aGen = Arb.either(Arb.string(), Arb.int()),
+      bGen = Arb.int(),
+      funcGen = Arb.functionAToB(Arb.int()),
+    ),
+    TraversalLaws.laws(
+      traversal = Traversal.pair(),
+      aGen = Arb.pair(Arb.boolean(), Arb.boolean()),
+      bGen = Arb.boolean(),
+      funcGen = Arb.functionAToB(Arb.boolean()),
+    ),
+    TraversalLaws.laws(
+      traversal = Traversal.tuple10(),
+      aGen = Arb.tuple10(
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean(),
+        Arb.boolean()
       ),
-      TraversalLaws.laws(
-        traversal = Traversal.either(),
-        aGen = Arb.either(Arb.string(), Arb.int()),
-        bGen = Arb.int(),
-        funcGen = Arb.functionAToB(Arb.int()),
-      ),
-      TraversalLaws.laws(
-        traversal = Traversal.pair(),
-        aGen = Arb.pair(Arb.boolean(), Arb.boolean()),
-        bGen = Arb.boolean(),
-        funcGen = Arb.functionAToB(Arb.boolean()),
-      ),
-      TraversalLaws.laws(
-        traversal = Traversal.tuple10(),
-        aGen = Arb.tuple10(
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean(),
-          Arb.boolean()
-        ),
-        bGen = Arb.boolean(),
-        funcGen = Arb.functionAToB(Arb.boolean()),
-      )
+      bGen = Arb.boolean(),
+      funcGen = Arb.functionAToB(Arb.boolean()),
     )
-  }
+  )
 })
