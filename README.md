@@ -38,6 +38,14 @@ The project is not shipping the arrow jars because this leads to dependency conf
 
 ## Changelog
 
+### 1.2.4
+
+- Upgrade to 5.2.1 and restores compatibilty with 5.2.X series https://github.com/kotest/kotest-extensions-arrow/pull/149
+
+### 1.2.3 
+
+- fix linking error in native platforms [#140](https://github.com/kotest/kotest-extensions-arrow/issues/140)
+
 ### 1.2.2
 
 * update kotest to 5.1.0
