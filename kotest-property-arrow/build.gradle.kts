@@ -8,7 +8,7 @@ kotlin {
     metadata {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -17,7 +17,7 @@ kotlin {
       compilations.all {
         kotlinOptions {
           jvmTarget = "1.8"
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -27,7 +27,7 @@ kotlin {
       nodejs()
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -35,7 +35,7 @@ kotlin {
     linuxX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -43,7 +43,7 @@ kotlin {
     mingwX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -51,98 +51,98 @@ kotlin {
     iosArm32 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     iosArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     iosSimulatorArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     iosX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     macosArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     macosX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     tvosArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     tvosSimulatorArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     tvosX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     watchosArm32 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     watchosArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     watchosSimulatorArm64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     watchosX64 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
     watchosX86 {
       compilations.all {
         kotlinOptions {
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
       }
     }
@@ -167,7 +167,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-api:5.2.2")
         implementation("io.kotest:kotest-property:5.2.2")
         implementation("io.arrow-kt:arrow-core:1.0.1")
-        implementation(project(assertionsArrowCore))
+        implementation(projects.kotestAssertionsArrow)
       }
     }
 
@@ -235,6 +235,7 @@ kotlin {
 }
 
 tasks.named<Test>("jvmTest") {
+  maxParallelForks = Runtime.getRuntime().availableProcessors()
   useJUnitPlatform()
   testLogging {
     showExceptions = true
