@@ -2,14 +2,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
   mavenCentral()
-  maven {
-    url = uri("https://oss.sonatype.org/content/repositories/snapshots")
-  }
 }
 
 plugins {
   java
-  kotlin("multiplatform").version("1.6.10") apply false
+  kotlin("multiplatform").version("1.6.20") apply false
   `java-library`
   id("maven-publish")
   signing
@@ -24,9 +21,6 @@ allprojects {
 
   repositories {
     mavenCentral()
-    maven {
-      url = uri("https://oss.sonatype.org/content/repositories/snapshots")
-    }
     gradlePluginPortal()
   }
 
