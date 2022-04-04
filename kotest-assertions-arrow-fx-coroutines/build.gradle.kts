@@ -156,7 +156,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-engine:5.2.1")
         implementation("io.kotest:kotest-property:5.2.1")
         api(projects.kotestAssertionsArrow)
-        api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
         compileOnly("io.arrow-kt:arrow-fx-coroutines:1.0.1")
       }
     }
@@ -169,7 +169,7 @@ kotlin {
       dependsOn(commonMain)
       dependencies {
         implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
       }
     }
 
