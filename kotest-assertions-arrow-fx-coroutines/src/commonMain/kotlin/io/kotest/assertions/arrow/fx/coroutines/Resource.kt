@@ -75,7 +75,7 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * ```
  */
 public fun <A> TestConfiguration.resource(resource: Resource<A>): A =
-  runBlocking(Dispatchers.Unconfined) { TestResource(resource).also(this::listener).value() }
+  runBlocking(Dispatchers.Unconfined) { TestResource(resource).also(::listener).value() }
 
 private class TestResource<A>(private val resource: Resource<A>) : TestListener {
   private val finalizers: AtomicRef<List<suspend (ExitCase) -> Unit>> = AtomicRef(emptyList())
