@@ -13,9 +13,9 @@ import io.kotest.core.TestConfiguration
 import arrow.fx.coroutines.Platform
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.bracketCase
-import io.kotest.common.runBlocking
 import io.kotest.core.listeners.TestListener
 import io.kotest.core.spec.Spec
+import kotlinx.coroutines.Dispatchers
 
 public suspend fun <A> Resource<A>.shouldBeResource(a: A): A =
   use { it shouldBe a }
@@ -75,7 +75,7 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * ```
  */
 public fun <A> TestConfiguration.resource(resource: Resource<A>): A =
-  runBlocking { TestResource(resource).also(this::listener).value() }
+  runBlocking(Dispatchers.Unconfined) { TestResource(resource).also(this::listener).value() }
 
 private class TestResource<A>(private val resource: Resource<A>) : TestListener {
   private val finalizers: AtomicRef<List<suspend (ExitCase) -> Unit>> = AtomicRef(emptyList())

@@ -6,3 +6,8 @@ internal infix fun <A> A.shouldBe(a: A): A {
   this coreShouldBe a
   return this
 }
+
+internal public expect fun <T> runBlocking(
+  context: CoroutineContext = EmptyCoroutineContext,
+  block: suspend CoroutineScope.() -> T
+): T
