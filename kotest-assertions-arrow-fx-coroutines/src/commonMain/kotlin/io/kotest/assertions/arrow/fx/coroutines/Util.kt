@@ -3,7 +3,6 @@ package io.kotest.assertions.arrow.fx.coroutines
 import io.kotest.matchers.shouldBe as coreShouldBe
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 internal infix fun <A> A.shouldBe(a: A): A {
   this coreShouldBe a
@@ -11,6 +10,6 @@ internal infix fun <A> A.shouldBe(a: A): A {
 }
 
 internal expect fun <T> runBlocking(
-  context: CoroutineContext = Dispatchers.Unconfined,
+  context: CoroutineContext,
   block: suspend CoroutineScope.() -> T
 ): T
