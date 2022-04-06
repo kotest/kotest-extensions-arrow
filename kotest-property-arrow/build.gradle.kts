@@ -5,147 +5,37 @@ kotlin {
   explicitApi()
 
   targets {
-    metadata {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
+    metadata()
 
     jvm {
       compilations.all {
-        kotlinOptions {
-          jvmTarget = "1.8"
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
+        kotlinOptions.jvmTarget = "1.8"
       }
     }
 
     js(IR) {
       browser()
       nodejs()
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
     }
 
-    linuxX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
+    linuxX64()
 
-    mingwX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
+    mingwX64()
 
-    iosArm32 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    iosArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    iosSimulatorArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    iosX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    macosArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    macosX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    tvosArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    tvosSimulatorArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    tvosX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    watchosArm32 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    watchosArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    watchosSimulatorArm64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    watchosX64 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
-    watchosX86 {
-      compilations.all {
-        kotlinOptions {
-          freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-        }
-      }
-    }
+    iosArm32()
+    iosArm64()
+    iosSimulatorArm64()
+    iosX64()
+    macosArm64()
+    macosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosSimulatorArm64()
+    watchosX64()
+    watchosX86()
   }
 
   sourceSets {
@@ -230,6 +120,10 @@ kotlin {
       dependencies {
         implementation("io.arrow-kt:arrow-core:1.0.1")
       }
+    }
+
+    all {
+      languageSettings.optIn("kotlin.RequiresOptIn")
     }
   }
 }
