@@ -42,7 +42,7 @@ kotlin {
     val commonMain by getting {
       dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.6.20")
-        implementation("io.kotest:kotest-assertions-core:5.2.2")
+        implementation("io.kotest:kotest-assertions-core:5.2.3")
         implementation("io.kotest:kotest-framework-api:5.2.2")
         implementation("io.kotest:kotest-property:5.2.2")
         compileOnly("io.arrow-kt:arrow-core:1.0.1")
