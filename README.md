@@ -38,6 +38,10 @@ The project is not shipping the arrow jars because this leads to dependency conf
 
 ## Changelog
 
+### 1.2.5
+
+- Upgrade to 5.2.3 and update kotlinx-coroutines to 1.6.1
+
 ### 1.2.4
 
 - Upgrade to 5.2.1 and restores compatibilty with 5.2.X series https://github.com/kotest/kotest-extensions-arrow/pull/149
