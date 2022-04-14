@@ -1,3 +1,4 @@
+@file:JvmName("JvmRunblocking")
 package io.kotest.assertions.arrow.fx.coroutines
 
 import kotlinx.coroutines.CoroutineScope
