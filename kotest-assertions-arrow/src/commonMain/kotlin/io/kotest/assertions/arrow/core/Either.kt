@@ -3,6 +3,7 @@ package io.kotest.assertions.arrow.core
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
+import arrow.core.identity
 import io.kotest.assertions.arrow.shouldBe
 import io.kotest.assertions.arrow.shouldNotBe
 import kotlin.contracts.ExperimentalContracts
@@ -78,4 +79,6 @@ public infix fun <A, B> Either<A, B>.shouldBeLeft(a: A): A =
 public infix fun <A, B> Either<A, B>.shouldNotBeLeft(a: A): A =
   shouldBeLeft().shouldNotBe(a)
 
-
+/** for testing success & error scenarios with an [Either] generator **/
+public fun <A> Either<Throwable, A>.rethrow(): A =
+  fold({ throw it }, ::identity)
