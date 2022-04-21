@@ -58,7 +58,7 @@ kotlin {
     val commonTest by getting {
       dependsOn(commonMain)
       dependencies {
-        implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
+        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.0")
       }
     }
 
@@ -107,7 +107,7 @@ kotlin {
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
       dependencies {
-        implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
+        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.0")
       }
     }
 
