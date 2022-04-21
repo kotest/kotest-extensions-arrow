@@ -46,7 +46,7 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
         implementation("io.kotest:kotest-framework-api:5.2.3")
         implementation("io.kotest:kotest-property:5.2.3")
-        compileOnly("io.arrow-kt:arrow-optics:1.1.0")
+        compileOnly("io.arrow-kt:arrow-optics:1.1.2")
         api(projects.kotestPropertyArrow)
       }
     }
@@ -58,7 +58,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-engine:5.2.3")
         implementation("io.kotest:kotest-framework-api:5.2.3")
         implementation("io.kotest:kotest-property:5.2.3")
-        implementation("io.arrow-kt:arrow-optics:1.0.1")
+        implementation("io.arrow-kt:arrow-optics:1.1.2")
         implementation(projects.kotestAssertionsArrow)
       }
     }
@@ -120,7 +120,7 @@ kotlin {
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
       dependencies {
-        implementation("io.arrow-kt:arrow-optics:1.0.1")
+        implementation("io.arrow-kt:arrow-optics:1.1.2")
       }
     }
 
