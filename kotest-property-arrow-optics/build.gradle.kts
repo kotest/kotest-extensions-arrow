@@ -46,7 +46,7 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
         implementation("io.kotest:kotest-framework-api:5.2.3")
         implementation("io.kotest:kotest-property:5.2.3")
-        compileOnly("io.arrow-kt:arrow-optics:1.0.1")
+        compileOnly("io.arrow-kt:arrow-optics:1.1.0")
         api(projects.kotestPropertyArrow)
       }
     }
