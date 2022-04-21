@@ -47,7 +47,7 @@ kotlin {
         implementation("io.kotest:kotest-property:5.2.3")
         api(projects.kotestAssertionsArrow)
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-        compileOnly("io.arrow-kt:arrow-fx-coroutines:1.0.1")
+        compileOnly("io.arrow-kt:arrow-fx-coroutines:1.1.0")
       }
     }
 
