@@ -51,24 +51,22 @@ kotlin {
       }
     }
 
-    val jvmMain by getting {
-      dependsOn(commonMain)
-    }
-
     val commonTest by getting {
-      dependsOn(commonMain)
       dependencies {
         implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
       }
     }
 
+    val jvmMain by getting
+
     val jvmTest by getting {
-      dependsOn(commonTest)
-      dependsOn(jvmMain)
       dependencies {
         implementation("io.kotest:kotest-runner-junit5-jvm:5.2.1")
       }
     }
+
+    val jsMain by getting
+    val jsTest by getting
 
     val mingwX64Main by getting
     val linuxX64Main by getting
