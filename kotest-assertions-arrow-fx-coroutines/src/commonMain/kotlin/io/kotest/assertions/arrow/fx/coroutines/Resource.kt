@@ -67,7 +67,7 @@ public suspend fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
  * // and define Tests with our backend Application, here with Ktor
  * class HealthCheckSpec :
  *   StringSpec({
- *     val database: Database = resource(database())
+ *     val database: Database by resource(database())
  *
  *     "healthy" {
  *       testApplication {
@@ -88,10 +88,6 @@ private class TestResource<A>(private val resource: Resource<A>) :
   private val value: AtomicRef<Option<A>> = AtomicRef(None)
   private val finalizers: AtomicRef<List<suspend (ExitCase) -> Unit>> = AtomicRef(emptyList())
 
-  suspend fun value(): A =
-    resource.bind()
-
-  @Suppress("DEPRECATION")
   override suspend fun <A> Resource<A>.bind(): A =
     when (this) {
       is Resource.Dsl -> dsl.invoke(this@TestResource)
@@ -139,7 +135,6 @@ private class TestResource<A>(private val resource: Resource<A>) :
       when (it) {
         None ->
           resource.bind().let { a ->
-            println("Initialised in beforeSpec")
             Pair(Some(a), a)
           }
         is Some -> Pair(it, it.value)
