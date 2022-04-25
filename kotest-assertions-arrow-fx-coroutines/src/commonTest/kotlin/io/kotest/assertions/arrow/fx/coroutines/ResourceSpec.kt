@@ -12,7 +12,7 @@ import kotlinx.coroutines.CompletableDeferred
 class ResourceSpec : StringSpec({
   "resolves resource" {
     checkAll(Arb.int()) { n ->
-      val r = resource(Resource({ n }, { _, _ -> Unit }))
+      val r: Int by resource(Resource({ n }, { _, _ -> Unit }))
 
       (r + 1) shouldBe n + 1
     }
@@ -22,7 +22,7 @@ class ResourceSpec : StringSpec({
     checkAll(Arb.int()) { n: Int ->
       val p = CompletableDeferred<ExitCase>()
 
-      resource(Resource({ n }, { _, ex -> p.complete(ex) }))
+      val nn: Int by resource(Resource({ n }, { _, ex -> p.complete(ex) }))
 
       afterSpec {
         p.await().shouldBeCompleted()
@@ -31,7 +31,7 @@ class ResourceSpec : StringSpec({
   }
 
   val exitCase = CompletableDeferred<ExitCase>()
-  val n = resource(Resource({ 24 }, { _, ex -> exitCase.complete(ex) }))
+  val n : Int by resource(Resource({ 24 }, { _, ex -> exitCase.complete(ex) }))
 
   "resource from SpecScope can be consumed and is released with Completed" {
     (n + 1) shouldBe 25
