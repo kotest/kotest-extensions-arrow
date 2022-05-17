@@ -18,7 +18,7 @@ import kotlinx.coroutines.channels.Channel
 /**
  * awaits the exitCase of [channel] and completes [exit] with it
  */
-public suspend inline fun <A> awaitExitCase(
+internal suspend inline fun <A> awaitExitCase(
   channel: Channel<A>,
   exit: CompletableDeferred<ExitCase>
 ): A =
@@ -30,7 +30,7 @@ public suspend inline fun <A> awaitExitCase(
 /**
  * awaits the exitCase of [completableDeferred] and completes [exit] with it
  */
-public suspend inline fun awaitExitCase(
+internal suspend inline fun awaitExitCase(
   completableDeferred: CompletableDeferred<Unit>,
   exit: CompletableDeferred<ExitCase>
 ): Unit =
@@ -39,7 +39,7 @@ public suspend inline fun awaitExitCase(
 /**
  * awaits the exitCase of [completableDeferred] by passing [completeWith] and completes [exit] with it
  */
-public suspend inline fun <A> awaitExitCase(
+internal suspend inline fun <A> awaitExitCase(
   completableDeferred: CompletableDeferred<A>,
   exit: CompletableDeferred<ExitCase>,
   completeWith: A
@@ -52,7 +52,7 @@ public suspend inline fun <A> awaitExitCase(
 /**
  * turns a pure value into a suspended one, running in the [dispatcher]
  */
-public suspend fun <A> A.suspend(dispatcher: CoroutineDispatcher = Dispatchers.Default): A =
+internal suspend fun <A> A.suspend(dispatcher: CoroutineDispatcher = Dispatchers.Default): A =
   suspendCoroutineUninterceptedOrReturn { cont ->
     suspend { this }.startCoroutine(
       Continuation(dispatcher) {
@@ -66,13 +66,13 @@ public suspend fun <A> A.suspend(dispatcher: CoroutineDispatcher = Dispatchers.D
 /**
  * runs [suspend] with a suspended block
  */
-public fun <A> A.suspended(): suspend () -> A =
+internal fun <A> A.suspended(): suspend () -> A =
   suspend { suspend() }
 
 /**
  * throws the receiver in a suspended environment, running in [dispatcher]
  */
-public suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatchers.Default): Nothing =
+internal suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatchers.Default): Nothing =
   suspendCoroutineUninterceptedOrReturn { cont ->
     suspend { throw this }.startCoroutine(
       Continuation(dispatcher) {
@@ -87,7 +87,7 @@ public suspend fun Throwable.suspend(dispatcher: CoroutineDispatcher = Dispatche
  * shifts into a new Coroutine by,
  * starting a new Coroutine with the receiver [CoroutineContext] and resuming with [Unit]
  */
-public suspend fun CoroutineContext.shift(): Unit =
+internal suspend fun CoroutineContext.shift(): Unit =
   suspendCoroutineUninterceptedOrReturn { cont ->
     suspend { this }.startCoroutine(
       Continuation(this) {
