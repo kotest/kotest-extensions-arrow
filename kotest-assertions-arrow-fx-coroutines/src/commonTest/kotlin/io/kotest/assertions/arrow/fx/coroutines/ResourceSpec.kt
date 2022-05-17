@@ -8,6 +8,9 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 import kotlinx.coroutines.CompletableDeferred
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.property.arbitrary.negativeInt
+import io.kotest.property.arbitrary.positiveInt
 
 class ResourceSpec : StringSpec({
   "resolves resource" {
@@ -28,6 +31,18 @@ class ResourceSpec : StringSpec({
       afterSpec {
         p.await().shouldBeCompleted()
       }
+    }
+  }
+
+  "flatMap resource is released first" {
+    checkAll(Arb.positiveInt(), Arb.negativeInt()) { a, b ->
+      val l = mutableListOf<Int>()
+      fun r(n: Int) = Resource({ n.also(l::add) }, { it, _ -> l.add(-it) })
+
+      r(a).flatMap { r(it + b) }
+        .use { it + 1 } shouldBe (a + b) + 1
+
+      l.shouldContainExactly(a, a + b, - a - b, -a)
     }
   }
 })

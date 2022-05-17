@@ -9,6 +9,7 @@ import arrow.core.continuations.AtomicRef
 import arrow.core.continuations.update
 import arrow.core.identity
 import arrow.core.invalidNel
+import arrow.core.prependTo
 import arrow.core.traverse
 import arrow.core.valid
 import arrow.fx.coroutines.ExitCase
@@ -96,7 +97,7 @@ private class TestResource<A>(private val resource: Resource<A>) :
           {
             val a = acquire()
             val finalizer: suspend (ExitCase) -> Unit = { ex: ExitCase -> release(a, ex) }
-            finalizers.update { it + finalizer }
+            finalizers.update(finalizer::prependTo)
             a
           },
           ::identity,
