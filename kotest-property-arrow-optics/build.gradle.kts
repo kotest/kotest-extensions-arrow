@@ -42,10 +42,10 @@ kotlin {
     val commonMain by getting {
       dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21")
-        implementation("io.kotest:kotest-assertions-core:5.2.3")
+        implementation("io.kotest:kotest-assertions-core:5.3.0")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-        implementation("io.kotest:kotest-framework-api:5.2.3")
-        implementation("io.kotest:kotest-property:5.2.3")
+        implementation("io.kotest:kotest-framework-api:5.3.0")
+        implementation("io.kotest:kotest-property:5.3.0")
         compileOnly("io.arrow-kt:arrow-optics:1.1.2")
         api(projects.kotestPropertyArrow)
       }
@@ -55,9 +55,9 @@ kotlin {
       dependsOn(commonMain)
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-        implementation("io.kotest:kotest-framework-engine:5.2.3")
-        implementation("io.kotest:kotest-framework-api:5.2.3")
-        implementation("io.kotest:kotest-property:5.2.3")
+        implementation("io.kotest:kotest-framework-engine:5.3.0")
+        implementation("io.kotest:kotest-framework-api:5.3.0")
+        implementation("io.kotest:kotest-property:5.3.0")
         implementation("io.arrow-kt:arrow-optics:1.1.2")
         implementation(projects.kotestAssertionsArrow)
       }
@@ -71,7 +71,7 @@ kotlin {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.2.3")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.0")
       }
     }
 
