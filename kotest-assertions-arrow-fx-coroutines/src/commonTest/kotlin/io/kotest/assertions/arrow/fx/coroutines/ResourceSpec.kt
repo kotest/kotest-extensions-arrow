@@ -39,10 +39,15 @@ class ResourceSpec : StringSpec({
       val l = mutableListOf<Int>()
       fun r(n: Int) = Resource({ n.also(l::add) }, { it, _ -> l.add(-it) })
 
-      r(a).flatMap { r(it + b) }
-        .use { it + 1 } shouldBe (a + b) + 1
+      val c by resource(Resource.Dsl {
+        val aa = r(a).bind()
+        r(aa + b).bind()
+      })
 
-      l.shouldContainExactly(a, a + b, - a - b, -a)
+      (c + 1) shouldBe (a + b) + 1
+      afterSpec {
+        l.shouldContainExactly(a, a + b, -a - b, -a)
+      }
     }
   }
 })
