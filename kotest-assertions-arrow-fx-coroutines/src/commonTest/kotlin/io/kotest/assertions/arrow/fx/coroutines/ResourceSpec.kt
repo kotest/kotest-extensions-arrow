@@ -41,7 +41,7 @@ class ResourceSpec : StringSpec({
 
       val c by resource(r(a).flatMap { r(it + b) })
 
-      (c + 1) shouldBe (a + b) + 1
+      c shouldBe a + b
       afterSpec {
         l.shouldContainExactly(a, a + b, -a - b, -a)
       }
