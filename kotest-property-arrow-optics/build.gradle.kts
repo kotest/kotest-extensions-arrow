@@ -41,7 +41,7 @@ kotlin {
   sourceSets {
     val commonMain by getting {
       dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-common:1.7.0")
         implementation("io.kotest:kotest-assertions-core:5.3.0")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
         implementation("io.kotest:kotest-framework-api:5.3.0")
