@@ -64,7 +64,7 @@ kotlin {
       dependsOn(commonTest)
       dependsOn(jvmMain)
       dependencies {
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.0")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.1")
       }
     }
 
