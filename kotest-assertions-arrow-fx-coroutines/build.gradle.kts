@@ -43,7 +43,7 @@ kotlin {
       dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
         implementation("io.kotest:kotest-assertions-core:5.3.1")
-        implementation("io.kotest:kotest-framework-engine:5.2.1")
+        implementation("io.kotest:kotest-framework-engine:5.3.1")
         implementation("io.kotest:kotest-property:5.2.1")
         api(projects.kotestAssertionsArrow)
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
