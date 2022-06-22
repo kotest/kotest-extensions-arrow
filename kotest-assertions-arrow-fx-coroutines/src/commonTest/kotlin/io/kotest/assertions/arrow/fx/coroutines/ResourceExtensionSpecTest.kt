@@ -1,5 +1,6 @@
 package io.kotest.assertions.arrow.fx.coroutines
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.extensions.install
 import io.kotest.core.spec.style.FunSpec
 
@@ -7,7 +8,7 @@ class ResourceExtensionSpecTest : FunSpec({
 
   val sub = ResourceUnderTest()
 
-  val res = install(ResourceExtension(sub.asResource(), LifecycleMode.Spec)) {
+  val res = install(sub.asResource().extension()) {
     configure()
   }
 
@@ -19,5 +20,8 @@ class ResourceExtensionSpecTest : FunSpec({
 
   afterSpec {
     sub.isReleased shouldBe true
+    shouldThrow<TestResource.AlreadyClosedException> {
+      res()
+    }
   }
 })

@@ -20,15 +20,17 @@ import io.kotest.core.listeners.ProjectListener
  * class MySpec : StringSpec({
  *   "my test" {
  *     val dataSource: HikariDataSource = ProjectConfig.hikari()
+ *     val dataSource2: HikariDataSource = ProjectConfig.hikari.get()
  *   }
  * })
  * ```
  */
-public class ProjectTestResource<A> internal constructor(
+public class ProjectTestResource<A> private constructor(
   public override val resource: Resource<A>,
-  private val default: DefaultTestResource<A> = DefaultTestResource(resource)
+  private val default: DefaultTestResource<A>
 ) : ProjectListener, TestResource<A> by default {
 
+  public constructor(resource: Resource<A>) : this(resource, DefaultTestResource(resource))
   public constructor(block: suspend ResourceScope.() -> Resource<A>) : this(resource { block().bind() })
 
   override suspend fun beforeProject() {
@@ -37,5 +39,6 @@ public class ProjectTestResource<A> internal constructor(
 
   override suspend fun afterProject() {
     default.release()
+    default.close()
   }
 }

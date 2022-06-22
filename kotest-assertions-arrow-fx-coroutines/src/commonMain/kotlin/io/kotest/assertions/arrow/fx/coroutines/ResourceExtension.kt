@@ -44,10 +44,19 @@ public fun <A> Resource<A>.extension(lifecycleMode: LifecycleMode = LifecycleMod
  *   }
  *
  *   "get" {
- *     conn().get() shouldBe "Result of DB"
+ *     conn.get().compute() shouldBe "Result of DB"
+ *   }
+ *
+ *   afterSpec {
+ *     shouldThrow<TestResource.AlreadyClosedException> {
+ *       conn.get()
+ *     }
  *   }
  * })
  * ```
+ *
+ * `conn` cannot be used during or after `afterSpec` since at that point the resource is already released,
+ * and it will result in [TestResource.AlreadyClosedException]
  *
  * @param lifecycleMode allows installing the [Resource] for other scopes besides the default [LifecycleMode.Spec].
  */
@@ -72,6 +81,7 @@ public class ResourceExtension<A>(
     if (lifecycleMode == LifecycleMode.Spec) {
       testResource.release()
     }
+    testResource.close()
   }
 
   override suspend fun beforeAny(testCase: TestCase) {
