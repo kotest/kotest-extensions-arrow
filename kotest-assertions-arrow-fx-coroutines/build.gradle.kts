@@ -46,7 +46,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-engine:5.2.1")
         implementation("io.kotest:kotest-property:5.2.1")
         api(projects.kotestAssertionsArrow)
-        api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
         compileOnly("io.arrow-kt:arrow-fx-coroutines:1.1.2")
       }
     }
@@ -61,7 +61,7 @@ kotlin {
 
     val jvmTest by getting {
       dependencies {
-        implementation("io.kotest:kotest-runner-junit5-jvm:5.2.1")
+        implementation("io.kotest:kotest-runner-junit5-jvm:5.3.1")
       }
     }
 
