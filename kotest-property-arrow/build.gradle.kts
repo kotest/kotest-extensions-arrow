@@ -45,7 +45,7 @@ kotlin {
         implementation("io.kotest:kotest-assertions-core:5.3.1")
         implementation("io.kotest:kotest-framework-api:5.3.2")
         implementation("io.kotest:kotest-property:5.3.0")
-        compileOnly("io.arrow-kt:arrow-core:1.1.2")
+        compileOnly("io.arrow-kt:arrow-core:1.1.3-alpha.23")
       }
     }
 
@@ -56,7 +56,7 @@ kotlin {
         implementation("io.kotest:kotest-framework-engine:5.3.0")
         implementation("io.kotest:kotest-framework-api:5.3.2")
         implementation("io.kotest:kotest-property:5.3.0")
-        implementation("io.arrow-kt:arrow-core:1.1.2")
+        implementation("io.arrow-kt:arrow-core:1.1.3-alpha.23")
         implementation(projects.kotestAssertionsArrow)
       }
     }
@@ -118,7 +118,7 @@ kotlin {
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
       dependencies {
-        implementation("io.arrow-kt:arrow-core:1.1.2")
+        implementation("io.arrow-kt:arrow-core:1.1.3-alpha.23")
       }
     }
 

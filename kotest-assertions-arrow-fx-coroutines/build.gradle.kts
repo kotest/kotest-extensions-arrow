@@ -47,13 +47,13 @@ kotlin {
         implementation("io.kotest:kotest-property:5.2.1")
         api(projects.kotestAssertionsArrow)
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
-        compileOnly("io.arrow-kt:arrow-fx-coroutines:1.1.2")
+        compileOnly("io.arrow-kt:arrow-fx-coroutines:1.1.3-alpha.23")
       }
     }
 
     val commonTest by getting {
       dependencies {
-        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
+        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.3-alpha.23")
       }
     }
 
@@ -104,7 +104,7 @@ kotlin {
       watchosX64Main.dependsOn(this)
       watchosX86Main.dependsOn(this)
       dependencies {
-        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
+        implementation("io.arrow-kt:arrow-fx-coroutines:1.1.3-alpha.23")
       }
     }
 
