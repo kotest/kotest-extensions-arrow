@@ -63,19 +63,28 @@ kotlin {
       dependsOn(commonMain)
     }
 
-    val jvmMain by getting
+    val jvmMain by getting {
+      dependsOn(commonMain)
+    }
 
     val kotestVersion = resolveVersion("kotest")
 
     val jvmTest by getting {
+      dependsOn(commonTest)
+      dependsOn(jvmMain)
       dependencies {
         implementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
       }
     }
 
-    val jsMain by getting
+    val jsMain by getting {
+      dependsOn(commonMain)
+    }
 
-    val jsTest by getting
+    val jsTest by getting {
+      dependsOn(commonTest)
+      dependsOn(jsMain)
+    }
 
     val mingwX64Main by getting
     val linuxX64Main by getting
