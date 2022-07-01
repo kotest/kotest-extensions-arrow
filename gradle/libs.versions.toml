@@ -1,7 +1,7 @@
 [versions]
 arrow = "1.1.2"
 kotlin = "1.6.21"
-kotest = "5.2.1"
+kotest = "5.3.2"
 
 [libraries]
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -16,7 +16,7 @@ arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref 
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 arrow-optics = { module = "io.arrow-kt:arrow-optics", version.ref = "arrow" }
 
-# Gradle plugins
+# Gradle plugins used in buildSrc
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 animalsniffer = { module = "ru.vyarus:gradle-animalsniffer-plugin", version = "1.5.4" }
 
