@@ -28,6 +28,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: Run tests
         run: ./gradlew check --scan
@@ -58,6 +59,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: Run macos tests
         run: ./gradlew macosX64Test macosArm64Test iosX64Test iosSimulatorArm64Test tvosX64Test tvosSimulatorArm64Test watchosX64Test watchosX86Test watchosSimulatorArm64Test --scan
@@ -91,6 +93,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: Run tests
         run: ./gradlew mingwX64Test --scan

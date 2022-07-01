@@ -35,6 +35,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: ./gradlew publish
@@ -53,6 +54,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: |
@@ -74,6 +76,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: ./gradlew publishMingwX64PublicationToDeployRepository
