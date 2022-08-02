@@ -26,15 +26,16 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.branch }}
 
       - name: Setup JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: ./gradlew publish
@@ -44,15 +45,16 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.branch }}
 
       - name: Setup JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: |
@@ -65,15 +67,16 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.event.inputs.branch }}
 
       - name: Setup JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: '8'
+          distribution: 'temurin'
 
       - name: deploy to sonatype
         run: ./gradlew publishMingwX64PublicationToDeployRepository
