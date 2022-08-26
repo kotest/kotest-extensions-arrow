@@ -20,6 +20,9 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
+      - name: Run assemble
+        run: ./gradlew assemble
+
       - name: Run tests
         run: ./gradlew check
 
