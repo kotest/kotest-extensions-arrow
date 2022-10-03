@@ -20,8 +20,8 @@ class ResourceExtensionSpecTest : FunSpec({
 
   afterSpec {
     sub.isReleased shouldBe true
-    shouldThrow<TestResource.AlreadyClosedException> {
-      res()
+    shouldThrow<IllegalStateException> {
+      res.get()
     }
   }
 })
