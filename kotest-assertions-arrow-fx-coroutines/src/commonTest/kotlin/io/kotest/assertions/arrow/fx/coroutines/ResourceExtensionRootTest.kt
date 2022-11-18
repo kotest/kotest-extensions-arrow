@@ -17,12 +17,18 @@ class ResourceExtensionRootTest : FunSpec({
     sub.isReleased shouldBe false
   }
 
+container("initializes once for container") {
   test("should initialize per root") {
     sub.count shouldBe 1
     sub.isConfigured shouldBe true
     sub.isOpen shouldBe true
     sub.isReleased shouldBe false
   }
+  
+  test("should not have re-initialized" {
+     sub.count shouldBe 1
+  }
+}
 
   test("this root test should have a different container") {
     sub.count shouldBe 2
