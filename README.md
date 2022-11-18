@@ -17,10 +17,11 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 ```kotlin
 depedencies {
   implementation("io.kotest.extensions:kotest-assertions-arrow:<version>")
+  implementation("io.kotest.extensions:kotest-assertions-arrow-fx-coroutines:<version>")
 }
 ```
 
-for property-based testing: 
+for property-based testing:
 
 ```kotlin
 dependencies {
@@ -30,13 +31,20 @@ dependencies {
 }
 ```
 
-Note: 
-Please add `io.arrow-kt:arrow-core:arrow-version` or `io.arrow-kt:arrow-optics:arrow-version`, if they're missing in your classpath. 
-Otherwise, it will lead to unresolved Reference errors. 
+Note:
+Please add `io.arrow-kt:arrow-core:arrow-version`, `io.arrow-kt:arrow-fx-coroutines:arrow-version` or `io.arrow-kt:arrow-optics:arrow-version`, if they're missing in your classpath.
+Otherwise, it will lead to unresolved Reference errors.
 In the form of: "Cannot access class `arrow.core.Either` Check your module classpath for missing or conflicting dependencies."
 The project is not shipping the arrow jars because this leads to dependency conflicts and further adjusting the dependency graph.
 
 ## Changelog
+
+### 1.3.0
+
+- Update to kotest 5.4.2
+- Update kotlin to 1.6.21
+- Add assertion module for arrow-fx-coroutines with combinators related to `Resource` and `ExitCase`
+- Add `Either.rethrow`
 
 ### 1.2.5
 
@@ -46,7 +54,7 @@ The project is not shipping the arrow jars because this leads to dependency conf
 
 - Upgrade to 5.2.1 and restores compatibilty with 5.2.X series https://github.com/kotest/kotest-extensions-arrow/pull/149
 
-### 1.2.3 
+### 1.2.3
 
 - fix linking error in native platforms [#140](https://github.com/kotest/kotest-extensions-arrow/issues/140)
 
