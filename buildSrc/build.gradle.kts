@@ -1,7 +1,7 @@
 import org.gradle.kotlin.dsl.`kotlin-dsl`
 
 repositories {
-  mavenLocal()
+  mavenCentral()
   gradlePluginPortal()
 }
 
