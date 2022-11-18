@@ -9,7 +9,7 @@ import io.kotest.property.checkAll
 import kotlinx.coroutines.CancellationException
 
 class ExitCaseTest : StringSpec({
-  "ExitCase.Cancelled" {
+  "shouldBeCancelled" {
     ExitCase.Cancelled(CancellationException("")).shouldBeCancelled()
   }
 
