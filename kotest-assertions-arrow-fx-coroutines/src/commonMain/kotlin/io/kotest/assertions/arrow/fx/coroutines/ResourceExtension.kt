@@ -19,6 +19,7 @@ public enum class LifecycleMode {
   Spec, EveryTest, Leaf, Root
 }
 
+/** Turns a [Resource] into a [LazyMountableExtension] as a [ResourceExtension] */
 public fun <A> Resource<A>.extension(lifecycleMode: LifecycleMode = LifecycleMode.Spec): ResourceExtension<A> =
   ResourceExtension(this, lifecycleMode)
 
@@ -35,27 +36,20 @@ public fun <A> Resource<A>.extension(lifecycleMode: LifecycleMode = LifecycleMod
  * }
  *
  * fun connection(name: String): Resource<Connection> =
- *   Resource(
- *     { Resource(name) },
- *     { conn, ex -> conn.release(ex) }
- *   )
+ *   Resource({ Connection(name).also { it.open() } }, { conn, ex -> conn.release(ex) })
  *
  * class ResourceSpec : StringSpec({
  *   val conn: TestResource<Connection> =
  *     install(ResourceExtension(connection("DB")))
- *
- *   "invoke" {
- *     conn().compute() shouldBe "Result of DB"
- *   }
  *
  *   "get" {
  *     conn.get().compute() shouldBe "Result of DB"
  *   }
  *
  *   afterSpec {
- *     shouldThrow<TestResource.AlreadyClosedException> {
+ *     shouldThrow<IllegalStateException> {
  *       conn.get()
- *     }
+ *     }.message shouldBe "Resource already closed and cannot be re-opened."
  *   }
  * })
  * ```

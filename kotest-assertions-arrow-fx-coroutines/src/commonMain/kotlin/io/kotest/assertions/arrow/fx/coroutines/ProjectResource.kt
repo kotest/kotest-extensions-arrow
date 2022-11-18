@@ -8,12 +8,13 @@ import io.kotest.core.listeners.ProjectListener
 
 /**
  * Useful to register [Resource] on a Project wide configuration.
+ *
  * For example:
  *
  * ```kotlin
  * object ProjectConfig : AbstractProjectConfig() {
- *   val hikari: TestResource<HikariDataSource> =
- *     ProjectTestResource(Resource.fromCloseable { HikariDataSource(...) })
+ *   val hikari: ProjectResource<HikariDataSource> =
+ *     ProjectResource(Resource.fromCloseable { HikariDataSource(...) })
  *
  *   override fun extensions(): List<Extension> = listOf(hikari)
  * }
@@ -25,7 +26,7 @@ import io.kotest.core.listeners.ProjectListener
  * })
  * ```
  */
-public class ProjectTestResource<A> private constructor(
+public class ProjectResource<A> private constructor(
   public val resource: Resource<A>,
   private val default: ResourceLazyMaterialized<A>
 ) : ProjectListener, LazyMaterialized<A> by default {
