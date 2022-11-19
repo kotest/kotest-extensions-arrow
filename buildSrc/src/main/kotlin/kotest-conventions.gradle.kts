@@ -11,10 +11,11 @@ plugins {
   id("ru.vyarus.animalsniffer")
 }
 
-repositories {
-  mavenCentral()
-  mavenLocal()
-  gradlePluginPortal()
+allprojects {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+  }
 }
 
 group = "io.kotest.extensions"

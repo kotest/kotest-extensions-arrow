@@ -3,6 +3,7 @@ apply(plugin = "signing")
 
 repositories {
   mavenCentral()
+  gradlePluginPortal()
 }
 
 val signingKey: String? by project

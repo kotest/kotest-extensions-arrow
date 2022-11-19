@@ -2,6 +2,9 @@
 arrow = "1.1.3"
 kotlin = "1.7.20"
 kotest = "5.5.4"
+kotlinx-coroutines = "1.6.4"
+animalsniffer = "1.6.0"
+kotlinBinaryCompatibilityValidator = "0.9.0"
 
 [libraries]
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -10,7 +13,7 @@ kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", versio
 kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.6.4" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "kotlinx-coroutines" }
 
 arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
@@ -18,6 +21,9 @@ arrow-optics = { module = "io.arrow-kt:arrow-optics", version.ref = "arrow" }
 
 # Gradle plugins used in buildSrc
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-animalsniffer = { module = "ru.vyarus:gradle-animalsniffer-plugin", version = "1.6.0" }
+animalsniffer = { module = "ru.vyarus:gradle-animalsniffer-plugin", version.ref = "animalsniffer" }
 
 [plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+kotlin-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityValidator" }
