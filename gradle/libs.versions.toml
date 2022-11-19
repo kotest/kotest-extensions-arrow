@@ -4,7 +4,7 @@ kotlin = "1.7.20"
 kotest = "5.5.4"
 kotlinx-coroutines = "1.6.4"
 animalsniffer = "1.6.0"
-kotlinBinaryCompatibilityValidator = "0.9.0"
+kotlinBinaryCompatibilityValidator = "0.12.1"
 
 [libraries]
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
