@@ -1,6 +1,6 @@
 [versions]
 arrow = "1.1.3"
-kotlin = "1.7.20"
+kotlin = "1.6.21"
 kotest = "5.5.4"
 kotlinx-coroutines = "1.6.4"
 animalsniffer = "1.6.0"

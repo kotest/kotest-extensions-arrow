@@ -42,7 +42,6 @@ The project is not shipping the arrow jars because this leads to dependency conf
 ### 1.3.0
 
 - Update to kotest 5.5.4
-- Update kotlin to 1.7.20
 - Add assertion module for arrow-fx-coroutines with combinators related to `Resource` and `ExitCase`
 - Add `Either.rethrow`
 
