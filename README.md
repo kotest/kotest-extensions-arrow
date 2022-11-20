@@ -31,6 +31,17 @@ dependencies {
 }
 ```
 
+to depend on snapshot releases add the snapshot repository url:
+
+```kotlin
+repositories {
+  //...
+  maven {
+    url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+  }
+}
+```
+
 Note:
 Please add `io.arrow-kt:arrow-core:arrow-version`, `io.arrow-kt:arrow-fx-coroutines:arrow-version` or `io.arrow-kt:arrow-optics:arrow-version`, if they're missing in your classpath.
 Otherwise, it will lead to unresolved Reference errors.
