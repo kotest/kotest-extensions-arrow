@@ -18,7 +18,7 @@ import io.kotest.matchers.shouldNot
  * smart casts to [Ior.Right] and fails with [failureMessage] otherwise.
  */
 @OptIn(ExperimentalContracts::class)
-public fun <A, B> Ior<A, B>.shouldBeRight(failureMessage: (Ior<A,B>) -> String = { "Expected Ior.Right, but found ${it.javaClass.simpleName}" }): B {
+public fun <A, B> Ior<A, B>.shouldBeRight(failureMessage: (Ior<A,B>) -> String = { "Expected Ior.Right, but found ${it::class.simpleName}" }): B {
   contract {
     returns() implies (this@shouldBeRight is Right<B>)
   }
@@ -38,7 +38,7 @@ public infix fun <A, B> Ior<A, B>.shouldNotBeRight(b: B): B =
  * smart casts to [Ior.Left] and fails with [failureMessage] otherwise.
  */
 @OptIn(ExperimentalContracts::class)
-public fun <A, B> Ior<A, B>.shouldBeLeft(failureMessage: (Ior<A,B>) -> String = { "Expected Ior.Left, but found ${it.javaClass.simpleName}" }): A {
+public fun <A, B> Ior<A, B>.shouldBeLeft(failureMessage: (Ior<A,B>) -> String = { "Expected Ior.Left, but found ${it::class.simpleName}" }): A {
   contract {
     returns() implies (this@shouldBeLeft is Left<A>)
   }
@@ -58,7 +58,7 @@ public fun <A,B> beBoth(): Matcher<Ior<A,B>> = Matcher {
  ior ->
   MatcherResult(
     ior is Both,
-    { "Expected ior to be a Both, but was: ${ior.javaClass.simpleName}" },
+    { "Expected ior to be a Both, but was: ${ior::class.simpleName}" },
     { "Expected ior to not be a Both." }
   )
 }
