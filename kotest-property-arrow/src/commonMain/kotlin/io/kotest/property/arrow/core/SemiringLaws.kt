@@ -135,8 +135,9 @@ public object SemiringLaws {
       A.maybeCombineAddition(null).equalUnderTheLaw(A, eq)
     }
 
-  private fun <F> Semiring<F>.maybeCombineAdditionBothNull(eq: (F, F) -> Boolean): Unit =
+  private fun <F> Semiring<F>.maybeCombineAdditionBothNull(eq: (F, F) -> Boolean): Unit {
     null.maybeCombineAddition(null).equalUnderTheLaw(zero(), eq) shouldBe true
+  }
 
   private suspend fun <F> Semiring<F>.maybeCombineMultiplicateIsDerived(GEN: Arb<F>, eq: (F, F) -> Boolean): PropertyContext =
     checkAll(GEN, GEN) { A, B ->
@@ -153,6 +154,7 @@ public object SemiringLaws {
       A.maybeCombineMultiplicate(null).equalUnderTheLaw(A, eq)
     }
 
-  private fun <F> Semiring<F>.maybeCombineMultiplicateBothNull(eq: (F, F) -> Boolean): Unit =
+  private fun <F> Semiring<F>.maybeCombineMultiplicateBothNull(eq: (F, F) -> Boolean): Unit {
     null.maybeCombineMultiplicate(null).equalUnderTheLaw(one(), eq) shouldBe true
+  }
 }
