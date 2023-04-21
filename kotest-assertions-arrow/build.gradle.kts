@@ -4,14 +4,14 @@ plugins {
 
 kotlin {
   sourceSets {
-    val commonMain by getting {
+    commonMain {
       dependencies {
         compileOnly(libs.arrow.core)
         implementation(libs.kotest.assertions.core)
       }
     }
 
-    val commonTest by getting {
+    commonTest {
       dependencies {
         implementation(libs.arrow.core)
         implementation(libs.kotest.framework.engine)
@@ -19,7 +19,7 @@ kotlin {
       }
     }
 
-    val nativeMain by getting {
+    nativeMain {
       dependencies {
         implementation(libs.arrow.core)
       }

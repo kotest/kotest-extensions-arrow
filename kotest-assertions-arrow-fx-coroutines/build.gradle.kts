@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
   sourceSets {
-    val commonMain by getting {
+    commonMain {
       dependencies {
         compileOnly(libs.arrow.fx.coroutines)
         api(projects.kotestAssertionsArrow)
@@ -15,13 +15,13 @@ kotlin {
       }
     }
 
-    val commonTest by getting {
+    commonTest {
       dependencies {
         implementation(libs.arrow.fx.coroutines)
       }
     }
 
-    val nativeMain by getting {
+    nativeMain {
       dependencies {
         implementation(libs.arrow.fx.coroutines)
       }
