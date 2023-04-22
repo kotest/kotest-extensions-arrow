@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
   sourceSets {
-    val commonMain by getting {
+    commonMain {
       dependencies {
         compileOnly(libs.arrow.optics)
         implementation(libs.kotest.assertions.core)
@@ -15,7 +15,7 @@ kotlin {
       }
     }
 
-    val commonTest by getting {
+    commonTest {
       dependencies {
         implementation(projects.kotestAssertionsArrow)
         implementation(libs.arrow.optics)
@@ -26,7 +26,7 @@ kotlin {
       }
     }
 
-    val nativeMain by getting {
+    nativeMain {
       dependencies {
         implementation(libs.arrow.optics)
       }
