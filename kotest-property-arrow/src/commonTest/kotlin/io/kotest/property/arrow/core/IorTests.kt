@@ -14,7 +14,7 @@ import io.kotest.inspectors.forAtLeastOne
 
 class IorTests : StringSpec({
   "Arb.ior should generate Left, Right & Both" {
-    assertSoftly(Arb.list(Arb.ior(Arb.string(), Arb.int()), range = 100..100).next()) {
+    assertSoftly(Arb.list(Arb.ior(Arb.string(), Arb.int()), 100..120).next()) {
       forAtLeastOne {
         it.isRight.shouldBeTrue()
       }
