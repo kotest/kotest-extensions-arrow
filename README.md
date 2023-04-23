@@ -50,6 +50,18 @@ The project is not shipping the arrow jars because this leads to dependency conf
 
 ## Changelog
 
+### 1.3.3
+
+* Release for arrow 1.1.5
+
+### 1.3.2
+
+* Release for arrow 1.1.4
+
+### 1.3.1
+
+* Added `Ior` matchers.
+
 ### 1.3.0
 
 - Update to kotest 5.5.4
