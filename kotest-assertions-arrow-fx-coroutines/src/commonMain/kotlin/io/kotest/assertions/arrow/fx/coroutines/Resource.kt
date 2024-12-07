@@ -1,13 +1,14 @@
 package io.kotest.assertions.arrow.fx.coroutines
 
-import arrow.core.identity
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.continuations.resource
+import arrow.fx.coroutines.resourceScope
 
 public suspend infix fun <A> Resource<A>.shouldBeResource(a: A): A =
-  use { it shouldBe a }
+  resourceScope {
+    bind() shouldBe a
+  }
 
 public suspend infix fun <A> Resource<A>.shouldBeResource(expected: Resource<A>): A =
-  resource {
+  resourceScope {
     bind() shouldBe expected.bind()
-  }.use(::identity)
+  }

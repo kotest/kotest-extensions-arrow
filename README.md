@@ -50,6 +50,10 @@ The project is not shipping the arrow jars because this leads to dependency conf
 
 ## Changelog
 
+### 2.0.0
+
+* Release for Kotlin 2.1.0 and Arrow 2.0
+
 ### 1.4.0
 
 * Release for Kotlin 1.8 and Kotest 5.7 and Arrow 1.2
