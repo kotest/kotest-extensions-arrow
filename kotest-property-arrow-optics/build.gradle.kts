@@ -7,6 +7,7 @@ kotlin {
     commonMain {
       dependencies {
         compileOnly(libs.arrow.optics)
+        implementation(libs.arrow.functions)
         implementation(libs.kotest.assertions.core)
         implementation(libs.kotest.framework.api)
         implementation(libs.kotest.property)

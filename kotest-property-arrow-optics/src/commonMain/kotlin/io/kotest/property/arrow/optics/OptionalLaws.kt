@@ -2,6 +2,7 @@
 
 package io.kotest.property.arrow.optics
 
+import arrow.core.compose
 import arrow.core.identity
 import arrow.optics.Optional
 import io.kotest.property.Arb
@@ -25,7 +26,7 @@ public object OptionalLaws {
     Law("Optional Law: set what you get") { setGetOption(optionalGen, aGen, bGen, eqb) },
     Law("Optional Law: set is idempotent") { setIdempotent(optionalGen, aGen, bGen, eqa) },
     Law("Optional Law: modify identity = identity") { modifyIdentity(optionalGen, aGen, eqa) },
-//    Law("Optional Law: compose modify") { composeModify(optionalGen, aGen, funcGen, eqa) },
+    Law("Optional Law: compose modify") { composeModify(optionalGen, aGen, funcGen, eqa) },
     Law("Optional Law: consistent set with modify") { consistentSetModify(optionalGen, aGen, bGen, eqa) }
   )
 
@@ -88,18 +89,18 @@ public object OptionalLaws {
       }
     }
 
-//  public suspend fun <A, B> composeModify(
-//    optionalGen: Arb<Optional<A, B>>,
-//    aGen: Arb<A>,
-//    funcGen: Arb<(B) -> B>,
-//    eq: (A, A) -> Boolean
-//  ): PropertyContext =
-//    checkAll(optionalGen, aGen, funcGen, funcGen) { optional, a, f, g ->
-//      optional.run {
-//        modify(modify(a, f), g).equalUnderTheLaw(modify(a, g compose f), eq)
-//      }
-//    }
-//
+  public suspend fun <A, B> composeModify(
+    optionalGen: Arb<Optional<A, B>>,
+    aGen: Arb<A>,
+    funcGen: Arb<(B) -> B>,
+    eq: (A, A) -> Boolean
+  ): PropertyContext =
+    checkAll(optionalGen, aGen, funcGen, funcGen) { optional, a, f, g ->
+      optional.run {
+        modify(modify(a, f), g).equalUnderTheLaw(modify(a, g compose f), eq)
+      }
+    }
+
   public suspend fun <A, B> consistentSetModify(
     optionalGen: Arb<Optional<A, B>>,
     aGen: Arb<A>,

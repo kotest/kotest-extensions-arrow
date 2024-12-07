@@ -2,7 +2,7 @@
 
 package io.kotest.property.arrow.optics
 
-//import arrow.core.compose
+import arrow.core.compose
 import arrow.core.identity
 import arrow.optics.Traversal
 import io.kotest.property.Arb
@@ -23,8 +23,7 @@ public object TraversalLaws {
   ): List<Law> = listOf(
     Law("Traversal law: set is idempotent") { traversal.setIdempotent(aGen, bGen, eq) },
     Law("Traversal law: modify identity") { traversal.modifyIdentity(aGen, eq) },
-    // TODO: Was there any replacement for `compose` in Arrow 2?
-//    Law("Traversal law: compose modify") { traversal.composeModify(aGen, funcGen, eq) }
+    Law("Traversal law: compose modify") { traversal.composeModify(aGen, funcGen, eq) }
   )
 
   public suspend fun <A, B> Traversal<A, B>.setIdempotent(aGen: Arb<A>, bGen: Arb<B>, eq: (A, A) -> Boolean): PropertyContext =
@@ -38,19 +37,18 @@ public object TraversalLaws {
       modify(a, ::identity).equalUnderTheLaw(a, eq)
     }
 
-  // TODO: Was there any replacement for `compose` in Arrow 2?
-//  public suspend fun <A, B> Traversal<A, B>.composeModify(
-//    aGen: Arb<A>,
-//    funcGen: Arb<(B) -> B>,
-//    eq: (A, A) -> Boolean
-//  ): PropertyContext =
-//    checkAll(
-//      max(max(aGen.minIterations(), funcGen.minIterations()), funcGen.minIterations()),
-//      aGen,
-//      funcGen,
-//      funcGen
-//    ) { a, f, g ->
-//      modify(modify(a, f), g)
-//        .equalUnderTheLaw(modify(a, g compose f), eq)
-//    }
+  public suspend fun <A, B> Traversal<A, B>.composeModify(
+    aGen: Arb<A>,
+    funcGen: Arb<(B) -> B>,
+    eq: (A, A) -> Boolean
+  ): PropertyContext =
+    checkAll(
+      max(max(aGen.minIterations(), funcGen.minIterations()), funcGen.minIterations()),
+      aGen,
+      funcGen,
+      funcGen
+    ) { a, f, g ->
+      modify(modify(a, f), g)
+        .equalUnderTheLaw(modify(a, g compose f), eq)
+    }
 }
