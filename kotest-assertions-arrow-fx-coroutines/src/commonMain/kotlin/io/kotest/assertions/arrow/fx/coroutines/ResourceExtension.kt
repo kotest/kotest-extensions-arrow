@@ -1,7 +1,6 @@
 package io.kotest.assertions.arrow.fx.coroutines
 
-import arrow.fx.coroutines.ExitCase
-import arrow.fx.coroutines.Resource
+import arrow.fx.coroutines.*
 import io.kotest.core.extensions.LazyMaterialized
 import io.kotest.core.extensions.LazyMountableExtension
 import io.kotest.core.listeners.AfterSpecListener
@@ -62,28 +61,28 @@ public fun <A> Resource<A>.extension(lifecycleMode: LifecycleMode = LifecycleMod
 public class ResourceExtension<A>(
   public val resource: Resource<A>, public val lifecycleMode: LifecycleMode = LifecycleMode.Spec,
 ) : LazyMountableExtension<A, A>, TestListener, AfterSpecListener {
-  
+
   private var underlying: ResourceLazyMaterialized<A>? = null
-  
+
   override fun mount(configure: A.() -> Unit): LazyMaterialized<A> =
     ResourceLazyMaterialized(resource, configure).also {
       underlying = it
     }
-  
+
   override suspend fun beforeSpec(spec: Spec) {
     super.beforeSpec(spec)
     if (lifecycleMode == LifecycleMode.Spec) {
       underlying?.init()
     }
   }
-  
+
   override suspend fun afterSpec(spec: Spec) {
     if (lifecycleMode == LifecycleMode.Spec) {
       underlying?.release()
     }
     underlying?.close()
   }
-  
+
   override suspend fun beforeAny(testCase: TestCase) {
     val every = lifecycleMode == LifecycleMode.EveryTest
     val root = lifecycleMode == LifecycleMode.Root && testCase.isRootTest()
@@ -92,7 +91,7 @@ public class ResourceExtension<A>(
       underlying?.init()
     }
   }
-  
+
   override suspend fun afterAny(testCase: TestCase, result: TestResult) {
     val every = lifecycleMode == LifecycleMode.EveryTest
     val root = lifecycleMode == LifecycleMode.Root && testCase.isRootTest()
@@ -107,22 +106,22 @@ internal class ResourceLazyMaterialized<A>(
   private val resource: Resource<A>,
   private val configure: A.() -> Unit = {},
 ) : LazyMaterialized<A> {
-  
+
   sealed interface State<out A> {
-    object Empty : State<Nothing>
-    object Closed : State<Nothing>
+    data object Empty : State<Nothing>
+    data object Closed : State<Nothing>
     data class Loading<A>(
       val acquiring: CompletableDeferred<A> = CompletableDeferred(),
       val finalizers: CompletableDeferred<suspend (ExitCase) -> Unit> = CompletableDeferred(),
     ) : State<A>
-    
+
     data class Done<A>(val value: A, val finalizers: suspend (ExitCase) -> Unit) : State<A>
   }
-  
+
   private val state = AtomicReference<State<A>>(State.Empty)
-  
+
   override suspend fun get(): A = init()
-  
+
   @OptIn(DelicateCoroutinesApi::class)
   tailrec suspend fun init(): A = when (val current = state.value) {
     is State.Done -> current.value
@@ -131,11 +130,10 @@ internal class ResourceLazyMaterialized<A>(
     State.Empty -> {
       val loading = State.Loading<A>()
       if (state.compareAndSet(State.Empty, loading)) {
-        val (res, fin) = resource.allocated()
-          .let { (acquire, finalizer) ->
-            val a = acquire()
+        val (res, fin) = resource.allocate()
+          .let { (a, finalizer) ->
             @Suppress("NAME_SHADOWING")
-            val finalizer: suspend (ExitCase) -> Unit = { finalizer(a, it) }
+            val finalizer: suspend (ExitCase) -> Unit = { finalizer(it) }
             Pair(a, finalizer)
           }
         state.value = State.Done(res, fin)
@@ -145,19 +143,19 @@ internal class ResourceLazyMaterialized<A>(
       } else init()
     }
   }
-  
+
   tailrec suspend fun release(): Unit = when (val current = state.value) {
     State.Empty -> Unit
     is State.Done -> if (state.compareAndSet(current, State.Empty)) current.finalizers(ExitCase.Completed)
     else release()
-    
+
     is State.Loading -> if (state.compareAndSet(current, State.Empty)) current.finalizers.await()
       .invoke(ExitCase.Completed)
     else release()
-    
+
     State.Closed -> Unit
   }
-  
+
   fun close() {
     state.value = State.Closed
   }

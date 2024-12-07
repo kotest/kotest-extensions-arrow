@@ -7,6 +7,7 @@ kotlin {
     commonMain {
       dependencies {
         compileOnly(libs.arrow.optics)
+        implementation(libs.arrow.functions)
         implementation(libs.kotest.assertions.core)
         implementation(libs.kotest.framework.api)
         implementation(libs.kotest.property)
@@ -23,6 +24,12 @@ kotlin {
         implementation(libs.kotest.framework.engine)
         implementation(libs.kotest.property)
         implementation(libs.kotlinx.coroutines.core)
+      }
+    }
+
+    jsMain {
+      dependencies {
+        api(libs.arrow.optics)
       }
     }
 

@@ -1,6 +1,7 @@
 package io.kotest.assertions.arrow.fx.coroutines
 
 import arrow.fx.coroutines.Resource
+import arrow.fx.coroutines.resource
 
 class ResourceUnderTest {
   var count: Int = 0
@@ -15,18 +16,19 @@ class ResourceUnderTest {
     isConfigured = true
   }
 
-  fun asResource(): Resource<ResourceUnderTest> =
-    Resource(
-      {
+  fun asResource(): Resource<ResourceUnderTest> = resource {
+    install(
+      acquire = {
         isReleased = false
         isOpen = true
-        count += 1
-        this
+        count++
+        this@ResourceUnderTest
       },
-      { res, _ ->
+      release = { res, _ ->
         res.isOpen = false
         res.isConfigured = false
         res.isReleased = true
       }
     )
+  }
 }
