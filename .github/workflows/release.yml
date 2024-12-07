@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew publish
 
   macos:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     steps:
       - name: Checkout the repo
