@@ -27,6 +27,12 @@ kotlin {
       }
     }
 
+    jsMain {
+      dependencies {
+        api(libs.arrow.optics)
+      }
+    }
+
     nativeMain {
       dependencies {
         implementation(libs.arrow.optics)

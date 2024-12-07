@@ -19,6 +19,12 @@ kotlin {
       }
     }
 
+    jsMain {
+      dependencies {
+        api(libs.arrow.core)
+      }
+    }
+
     nativeMain {
       dependencies {
         implementation(libs.arrow.core)

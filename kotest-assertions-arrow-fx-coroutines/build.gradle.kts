@@ -21,6 +21,12 @@ kotlin {
       }
     }
 
+    jsMain {
+      dependencies {
+        api(libs.arrow.fx.coroutines)
+      }
+    }
+
     nativeMain {
       dependencies {
         implementation(libs.arrow.fx.coroutines)
