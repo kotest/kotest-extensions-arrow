@@ -62,13 +62,13 @@ jobs:
           distribution: 'temurin'
 
       - name: Run macos tests
-        run: ./gradlew macosX64Test macosArm64Test iosX64Test iosSimulatorArm64Test tvosX64Test tvosSimulatorArm64Test watchosX64Test watchosX86Test watchosSimulatorArm64Test --scan
+        run: ./gradlew macosX64Test macosArm64Test iosX64Test iosSimulatorArm64Test tvosX64Test tvosSimulatorArm64Test watchosX64Test watchosSimulatorArm64Test --scan
 
       - name: publish macos snapshots
         run: |
           ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
           publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
-          publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
+          publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
 
       - name: Bundle the build report
         if: failure()
