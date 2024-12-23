@@ -1,8 +1,6 @@
 package io.kotest.assertions.arrow.fx.coroutines
 
 import arrow.fx.coroutines.Resource
-import arrow.fx.coroutines.continuations.ResourceScope
-import arrow.fx.coroutines.continuations.resource
 import io.kotest.core.extensions.LazyMaterialized
 import io.kotest.core.listeners.ProjectListener
 
@@ -32,7 +30,6 @@ public class ProjectResource<A> private constructor(
 ) : ProjectListener, LazyMaterialized<A> by default {
 
   public constructor(resource: Resource<A>) : this(resource, ResourceLazyMaterialized(resource))
-  public constructor(block: suspend ResourceScope.() -> Resource<A>) : this(resource { block().bind() })
 
   override suspend fun beforeProject() {
     default.init()

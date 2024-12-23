@@ -7,8 +7,6 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.string
 import io.kotest.property.arbitrary.list
-import io.kotest.property.arrow.laws.shouldBe
-import io.kotest.property.checkAll
 import io.kotest.property.arbitrary.next
 import io.kotest.inspectors.forAtLeastOne
 
@@ -16,13 +14,13 @@ class IorTests : StringSpec({
   "Arb.ior should generate Left, Right & Both" {
     assertSoftly(Arb.list(Arb.ior(Arb.string(), Arb.int()), 100..120).next()) {
       forAtLeastOne {
-        it.isRight.shouldBeTrue()
+        it.isRight().shouldBeTrue()
       }
       forAtLeastOne {
-        it.isBoth.shouldBeTrue()
+        it.isBoth().shouldBeTrue()
       }
       forAtLeastOne {
-        it.isLeft.shouldBeTrue()
+        it.isLeft().shouldBeTrue()
       }
     }
   }

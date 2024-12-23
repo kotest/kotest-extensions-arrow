@@ -11,7 +11,7 @@ import io.kotest.property.arbitrary.pair
 import io.kotest.property.arbitrary.string
 import io.kotest.property.arrow.core.either
 import io.kotest.property.arrow.core.functionAToB
-import io.kotest.property.arrow.core.tuple10
+import io.kotest.property.arrow.core.tuple9
 import io.kotest.property.arrow.laws.testLaws
 
 class TraversalTests : StringSpec({
@@ -36,9 +36,8 @@ class TraversalTests : StringSpec({
       funcGen = Arb.functionAToB(Arb.boolean()),
     ),
     TraversalLaws.laws(
-      traversal = Traversal.tuple10(),
-      aGen = Arb.tuple10(
-        Arb.boolean(),
+      traversal = Traversal.tuple9(),
+      aGen = Arb.tuple9(
         Arb.boolean(),
         Arb.boolean(),
         Arb.boolean(),

@@ -16,3 +16,4 @@ project/plugins/project/
 credentials.sbt
 /.idea/
 .DS_Store
+.kotlin

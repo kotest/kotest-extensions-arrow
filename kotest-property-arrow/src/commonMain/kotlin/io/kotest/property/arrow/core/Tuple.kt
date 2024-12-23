@@ -1,8 +1,5 @@
 package io.kotest.property.arrow.core
 
-import arrow.core.Tuple10
-import arrow.core.Tuple11
-import arrow.core.Tuple12
 import arrow.core.Tuple4
 import arrow.core.Tuple5
 import arrow.core.Tuple6
@@ -83,64 +80,4 @@ public fun <A, B, C, D, E, F, G, H, I> Arb.Companion.tuple9(
     arbI
   ) { (a, b, c, d, e, f, g, h), i ->
     Tuple9(a, b, c, d, e, f, g, h, i)
-  }
-
-public fun <A, B, C, D, E, F, G, H, I, J> Arb.Companion.tuple10(
-  arbA: Arb<A>,
-  arbB: Arb<B>,
-  arbC: Arb<C>,
-  arbD: Arb<D>,
-  arbE: Arb<E>,
-  arbF: Arb<F>,
-  arbG: Arb<G>,
-  arbH: Arb<H>,
-  arbI: Arb<I>,
-  arbJ: Arb<J>
-): Arb<Tuple10<A, B, C, D, E, F, G, H, I, J>> =
-  Arb.bind(
-    Arb.tuple9(arbA, arbB, arbC, arbD, arbE, arbF, arbG, arbH, arbI),
-    arbJ
-  ) { (a, b, c, d, e, f, g, h, i), j ->
-    Tuple10(a, b, c, d, e, f, g, h, i, j)
-  }
-
-public fun <A, B, C, D, E, F, G, H, I, J, K> Arb.Companion.tuple11(
-  arbA: Arb<A>,
-  arbB: Arb<B>,
-  arbC: Arb<C>,
-  arbD: Arb<D>,
-  arbE: Arb<E>,
-  arbF: Arb<F>,
-  arbG: Arb<G>,
-  arbH: Arb<H>,
-  arbI: Arb<I>,
-  arbJ: Arb<J>,
-  arbK: Arb<K>
-): Arb<Tuple11<A, B, C, D, E, F, G, H, I, J, K>> =
-  Arb.bind(
-    Arb.tuple10(arbA, arbB, arbC, arbD, arbE, arbF, arbG, arbH, arbI, arbJ),
-    arbK
-  ) { (a, b, c, d, e, f, g, h, i, j), k ->
-    Tuple11(a, b, c, d, e, f, g, h, i, j, k)
-  }
-
-public fun <A, B, C, D, E, F, G, H, I, J, K, L> Arb.Companion.tuple12(
-  arbA: Arb<A>,
-  arbB: Arb<B>,
-  arbC: Arb<C>,
-  arbD: Arb<D>,
-  arbE: Arb<E>,
-  arbF: Arb<F>,
-  arbG: Arb<G>,
-  arbH: Arb<H>,
-  arbI: Arb<I>,
-  arbJ: Arb<J>,
-  arbK: Arb<K>,
-  arbL: Arb<L>
-): Arb<Tuple12<A, B, C, D, E, F, G, H, I, J, K, L>> =
-  Arb.bind(
-    Arb.tuple11(arbA, arbB, arbC, arbD, arbE, arbF, arbG, arbH, arbI, arbJ, arbK),
-    arbL
-  ) { (a, b, c, d, e, f, g, h, i, j, k), l ->
-    Tuple12(a, b, c, d, e, f, g, h, i, j, k, l)
   }
