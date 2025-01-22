@@ -72,4 +72,18 @@ class RaiseMatchers : StringSpec({
       }
     }
   }
+
+  "shouldNotRaise: allows suspend call in block" {
+    val res = shouldNotRaise {
+      suspend { 42 }.invoke()
+    }
+    res shouldBe 42
+  }
+
+  "shouldRaise: allows suspend call in block" {
+    val res = shouldRaise<Int> {
+      raise(suspend { 42 }.invoke())
+    }
+    res shouldBe 42
+  }
 })
