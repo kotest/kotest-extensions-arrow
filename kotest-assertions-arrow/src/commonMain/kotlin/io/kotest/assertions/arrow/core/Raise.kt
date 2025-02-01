@@ -17,10 +17,10 @@ import io.kotest.assertions.print.print
  * }
  * ```
  */
-public suspend inline fun <reified T> shouldRaise(noinline block: suspend Raise<Any?>.() -> Any?): T {
+public inline fun <reified T> shouldRaise(block: Raise<Any?>.() -> Any?): T {
   val expectedRaiseClass = T::class
   return recover({
-    block()
+    block(this)
     throw failure("Expected to raise ${expectedRaiseClass.simpleName} but nothing was raised.")
   }) { raised ->
     when (raised) {
@@ -40,10 +40,8 @@ public suspend inline fun <reified T> shouldRaise(noinline block: suspend Raise<
  * }
  * ```
  */
-public suspend fun <T> shouldNotRaise(block: suspend Raise<Any?>.() -> T): T {
-  return recover({
-    block()
-  }) { raised ->
+public inline fun <T> shouldNotRaise(block: Raise<Any?>.() -> T): T {
+  return recover(block) { raised ->
     throw failure("No raise expected, but ${raised.print().value} was raised.")
   }
 }

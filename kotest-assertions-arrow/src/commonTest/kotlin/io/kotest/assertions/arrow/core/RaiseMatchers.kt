@@ -1,5 +1,6 @@
 package io.kotest.assertions.arrow.core
 
+import arrow.core.raise.Raise
 import io.kotest.assertions.arrow.shouldBe
 import io.kotest.assertions.throwables.shouldThrowWithMessage
 import io.kotest.core.spec.style.StringSpec
@@ -71,5 +72,29 @@ class RaiseMatchers : StringSpec({
         raise(null)
       }
     }
+  }
+
+  "shouldNotRaise: allows suspend call in block" {
+    val res = shouldNotRaise {
+      suspend { 42 }()
+    }
+    res shouldBe 42
+  }
+
+  "shouldRaise: allows suspend call in block" {
+    val res = shouldRaise<Int> {
+      raise(suspend { 42 }())
+    }
+    res shouldBe 42
+  }
+
+  "shouldNotRaise: callable from non-suspend" {
+    fun test() = shouldNotRaise { "success" }
+    test() shouldBe "success"
+  }
+
+  "shouldRaise: callable from non-suspend" {
+    fun test() = shouldRaise<String> { raise("failed") }
+    test() shouldBe "failed"
   }
 })
