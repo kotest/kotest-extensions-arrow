@@ -1,5 +1,5 @@
 [versions]
-arrow = "2.0.0"
+arrow = "2.0.1"
 kotlin = "2.1.0"
 kotest = "5.8.1"
 kotlinx-coroutines = "1.6.4"
