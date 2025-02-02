@@ -1,5 +1,7 @@
 # kotest-extensions-arrow
 
+## Moved to main kotest repo 
+
 Kotest extension for [Arrow](https://arrow-kt.io/).
 
 See [docs](https://kotest.io/docs/assertions/arrow.html).
